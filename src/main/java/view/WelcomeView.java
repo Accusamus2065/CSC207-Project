@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomeView extends JPanel implements ActionListener{
 
+    public final String viewName = "Welcome";
     private final JButton signUp;
     private final JButton logIn;
 
@@ -54,6 +55,6 @@ public class WelcomeView extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
     }
 }
