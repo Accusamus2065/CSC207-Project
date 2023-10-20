@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomeView extends JPanel implements ActionListener{
 
+    public final String viewName = "Welcome";
     private final JButton signUp;
     private final JButton logIn;
 
