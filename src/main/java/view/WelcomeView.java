@@ -1,46 +1,47 @@
 package view;
 
 import interface_adapter.welcome.WelcomeViewModel;
+import interface_adapter.welcome.login.WelcomeLoginController;
+import interface_adapter.welcome.signup.WelcomeSignupController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class WelcomeView extends JPanel implements ActionListener, PropertyChangeListener {
+public class WelcomeView extends JPanel implements ActionListener{
 
     private final JButton signUp;
-    private final JButton signIn;
+    private final JButton logIn;
 
-    public WelcomeView(WelcomeViewModel welcomeViewModel){
-
+    public WelcomeView(WelcomeSignupController signupController, WelcomeLoginController loginController){
 
         JLabel title = new JLabel(WelcomeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
-        signUp = new JButton(welcomeViewModel.SIGNUP_BUTTON_LABEL);
+        signUp = new JButton(WelcomeViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        signIn = new JButton(welcomeViewModel.SIGNIN_BUTTON_LABEL);
-        buttons.add(signIn);
+        logIn = new JButton(WelcomeViewModel.LOGIN_BUTTON_LABEL);
+        buttons.add(logIn);
 
         signUp.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        if (e.getSource().equals(signUp)) {
+                            signupController.execute();
+                        }
                     }
                 }
         );
-        signIn.addActionListener(
+        logIn.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        if (e.getSource().equals(logIn)) {
+                            loginController.execute();
+                        }
                     }
                 }
         );
@@ -53,11 +54,6 @@ public class WelcomeView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
 
     }
 }
