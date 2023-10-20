@@ -54,6 +54,6 @@ public class WelcomeView extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
     }
 }
