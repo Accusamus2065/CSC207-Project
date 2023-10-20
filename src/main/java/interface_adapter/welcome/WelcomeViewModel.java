@@ -11,7 +11,7 @@ public class WelcomeViewModel extends ViewModel {
     private WelcomeState state;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public WelcomeViewModel(String viewName) {
+    public WelcomeViewModel() {
         super("Welcome");
     }
 
