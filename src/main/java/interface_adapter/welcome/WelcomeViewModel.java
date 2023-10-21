@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 public class WelcomeViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Welcome!";
     public static final String SIGNUP_BUTTON_LABEL = "Sign Up";
-    public static final String LOGIN_BUTTON_LABEL = "Sign In";
+    public static final String LOGIN_BUTTON_LABEL = "Log In";
     private WelcomeState state;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
