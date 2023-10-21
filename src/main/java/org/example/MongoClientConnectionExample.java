@@ -7,13 +7,15 @@ import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.Document;
 
 public class MongoClientConnectionExample {
     public static void main(String[] args) {
-        String connectionString = "mongodb+srv://YaBoiMG:admin@cluster0.19bebzh.mongodb.net/?retryWrites=true&w=majority";
-
+        Dotenv dotenv = Dotenv.load();
+        String connectionString = dotenv.get("CONNECTION_STRING");
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -27,8 +29,17 @@ public class MongoClientConnectionExample {
         try (MongoClient mongoClient = MongoClients.create(settings)) {
             try {
                 // Send a ping to confirm a successful connection
-                MongoDatabase database = mongoClient.getDatabase("admin");
-                database.runCommand(new Document("ping", 1));
+                MongoDatabase database = mongoClient.getDatabase("entities");
+                MongoCollection<Document> coll = database.getCollection("dialogflow_chat");
+
+                Document document = new Document();
+                document.append("content", "Hi I'm Benson, your virtual health assistant");
+                document.append("bot", true);
+                document.append("with", "6532e3c8138e9391d73c31bd");
+
+                coll.insertOne(document);
+                mongoClient.close();
+
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException e) {
                 e.printStackTrace();

@@ -4,6 +4,8 @@ target/
 !**/src/test/**/target/
 /.idea
 
+src/main/resources/.env
+
 src/main/java/org/config/
 
 ### IntelliJ IDEA ###

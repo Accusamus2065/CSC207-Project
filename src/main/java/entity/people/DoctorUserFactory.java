@@ -1,7 +1,7 @@
-package entity;
+package entity.people;
 
 import java.time.LocalDateTime;
-import entity.Doctor;
+
 public class DoctorUserFactory implements UserFactory {
 
     @Override

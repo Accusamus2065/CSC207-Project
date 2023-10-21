@@ -1,6 +1,10 @@
-package entity;
+package entity.people;
+
+import entity.chat.Conversation;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Patient implements User {
     private String username;
@@ -12,10 +16,17 @@ public class Patient implements User {
     private String bloodType;
     private final LocalDateTime ldt;
 
+    private List<Conversation> convs;
+
     public Patient(String username, String password, LocalDateTime ldt) {
         this.username = username;
         this.password = password;
+        this.convs = new ArrayList<>();
         this.ldt = ldt;
+    }
+
+    public void addConversation() {
+        // TODO: add conversation method (should add parameters to ensure the id of the other party)
     }
 
     public void setSex(char sex) {
