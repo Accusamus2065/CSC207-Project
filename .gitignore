@@ -2,11 +2,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-<<<<<<< Updated upstream
-.idea/
-=======
-/.idea
->>>>>>> Stashed changes
 
 src/main/resources/.env
 
@@ -47,3 +42,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/.idea/workspace.xml

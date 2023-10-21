@@ -18,7 +18,7 @@ import java.util.Map;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
-public class UserDAOImpl{// implements SignupUserDataAccessInterface {
+public class UserDAOImpl implements SignupUserDataAccessInterface {
     private final Map<String, User> accounts = new HashMap<>();
     private UserFactory userFactory;
 
@@ -52,7 +52,11 @@ public class UserDAOImpl{// implements SignupUserDataAccessInterface {
         return accounts.containsKey(identifier);
     }
 
-
+    @Override
+    public void save(User user) {
+        accounts.put(user.getUsername(), user);
+        saveRemote(user);
+    }
 
     private void saveRemote(User user) {
         MongoClientSettings settings = getMongoClientSettings();

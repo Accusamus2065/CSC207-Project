@@ -1,5 +1,7 @@
 package entity;
 
+import entity.people.User;
+
 public class Message {
     private int messageId;
 
@@ -8,7 +10,7 @@ public class Message {
     private User sender;
     private User receiver;
 
-    public Message(int messageId, String content, User sender, User receiver){
+    public Message(int messageId, String content, User sender, User receiver) {
         this.messageId = messageId;
         this.content = content;
         this.sender = sender;
