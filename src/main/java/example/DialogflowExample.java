@@ -1,4 +1,4 @@
-package org.example;
+package example;
 
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;

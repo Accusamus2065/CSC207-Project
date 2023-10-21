@@ -1,4 +1,4 @@
-package org.example;
+package example;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -20,6 +20,7 @@ public class MongoClientConnectionExample {
                 .version(ServerApiVersion.V1)
                 .build();
 
+        assert connectionString != null;
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString(connectionString))
                 .serverApi(serverApi)
