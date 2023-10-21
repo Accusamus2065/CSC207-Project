@@ -22,7 +22,6 @@
             <version>5.2.2</version>
         </dependency>
 
-
         <!-- Add the Google Cloud Dialogflow and gRPC dependencies -->
         <dependency>
             <groupId>com.google.cloud</groupId>
@@ -76,7 +75,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
 
