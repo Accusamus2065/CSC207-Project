@@ -2,7 +2,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+<<<<<<< Updated upstream
 .idea/
+=======
+/.idea
+>>>>>>> Stashed changes
 
 src/main/resources/.env
 
@@ -13,6 +17,8 @@ src/main/java/org/config/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
+.idea/misc.xml
 *.iws
 *.iml
 *.ipr
