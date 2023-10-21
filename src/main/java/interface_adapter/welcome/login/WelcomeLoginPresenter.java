@@ -7,5 +7,6 @@ public class WelcomeLoginPresenter implements WelcomeLoginOutputBoundary {
     @Override
     public void swapViews() {
         // TODO: complete me; depends on SignupViewModel
+        System.out.println("Click 'Log In'");
     }
 }
