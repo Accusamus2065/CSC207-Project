@@ -1,5 +1,7 @@
 package entity;
 
+import java.time.LocalDateTime;
+
 public class Patient implements User {
     private String username;
     private String password;
@@ -8,15 +10,31 @@ public class Patient implements User {
     private float height;
     private float weight;
     private String bloodType;
+    private final LocalDateTime ldt;
 
-    public Patient(String username, String password, char sex, String gender, float height, float weight,
-                   String bloodType) {
+    public Patient(String username, String password, LocalDateTime ldt) {
         this.username = username;
         this.password = password;
+        this.ldt = ldt;
+    }
+
+    public void setSex(char sex) {
         this.sex = sex;
+    }
+
+    public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setHeight(float height) {
         this.height = height;
+    }
+
+    public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
 
