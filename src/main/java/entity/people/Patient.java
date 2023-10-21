@@ -4,7 +4,9 @@ import entity.chat.Conversation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Patient implements User {
     private String username;
@@ -16,17 +18,22 @@ public class Patient implements User {
     private String bloodType;
     private final LocalDateTime ldt;
 
-    private List<Conversation> convs;
+    private Map<User,Conversation> conversations;
 
     public Patient(String username, String password, LocalDateTime ldt) {
         this.username = username;
         this.password = password;
-        this.convs = new ArrayList<>();
+        this.conversations = new ArrayList<>();
         this.ldt = ldt;
     }
 
-    public void addConversation() {
-        // TODO: add conversation method (should add parameters to ensure the id of the other party)
+    public void addNewConversation(Conversation conversation) {
+//        if (this == conversation.getParticipants().get(0)) {
+//            conversations.put(conversation, conversation);
+//        } else {
+//            conversations.put()
+//        }
+//
     }
 
     public void setSex(char sex) {
@@ -48,6 +55,11 @@ public class Patient implements User {
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
 
     @Override
     public String getUsername() {
