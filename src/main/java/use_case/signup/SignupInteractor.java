@@ -1,7 +1,6 @@
 package use_case.signup;
 
 
-
 import entity.people.User;
 import entity.people.UserFactory;
 
