@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MongoDBUserDAO implements LoginUserDataAccessInterface {
+    Map<String, Object> accounts = new HashMap<>();
 
     public MongoDBUserDAO()
     {
@@ -29,7 +30,7 @@ public class MongoDBUserDAO implements LoginUserDataAccessInterface {
         MongoCollection<Document> collection = database.getCollection("COLLECTIONNAME");
 
         // Creating a Map object to store the data from MongoDB
-        Map<String, Object> dataMap = new HashMap<>();
+
 
         // Retrieving data from MongoDB and saving it to the Map object
         FindIterable<Document> findIterable = collection.find();
@@ -37,7 +38,8 @@ public class MongoDBUserDAO implements LoginUserDataAccessInterface {
         while (cursor.hasNext()) {
             Document document = cursor.next();
             for (Map.Entry<String, Object> entry : document.entrySet()) {
-                dataMap.put(entry.getKey(), entry.getValue());
+                // FIX LATER FOR ADDING USER TYPES INSTEAD OF JUST KEY, WHICH IS IN STRING PROLLY RN
+                accounts.put(entry.getKey(), entry.getValue());
             }
         }
 
@@ -48,6 +50,49 @@ public class MongoDBUserDAO implements LoginUserDataAccessInterface {
 
         // Closing the connection
         mongoClient.close();
+    }
+
+    public boolean existsByName(String identifier) {
+        return accounts.containsKey(identifier);
+    }
+
+    public void save(User user) {
+        accounts.put(user.getName(), user);
+        this.save();
+    }
+
+    private void save() {
+        MongoClient mongoClient = MongoClients.create("mongodb+srv://<jihyuk>:<jihyuk01>@cluster0.19bebzh.mongodb.net/");
+        try {
+            // Connect to MongoDB server
+
+            // Access the database
+            MongoDatabase database = mongoClient.getDatabase("DATABASE NAME");
+
+            // Access the collection
+            MongoCollection<Document> collection = database.getCollection("COLLECTIONNAME");
+
+            for (Map.Entry<String, User> entry : accounts.entrySet()) {
+                User user = (User) entry.getValue();
+                Document document = new Document("name", user.getName())
+                        .append("password", user.getPassword())
+                        .append("creationTime", user.getCreationTime());
+
+                // Insert document into the collection
+                collection.insertOne(document);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (mongoClient != null) {
+                mongoClient.close(); // Close the connection
+            }
+        }
+    }
+
+    public User get(String username) {
+        return accounts.get(username);
     }
 
 
