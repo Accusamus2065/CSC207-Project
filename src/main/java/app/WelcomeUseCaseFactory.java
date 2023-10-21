@@ -1,8 +1,5 @@
 package app;
 
-import interface_adapter.ViewManagerModel;
-import interface_adapter.welcome.WelcomeState;
-import interface_adapter.welcome.WelcomeViewModel;
 import interface_adapter.welcome.login.WelcomeLoginController;
 import interface_adapter.welcome.login.WelcomeLoginPresenter;
 import interface_adapter.welcome.signup.WelcomeSignupController;
@@ -13,11 +10,7 @@ import use_case.welcome.login.WelcomeLoginOutputBoundary;
 import use_case.welcome.signup.WelcomeSignupInputBoundary;
 import use_case.welcome.signup.WelcomeSignupInteractor;
 import use_case.welcome.signup.WelcomeSignupOutputBoundary;
-import view.LoginView;
 import view.WelcomeView;
-
-import javax.swing.*;
-import java.io.IOException;
 
 public class WelcomeUseCaseFactory {
 
