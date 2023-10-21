@@ -11,7 +11,7 @@ public class MongodbExample {
     }
 
     private static void insertExample() {
-        try (MongoClient client = MongoClients.create("mongodb+srv://Accusamus:1234@cluster0.snnw8on.mongodb.net/?retryWrites=true&w=majority")) {
+        try (MongoClient client = MongoClients.create("mongodb+srv://YaBoiMG:admin@cluster0.19bebzh.mongodb.net/?retryWrites=true&w=majority")) {
             // Access database
             MongoDatabase db = client.getDatabase("sampleDB");
             // Access collection
@@ -20,6 +20,7 @@ public class MongodbExample {
             Document sampleDoc = new Document("id", "1").append("name", "Eric");
             // Add doc to the database
             col.insertOne(sampleDoc);
+            System.out.println("Add add add");
         } catch (Exception e) {
             throw new RuntimeException("Unable to connect mongoDB", e);
         }
