@@ -23,7 +23,7 @@ public class Patient implements User {
     public Patient(String username, String password, LocalDateTime ldt) {
         this.username = username;
         this.password = password;
-        this.conversations = new ArrayList<>();
+//        this.conversations = new ArrayList<>();
         this.ldt = ldt;
     }
 
@@ -57,7 +57,7 @@ public class Patient implements User {
     }
 
     public Conversation getConversation() {
-        return conversation;
+        return null;
     }
 
 
