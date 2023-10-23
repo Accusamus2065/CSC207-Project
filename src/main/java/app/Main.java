@@ -33,7 +33,7 @@ public class Main {
         // be observed by the Views.
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
 
-        WelcomeView welcomeView = WelcomeUseCaseFactory.create();
+        WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel);
         views.add(welcomeView, welcomeView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
