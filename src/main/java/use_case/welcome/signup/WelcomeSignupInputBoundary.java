@@ -1,5 +1,7 @@
 package use_case.welcome.signup;
 
+import use_case.welcome.WelcomeInputData;
+
 public interface WelcomeSignupInputBoundary {
-    void execute();
+    void execute(WelcomeInputData welcomeInputData);
 }

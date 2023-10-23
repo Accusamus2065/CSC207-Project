@@ -1,5 +1,8 @@
 package use_case.welcome.login;
 
+import use_case.welcome.WelcomeInputData;
+import use_case.welcome.WelcomeOutputData;
+
 public class WelcomeLoginInteractor implements WelcomeLoginInputBoundary {
 
     final WelcomeLoginOutputBoundary welcomeLoginPresenter;
@@ -9,7 +12,10 @@ public class WelcomeLoginInteractor implements WelcomeLoginInputBoundary {
     }
 
     @Override
-    public void execute() {
-        welcomeLoginPresenter.swapViews();
+    public void execute(WelcomeInputData welcomeInputData) {
+        boolean isDoctor = welcomeInputData.isDoctor();
+        WelcomeOutputData welcomeOutputData = new WelcomeOutputData(isDoctor);
+
+        welcomeLoginPresenter.swapViews(welcomeOutputData);
     }
 }
