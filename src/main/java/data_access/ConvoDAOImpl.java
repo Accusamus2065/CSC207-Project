@@ -43,20 +43,21 @@ public class ConvoDAOImpl implements SignupUserDataAccessInterface {
 
         // Create a new client and connect to the server
         try (MongoClient mongoClient = MongoClients.create(settings)) {
-            MongoCollection coll = mongoClient.getDatabase("Cluster0").getCollection("conversation");
+            MongoCollection coll = mongoClient.getDatabase("entities").getCollection("conversation");
             // Find all documents in the collection
             MongoCursor<Document> cursor = coll.find().iterator();
+            System.out.println("=============");
 
             // Iterate through the results
             while (cursor.hasNext()) {
                 Document document = cursor.next();
                 // Access and process document data as needed
                 System.out.println(document.toJson());
+                System.out.println("=============");
             }
 
             // Close resources
             cursor.close();
-            mongoClient.close();
         }
     }
 
