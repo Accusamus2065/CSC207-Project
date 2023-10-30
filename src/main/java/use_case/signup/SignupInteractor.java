@@ -21,6 +21,7 @@ public class SignupInteractor implements SignupInputBoundary {
 
     @Override
     public void execute(SignupInputData signupInputData) {
+        // TODO implement use case for doctor signup and patient signup
         if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists.");
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
