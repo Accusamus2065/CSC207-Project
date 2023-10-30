@@ -1,5 +1,6 @@
 package interface_adapter.welcome.signup;
 
+import use_case.welcome.WelcomeInputData;
 import use_case.welcome.signup.WelcomeSignupInputBoundary;
 
 public class WelcomeSignupController {
@@ -10,7 +11,10 @@ public class WelcomeSignupController {
         this.welcomeSignupInteractor = welcomeSignupInteractor;
     }
 
-    public void execute() {
-        welcomeSignupInteractor.execute();
+    public void execute(boolean isDoctor) {
+
+        WelcomeInputData welcomeInputData = new WelcomeInputData(isDoctor);
+
+        welcomeSignupInteractor.execute(welcomeInputData);
     }
 }

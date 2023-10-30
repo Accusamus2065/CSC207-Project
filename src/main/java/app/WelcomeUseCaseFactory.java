@@ -1,7 +1,6 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.welcome.WelcomeState;
 import interface_adapter.welcome.WelcomeViewModel;
 import interface_adapter.welcome.login.WelcomeLoginController;
 import interface_adapter.welcome.login.WelcomeLoginPresenter;
@@ -13,21 +12,18 @@ import use_case.welcome.login.WelcomeLoginOutputBoundary;
 import use_case.welcome.signup.WelcomeSignupInputBoundary;
 import use_case.welcome.signup.WelcomeSignupInteractor;
 import use_case.welcome.signup.WelcomeSignupOutputBoundary;
-import view.LoginView;
+import view.ViewManager;
 import view.WelcomeView;
-
-import javax.swing.*;
-import java.io.IOException;
 
 public class WelcomeUseCaseFactory {
 
     /** Prevent instantiation. */
     private WelcomeUseCaseFactory() {}
 
-    public static WelcomeView create() {
+    public static WelcomeView create(WelcomeViewModel welcomeViewModel) {
         WelcomeSignupController signupController = createSignupUseCase();
         WelcomeLoginController loginController = createLoginUseCase();
-        return new WelcomeView(signupController, loginController);
+        return new WelcomeView(welcomeViewModel, signupController, loginController);
     }
 
     private static WelcomeSignupController createSignupUseCase() {
