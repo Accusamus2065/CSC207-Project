@@ -6,7 +6,7 @@ public class DoctorUserFactory implements UserFactory {
 
     @Override
     public User create(String name, String password, LocalDateTime ldt) {
-        return new Doctor(name, password, ldt);
+        return new Doctor(name, password);
     }
 
     public User create(String name, String password, LocalDateTime ldt, String degree, String specialty) {

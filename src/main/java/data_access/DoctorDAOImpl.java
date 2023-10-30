@@ -2,7 +2,8 @@ package data_access;
 
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
-import entity.people.Patient;
+import entity.people.Doctor;
+import entity.people.DoctorUserFactory;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
@@ -12,11 +13,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PatientDAOImpl implements SignupUserDataAccessInterface {
+public class DoctorDAOImpl implements SignupUserDataAccessInterface {
     private final Map<String, User> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
-    public PatientDAOImpl(PatientUserFactory patientUserFactory) {
+    public DoctorDAOImpl(DoctorUserFactory doctorUserFactory) {
 
         // Accessing the database
         MongoDatabase database = mongoClient.getDatabase("entities");
@@ -28,10 +29,9 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         FindIterable<Document> findIterable = collection.find();
         for (Document document : findIterable) {
             //public User create(String name, String password, LocalDateTime ldt, char sex, String gender, float height, float weight, String bloodType)
-            accounts.put(document.getString("username"), patientUserFactory.create(document.getString("name"),
+            accounts.put(document.getString("username"), doctorUserFactory.create(document.getString("name"),
                     document.getString("password"), (LocalDateTime) document.get("ldt"),
-                    (char) document.get("sex"), document.getString("gender"), (float) document.get("height"),
-                    (float) document.get("weight"), document.getString("bloodtype")));
+                    document.getString("degree"), );
         }
 
         // Printing the data stored in the Map object
