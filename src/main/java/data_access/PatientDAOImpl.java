@@ -21,7 +21,7 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         MongoDatabase database = mongoClient.getDatabase("entities");
 
         // Accessing the collection
-        MongoCollection<Document> collection = database.getCollection("patient");
+        MongoCollection<Document> collection = database.getCollection("patients");
 
         // Retrieving data from MongoDB and saving it to the Map object
         FindIterable<Document> findIterable = collection.find();
