@@ -82,4 +82,12 @@ public class Patient implements User {
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
+
+    public List<Conversation> getConvs() {
+        return convs;
+    }
+
+    public void setConvs(List<Conversation> convs) {
+        this.convs = convs;
+    }
 }
