@@ -1,6 +1,5 @@
 package entity.people;
 
-import java.time.LocalDateTime;
 
 public class PatientUserFactory implements UserFactory {
 
