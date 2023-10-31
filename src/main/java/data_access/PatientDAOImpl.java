@@ -27,10 +27,14 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         FindIterable<Document> findIterable = collection.find();
         for (Document document : findIterable) {
             //public User create(String name, String password, LocalDateTime ldt, char sex, String gender, float height, float weight, String bloodType)
-            accounts.put(document.getString("username"), patientUserFactory.create(document.getString("name"),
-                    document.getString("password"), (char) document.get("sex"),
-                    document.getString("gender"), (float) document.get("height"),
-                    (float) document.get("weight"), document.getString("bloodtype")));
+            accounts.put(document.getString("username"),
+                    patientUserFactory.create(document.getString("username"),
+                            document.getString("password"),
+                            (char) document.get("sex"),
+                            document.getString("gender"),
+                            (float) document.get("height"),
+                            (float) document.get("weight"),
+                            document.getString("bloodtype")));
         }
 
         // Printing the data stored in the Map object
