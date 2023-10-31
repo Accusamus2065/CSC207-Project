@@ -2,12 +2,12 @@ package data_access;
 
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
+import entity.people.Patient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
 import use_case.signup.SignupUserDataAccessInterface;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +28,8 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         for (Document document : findIterable) {
             //public User create(String name, String password, LocalDateTime ldt, char sex, String gender, float height, float weight, String bloodType)
             accounts.put(document.getString("username"), patientUserFactory.create(document.getString("name"),
-                    document.getString("password"), (LocalDateTime) document.get("ldt"),
-                    (char) document.get("sex"), document.getString("gender"), (float) document.get("height"),
+                    document.getString("password"), (char) document.get("sex"),
+                    document.getString("gender"), (float) document.get("height"),
                     (float) document.get("weight"), document.getString("bloodtype")));
         }
 
@@ -50,15 +50,22 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
     @Override
     public void save(User user) {
         accounts.put(user.getUsername(), user);
-        saveRemote(user);
+        save();
     }
 
-    private void saveRemote(User user) {
+    private void save() {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
-        Document patient = new Document("username", user.getUsername())
-                .append("password", user.getPassword());
-        patients.insertOne(patient);
-        System.out.println("Added patient to database");
+        for (User user : accounts.values()) {
+            Patient patient = (Patient) user;
+            Document document = new Document("username", patient.getUsername())
+                    .append("password", patient.getPassword())
+                    .append("sex", patient.getSex())
+                    .append("gender", patient.getGender())
+                    .append("height", patient.getHeight())
+                    .append("weight", patient.getWeight())
+                    .append("bloodtype", patient.getBloodType());
+            patients.insertOne(document);
+        }
     }
 }
