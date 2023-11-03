@@ -5,7 +5,7 @@ import entity.chat.Conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient implements User {
+public class CommonPatient implements IPatient {
     private String username;
     private String password;
     private char sex;
@@ -15,7 +15,7 @@ public class Patient implements User {
     private String bloodType;
     private List<Conversation> convs;
 
-    public Patient(String username, String password) {
+    public CommonPatient(String username, String password) {
         this.username = username;
         this.password = password;
         this.convs = new ArrayList<>();
