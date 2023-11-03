@@ -1,16 +1,15 @@
 package entity.people;
 
-import java.time.LocalDateTime;
 
 public class PatientUserFactory implements UserFactory {
 
     @Override
-    public User create(String name, String password, LocalDateTime ldt) {
-        return new Patient(name, password, ldt);
+    public User create(String username, String password) {
+        return new Patient(username, password);
     }
 
-    public User create(String name, String password, LocalDateTime ldt, char sex, String gender, float height, float weight, String bloodType) {
-        Patient pat = (Patient) create(name, password, ldt);
+    public User create(String username, String password, char sex, String gender, float height, float weight, String bloodType) {
+        Patient pat = (Patient) create(username, password);
         pat.setSex(sex);
         pat.setGender(gender);
         pat.setBloodType(bloodType);

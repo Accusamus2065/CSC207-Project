@@ -2,11 +2,8 @@ package entity.people;
 
 import entity.chat.Conversation;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Patient implements User {
     private String username;
@@ -16,58 +13,81 @@ public class Patient implements User {
     private float height;
     private float weight;
     private String bloodType;
-    private final LocalDateTime ldt;
+    private List<Conversation> convs;
 
-    private Map<User,Conversation> conversations;
-
-    public Patient(String username, String password, LocalDateTime ldt) {
+    public Patient(String username, String password) {
         this.username = username;
         this.password = password;
-//        this.conversations = new ArrayList<>();
-        this.ldt = ldt;
+        this.convs = new ArrayList<>();
     }
 
-    public void addNewConversation(Conversation conversation) {
-//        if (this == conversation.getParticipants().get(0)) {
-//            conversations.put(conversation, conversation);
-//        } else {
-//            conversations.put()
-//        }
-//
+    public void addConversation() {
+        // TODO: add conversation method (should add parameters to ensure the id of the other party)
     }
-
-    public void setSex(char sex) {
-        this.sex = sex;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
-    }
-
-    public Conversation getConversation() {
-        return null;
-    }
-
 
     @Override
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
+
+    public List<Conversation> getConvs() {
+        return convs;
+    }
+
+    public void setConvs(List<Conversation> convs) {
+        this.convs = convs;
     }
 }
