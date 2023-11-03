@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conversation {
-    private List<User> participants; // List of users participating in the chat
-    private List<Message> messages; // List of messages in the chat
+    private List<User> participants;
+    private List<Message> messages;
 
-    public Conversation(String chatName) {
+    public Conversation() {
         this.participants = new ArrayList<>();
         this.messages = new ArrayList<>();
     }
@@ -18,11 +18,6 @@ public class Conversation {
     // Add a participant to the chat
     public void addParticipant(User user) {
         participants.add(user);
-    }
-
-    // Remove a participant from the chat
-    public void removeParticipant(User user) {
-        participants.remove(user);
     }
 
     // Add a message to the chat
@@ -40,10 +35,4 @@ public class Conversation {
         return participants;
     }
 
-    @Override
-    public String toString() {
-        return "Chat{participants=" + participants +
-                ", messages=" + messages +
-                '}';
-    }
 }
