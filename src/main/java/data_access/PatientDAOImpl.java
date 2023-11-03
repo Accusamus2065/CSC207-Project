@@ -3,6 +3,7 @@ package data_access;
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
 import entity.people.CommonPatient;
+import entity.people.IPatient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
@@ -11,7 +12,7 @@ import use_case.signup.SignupUserDataAccessInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PatientDAOImpl implements SignupUserDataAccessInterface {
+public class PatientDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
@@ -46,12 +47,10 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         mongoClient.close();
     }
 
-    @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
 
-    @Override
     public void save(User user) {
         accounts.put(user.getUsername(), user);
         save();
@@ -71,5 +70,9 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
                     .append("bloodtype", patient.getBloodType());
             patients.insertOne(document);
         }
+    }
+
+    public IPatient get(String username) {
+        return (IPatient) accounts.get(username);
     }
 }

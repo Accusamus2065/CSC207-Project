@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import entity.mongo.MongoFactory;
 import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
+import entity.people.IDoctor;
 import entity.people.User;
 import org.bson.Document;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -14,7 +15,7 @@ import use_case.signup.SignupUserDataAccessInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DoctorDAOImpl implements SignupUserDataAccessInterface {
+public class DoctorDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
@@ -35,11 +36,9 @@ public class DoctorDAOImpl implements SignupUserDataAccessInterface {
         mongoClient.close();
     }
 
-    @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
-
 
     public void save(User user) {
         accounts.put(user.getUsername(), user);
@@ -57,5 +56,9 @@ public class DoctorDAOImpl implements SignupUserDataAccessInterface {
                     .append("degree", commonDoctor.getDegree());
             patients.insertOne(document);
         }
+    }
+
+    public IDoctor get(String username) {
+        return (IDoctor) accounts.get(username);
     }
 }
