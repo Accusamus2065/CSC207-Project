@@ -1,6 +1,8 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import view.ViewManager;
 import view.WelcomeView;
@@ -32,8 +34,10 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
+        SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
 
-        WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel);
+        WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);

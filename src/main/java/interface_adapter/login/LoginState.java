@@ -5,12 +5,14 @@ public class LoginState {
     private String usernameError = null;
     private String password = "";
     private String passwordError = null;
+    private boolean isDoctor;
 
     public LoginState(LoginState copy) {
         username = copy.username;
         usernameError = copy.usernameError;
         password = copy.password;
         passwordError = copy.passwordError;
+        isDoctor = copy.isDoctor;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -46,5 +48,22 @@ public class LoginState {
 
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
+    }
+
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "SignupState{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                "isDoctor=" + isDoctor +
+                '}';
     }
 }
