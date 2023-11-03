@@ -7,6 +7,7 @@ public class SignupState {
     private String passwordError = null;
     private String repeatPassword = "";
     private String repeatPasswordError = null;
+    private boolean isDoctor;
 
     public SignupState(SignupState copy) {
         username = copy.username;
@@ -15,6 +16,7 @@ public class SignupState {
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
         repeatPasswordError = copy.repeatPasswordError;
+        isDoctor = copy.isDoctor;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -69,12 +71,21 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
+    }
+
     @Override
     public String toString() {
         return "SignupState{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", repeatPassword='" + repeatPassword + '\'' +
+                "isDoctor=" + isDoctor +
                 '}';
     }
 }
