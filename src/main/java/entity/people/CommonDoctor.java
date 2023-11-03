@@ -1,12 +1,12 @@
 package entity.people;
 
-public class Doctor implements User {
+public class CommonDoctor implements IDoctor {
     private String username;
     private String password;
     private String specialty;
     private String degree;
 
-    public Doctor(String username, String password) {
+    public CommonDoctor(String username, String password) {
         this.username = username;
         this.password = password;
     }

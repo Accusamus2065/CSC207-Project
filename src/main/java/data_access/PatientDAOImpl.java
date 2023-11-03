@@ -2,7 +2,7 @@ package data_access;
 
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
-import entity.people.Patient;
+import entity.people.CommonPatient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
@@ -61,7 +61,7 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
         for (User user : accounts.values()) {
-            Patient patient = (Patient) user;
+            CommonPatient patient = (CommonPatient) user;
             Document document = new Document("username", patient.getUsername())
                     .append("password", patient.getPassword())
                     .append("sex", patient.getSex())

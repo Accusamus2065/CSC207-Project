@@ -5,7 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import entity.mongo.MongoFactory;
-import entity.people.Doctor;
+import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
 import entity.people.User;
 import org.bson.Document;
@@ -40,7 +40,7 @@ public class DoctorDAOImpl implements SignupUserDataAccessInterface {
         return accounts.containsKey(identifier);
     }
 
-    @Override
+
     public void save(User user) {
         accounts.put(user.getUsername(), user);
         save();
@@ -50,11 +50,11 @@ public class DoctorDAOImpl implements SignupUserDataAccessInterface {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("doctors");
         for (User user : accounts.values()) {
-            Doctor doctor = (Doctor) user;
-            Document document = new Document("username", doctor.getUsername())
-                    .append("password", doctor.getPassword())
-                    .append("specialty", doctor.getSpecialty())
-                    .append("degree", doctor.getDegree());
+            CommonDoctor commonDoctor = (CommonDoctor) user;
+            Document document = new Document("username", commonDoctor.getUsername())
+                    .append("password", commonDoctor.getPassword())
+                    .append("specialty", commonDoctor.getSpecialty())
+                    .append("degree", commonDoctor.getDegree());
             patients.insertOne(document);
         }
     }
