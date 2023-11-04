@@ -8,7 +8,7 @@ import java.util.List;
 public class CommonPatient implements IPatient {
     private String username;
     private String password;
-    private char sex;
+    private String sex;
     private String gender;
     private float height;
     private float weight;
@@ -43,11 +43,11 @@ public class CommonPatient implements IPatient {
         this.password = password;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -8,8 +8,8 @@ public interface IPatient extends User{
     void addConversation();
     void setUsername(String username);
     void setPassword(String password);
-    char getSex();
-    void setSex(char sex);
+    String getSex();
+    void setSex(String sex);
     String getGender();
     void setGender(String gender);
     float getHeight();

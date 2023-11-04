@@ -7,7 +7,6 @@ import entity.people.IPatient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
-import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class PatientDAOImpl {
             accounts.put(document.getString("username"),
                     patientUserFactory.create(document.getString("username"),
                             document.getString("password"),
-                            (char) document.get("sex"),
+                            document.getString("sex"),
                             document.getString("gender"),
                             (float) document.get("height"),
                             (float) document.get("weight"),
