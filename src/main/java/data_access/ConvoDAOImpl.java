@@ -17,7 +17,7 @@ import java.util.Map;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
-public class ConvoDAOImpl implements SignupUserDataAccessInterface {
+public class ConvoDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
     private List<Message> messages;
 
@@ -61,12 +61,10 @@ public class ConvoDAOImpl implements SignupUserDataAccessInterface {
         }
     }
 
-    @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
 
-    @Override
     public void save(User user) {
         accounts.put(user.getUsername(), user);
         saveRemote(user);
