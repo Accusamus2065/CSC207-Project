@@ -6,13 +6,11 @@ import interface_adapter.login.LoginViewModel;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class SignupPresenter implements SignupOutputBoundary {
     private final SignupViewModel signupViewModel;
-        private final LoginViewModel loginViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final LoginViewModel loginViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     public SignupPresenter(ViewManagerModel viewManagerModel,
                            SignupViewModel signupViewModel,
@@ -25,9 +23,6 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void prepareSuccessView(SignupOutputData response) {
-        LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
-        response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
-
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
