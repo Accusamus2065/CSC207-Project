@@ -9,8 +9,8 @@ public class TestDAOFacade {
 
     @Test
     public void testSavePatient() {
-        IPatient patient = new CommonPatient("Eric", "123");
+        IPatient patient = new CommonPatient("Test1", "123");
         daoFacade.save(patient);
-        assert daoFacade.existsByName(false, "Eric");
+        assert daoFacade.existsByName(false, "Test1");
     }
 }
