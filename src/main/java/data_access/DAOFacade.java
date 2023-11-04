@@ -9,6 +9,7 @@ public class DAOFacade implements
         LoginUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
+    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
 
     @Override
     public void save(IPatient user) {
@@ -18,6 +19,11 @@ public class DAOFacade implements
     @Override
     public void save(IDoctor user) {
         doctorDAO.save(user);
+    }
+
+    @Override
+    public void save(User user) {
+        convoDAO.save(user);
     }
 
     public boolean existsByName(boolean isDoctor, String identifier) {
