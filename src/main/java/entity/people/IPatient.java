@@ -12,10 +12,10 @@ public interface IPatient extends User{
     void setSex(String sex);
     String getGender();
     void setGender(String gender);
-    float getHeight();
-    void setHeight(float height);
-    float getWeight();
-    void setWeight(float weight);
+    double getHeight();
+    void setHeight(double height);
+    double getWeight();
+    void setWeight(double weight);
     String getBloodType();
     void setBloodType(String bloodType);
     List<Conversation> getConvs();

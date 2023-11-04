@@ -10,8 +10,8 @@ public class CommonPatient implements IPatient {
     private String password;
     private String sex;
     private String gender;
-    private float height;
-    private float weight;
+    private double height;
+    private double weight;
     private String bloodType;
     private List<Conversation> convs;
 
@@ -59,19 +59,19 @@ public class CommonPatient implements IPatient {
         this.gender = gender;
     }
 
-    public float getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

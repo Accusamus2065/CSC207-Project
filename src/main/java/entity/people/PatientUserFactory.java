@@ -8,7 +8,7 @@ public class PatientUserFactory implements UserFactory {
         return new CommonPatient(username, password);
     }
 
-    public User create(String username, String password, String sex, String gender, float height, float weight, String bloodType) {
+    public User create(String username, String password, String sex, String gender, double height, double weight, String bloodType) {
         CommonPatient pat = (CommonPatient) create(username, password);
         pat.setSex(sex);
         pat.setGender(gender);

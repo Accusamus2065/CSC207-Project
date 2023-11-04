@@ -32,8 +32,8 @@ public class PatientDAOImpl {
                             document.getString("password"),
                             document.getString("sex"),
                             document.getString("gender"),
-                            (float) document.get("height"),
-                            (float) document.get("weight"),
+                            (double) document.get("height"),
+                            (double) document.get("weight"),
                             document.getString("bloodtype")));
         }
 
