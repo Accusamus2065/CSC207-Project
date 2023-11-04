@@ -1,10 +1,10 @@
 package use_case.signup;
 
 
-import entity.people.User;
+import entity.people.IDoctor;
+import entity.people.IPatient;
 import entity.people.UserFactory;
 
-import java.time.LocalDateTime;
 
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
@@ -21,19 +21,24 @@ public class SignupInteractor implements SignupInputBoundary {
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        // TODO implement use case for doctor signup and patient signup
-        if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
+        if (userDataAccessObject.existsByName(signupInputData.isDoctor(), signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists.");
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-
-            LocalDateTime now = LocalDateTime.now();
-            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
-            userDataAccessObject.save(user);
-
-            SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString(), false);
-            userPresenter.prepareSuccessView(signupOutputData);
+            if (signupInputData.isDoctor()) {
+                IDoctor doctor = (IDoctor) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+                userDataAccessObject.save(doctor);
+                SignupOutputData signupOutputData = new SignupOutputData(doctor.getUsername(), false,
+                        signupInputData.isDoctor());
+                userPresenter.prepareSuccessView(signupOutputData);
+            } else {
+                IPatient patient = (IPatient) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+                userDataAccessObject.save(patient);
+                SignupOutputData signupOutputData = new SignupOutputData(patient.getUsername(), false,
+                        signupInputData.isDoctor());
+                userPresenter.prepareSuccessView(signupOutputData);
+            }
         }
     }
 }
