@@ -42,9 +42,6 @@ public class PatientDAOImpl {
         for (Map.Entry<String, User> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
-
-        // Closing the connection
-        mongoClient.close();
     }
 
     public boolean existsByName(String identifier) {

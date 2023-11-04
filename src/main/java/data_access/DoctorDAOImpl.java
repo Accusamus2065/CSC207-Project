@@ -33,7 +33,6 @@ public class DoctorDAOImpl {
         for (Map.Entry<String, User> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
-        mongoClient.close();
     }
 
     public boolean existsByName(String identifier) {
