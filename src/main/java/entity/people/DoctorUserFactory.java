@@ -4,11 +4,11 @@ public class DoctorUserFactory implements UserFactory {
 
     @Override
     public User create(String username, String password) {
-        return new Doctor(username, password);
+        return new CommonDoctor(username, password);
     }
 
     public User create(String username, String password, String degree, String specialty) {
-        Doctor doc = (Doctor) create(username, password);
+        CommonDoctor doc = (CommonDoctor) create(username, password);
         doc.setDegree(degree);
         doc.setSpecialty(specialty);
         return doc;

@@ -21,6 +21,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class ConvoDAOImpl {
     private final List<Message> messages = new ArrayList<>();
 
+
     @NotNull
     private static MongoClientSettings getMongoClientSettings() {
         Dotenv dotenv = Dotenv.configure().load();
@@ -60,11 +61,11 @@ public class ConvoDAOImpl {
             cursor.close();
         }
     }
-
     public void save(Message message) {
         messages.add(message);
         saveRemote(message);
     }
+
 
 
     private void saveRemote(Message message) {

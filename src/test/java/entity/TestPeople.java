@@ -7,7 +7,7 @@ import java.io.IOException;
 public class TestPeople {
 
     @Test
-    public static void testAddPatient() throws IOException {
+    public void testAddPatient() throws IOException {
     }
 
     @Test

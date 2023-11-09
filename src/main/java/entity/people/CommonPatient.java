@@ -5,17 +5,17 @@ import entity.chat.Conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient implements User {
+public class CommonPatient implements IPatient {
     private String username;
     private String password;
-    private char sex;
+    private String sex;
     private String gender;
-    private float height;
-    private float weight;
+    private double height;
+    private double weight;
     private String bloodType;
     private List<Conversation> convs;
 
-    public Patient(String username, String password) {
+    public CommonPatient(String username, String password) {
         this.username = username;
         this.password = password;
         this.convs = new ArrayList<>();
@@ -43,11 +43,11 @@ public class Patient implements User {
         this.password = password;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -59,19 +59,19 @@ public class Patient implements User {
         this.gender = gender;
     }
 
-    public float getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

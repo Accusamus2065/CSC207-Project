@@ -2,16 +2,16 @@ package data_access;
 
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
-import entity.people.Patient;
+import entity.people.CommonPatient;
+import entity.people.IPatient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
-import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PatientDAOImpl implements SignupUserDataAccessInterface {
+public class PatientDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
@@ -30,10 +30,10 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
             accounts.put(document.getString("username"),
                     patientUserFactory.create(document.getString("username"),
                             document.getString("password"),
-                            (char) document.get("sex"),
+                            document.getString("sex"),
                             document.getString("gender"),
-                            (float) document.get("height"),
-                            (float) document.get("weight"),
+                            (double) document.get("height"),
+                            (double) document.get("weight"),
                             document.getString("bloodtype")));
         }
 
@@ -41,17 +41,12 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         for (Map.Entry<String, User> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
-
-        // Closing the connection
-        mongoClient.close();
     }
 
-    @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
 
-    @Override
     public void save(User user) {
         accounts.put(user.getUsername(), user);
         save();
@@ -61,7 +56,7 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
         for (User user : accounts.values()) {
-            Patient patient = (Patient) user;
+            CommonPatient patient = (CommonPatient) user;
             Document document = new Document("username", patient.getUsername())
                     .append("password", patient.getPassword())
                     .append("sex", patient.getSex())
@@ -71,5 +66,9 @@ public class PatientDAOImpl implements SignupUserDataAccessInterface {
                     .append("bloodtype", patient.getBloodType());
             patients.insertOne(document);
         }
+    }
+
+    public IPatient get(String username) {
+        return (IPatient) accounts.get(username);
     }
 }
