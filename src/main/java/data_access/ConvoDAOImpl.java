@@ -10,6 +10,7 @@ import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import use_case.signup.SignupUserDataAccessInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,8 @@ import java.util.Map;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
-public class ConvoDAOImpl implements SignupUserDataAccessInterface {
-    private final Map<String, User> accounts = new HashMap<>();
-    private List<Message> messages;
+public class ConvoDAOImpl {
+    private final List<Message> messages = new ArrayList<>();
 
     @NotNull
     private static MongoClientSettings getMongoClientSettings() {
@@ -43,7 +43,7 @@ public class ConvoDAOImpl implements SignupUserDataAccessInterface {
 
         // Create a new client and connect to the server
         try (MongoClient mongoClient = MongoClients.create(settings)) {
-            MongoCollection coll = mongoClient.getDatabase("entities").getCollection("conversation");
+            MongoCollection coll = mongoClient.getDatabase("entities").getCollection("message");
             // Find all documents in the collection
             MongoCursor<Document> cursor = coll.find().iterator();
             System.out.println("=============");
@@ -61,25 +61,19 @@ public class ConvoDAOImpl implements SignupUserDataAccessInterface {
         }
     }
 
-    @Override
-    public boolean existsByName(String identifier) {
-        return accounts.containsKey(identifier);
+    public void save(Message message) {
+        messages.add(message);
+        saveRemote(message);
     }
 
-    @Override
-    public void save(User user) {
-        accounts.put(user.getUsername(), user);
-        saveRemote(user);
-    }
 
-    private void saveRemote(User user) {
+    private void saveRemote(Message message) {
         MongoClientSettings settings = getMongoClientSettings();
         try (MongoClient mongoClient = MongoClients.create(settings)) {
             MongoDatabase database = mongoClient.getDatabase("entities");
-            MongoCollection<Document> patients = database.getCollection("patients");
-            Document patient = new Document("username", user.getUsername())
-                    .append("password", user.getPassword());
-            patients.insertOne(patient);
+            MongoCollection<Document> patients = database.getCollection("message");
+            Document messagedoc = new Document("message", message);
+            patients.insertOne(messagedoc);
             System.out.println("Added patient to database");
         }
     }
