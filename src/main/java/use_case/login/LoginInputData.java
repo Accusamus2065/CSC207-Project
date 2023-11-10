@@ -5,9 +5,12 @@ public class LoginInputData {
     final private String username;
     final private String password;
 
-    public LoginInputData(String username, String password) {
+    final private Boolean isDoctor;
+
+    public LoginInputData(String username, String password, Boolean isDoctor) {
         this.username = username;
         this.password = password;
+        this.isDoctor = isDoctor;
     }
 
     String getUsername() {
@@ -17,5 +20,7 @@ public class LoginInputData {
     String getPassword() {
         return password;
     }
+
+    Boolean getIsDoctor(){return isDoctor; }
 
 }
