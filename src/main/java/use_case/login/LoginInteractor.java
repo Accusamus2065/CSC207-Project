@@ -18,9 +18,6 @@ public class LoginInteractor implements LoginInputBoundary {
         String password = loginInputData.getPassword();
         Boolean isDoctor = loginInputData.getIsDoctor();
 
-        // TODO: Correct the code below; the updated existsByName method is defined as follows:
-        //  existsByName(boolean isDoctor, String identifier);
-
         if (!userDataAccessObject.existsByName(isDoctor, username)) {
             loginPresenter.prepareFailView(username + ": Account does not exist.");
         } else {

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "benson-ag9e",
+  "private_key_id": "e8ef611e8721859c81fb4c16a5792857767a92f2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzM+dk5Djcyo/S\nMO5YdFBYIYHcnWj2SuJJjRarGLkhFr1QYXT0dbmz4RhWV8wNw0lG4f1k0CKNyOSd\nAaVc4d/nWljzN44SBitCB6/S2FN500RlPZi9MMZ81nn/ykff39Ohn2BefRUop5H5\nI+cd4AT1Q0Y2Lq9Qq+usPCzx4fsx76DnKRufRilKl81ylulXhQ6Bxg/9EGEakpp4\nKO3YW7PKGMrybemOjQq6hTspqugN4chzp+w07wqOXAshULASY9WqV1DR3Y+4JH3M\n62L84LlpD8M9KoA4sTz7/07dWvh+u07tix8FVvfO7HcPjQHCSmYnDzI35QTdQjke\nQ+enSLlJAgMBAAECggEAFlzzUvViHTeQFCB0FgjJ3/2qeZARQa8dpyUav5ZRwA3Y\n6TeIQ1uPpaGBCoFhXxRQSC66kwKgVUZNNUS30KwFZ5cwQ4XazmgDrPVNnUfOvwS8\n4894iJ+WHY0cY23oY0lI3UII4jHE2rJytn8i/+jtZXgUQn239h7GRdOqnjLfyJ7T\ng2LKzMFFKsHvCMGxH/Qfzrd36fqulISrBAesl7a4F4znUdlIf2EIy+y6jSmfOBvi\nnkHcc1PSwc4N7zYwoCWHG33yMI7wWyDCfozcboOQG+vnpHgen+b7BFenWFs7gfEE\n1Cge0cjpoCuyhfAJdOB7SFn/xYQcOm4FDBHIBscYcwKBgQDxcxLDNusP08k7+RdX\n0cloxX5wNEUMirjWUJntzzi8+BI9Xmf2ynvqt/+ri5Er7kVTl/Y6Vf+e81P6NXTt\n/s9ObXYiipB7V2s/aUcjzNOC5UwAce5IeO/4tewWGqq/Yt6rHcL8EKBfoO1fNeoc\nAYRpXWPtAE4h6ahrYOIfoTPeRwKBgQC+AIcmgu2/9NLs+pQ3LnTVxdFw4Wz0RaB3\ntbl091z42LlqEwa0UGwU+jHYfbavSFjOgF9VdnElqH9BSiKJPOi8u0oVFKKtLKZZ\ncJLb/zSmKv4y741xQ9gmkvZLDlODFa3R5dHXPYd1An4n51QxZV/sdBzsLee/HCju\nTmhWBYOj7wKBgFkvuG6DirB9+oc8q3K0+0DIMrwfkqHfXAdOHo3JTZv/xj0E8kIm\n6T76WGZ1V1py2QjXyQwjWBjOqOZzeI2w4cKGjGyV4mitEeCKcsy2jCp9qGVBsFL0\n2S91g49mqkunqbhrderF+XdZalURBTjzFoYVCSQySKoeNSf00ZH9abthAoGAJzMS\nrxZaGL1Y+v1jsNLL1gLfCAvqH6dxyODcJ06Vht2nu0O7oV3qPpWzzPd6xkUF1WzU\nvlwWUe+meYDjCS9g0PdO/HRqb5IDq/Y2xl6rrRC3qyiTJOgbYzH00F1fS28gkmp4\n1ZBjLvfZsT/fteU1WiJGiU+bPWmA5FGW4xB2LU8CgYAnayuhn9/p7NS4KMwUX0Qr\n+qtihl+v1ildu2ScdvVfqDTDJ+wG2PepOzbOFTaROqfa1K59UJg41+VUyJoz1SGx\nKeKsMvzVhtbmgj/rmQm7rvUddZdtmjIx+hZzEd5piBLlAJsB5qG3hxikwEFO3BlB\nLCKTNe+21RO/Cx2NZOe48g==\n-----END PRIVATE KEY-----\n",
+  "client_email": "benson-service-account@benson-ag9e.iam.gserviceaccount.com",
+  "client_id": "113922787659001561568",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/benson-service-account%40benson-ag9e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
