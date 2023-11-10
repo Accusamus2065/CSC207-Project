@@ -14,6 +14,6 @@ public class ConversationInteractor implements ConversationInputBoundary {
 
     @Override
     public void execute(ConversationInputData data) {
-        
+
     }
 }
