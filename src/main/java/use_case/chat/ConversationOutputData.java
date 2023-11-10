@@ -1,23 +1,17 @@
 package use_case.chat;
 
+import entity.chat.Conversation;
+import interface_adapter.chat.ConversationState;
+
 public class ConversationOutputData {
+    private Conversation convo;
+    private boolean useCaseFailed;
+    public ConversationOutputData(Conversation convo, boolean useCaseFailed) {
+        this.convo = convo;
+        this.useCaseFailed = useCaseFailed;
+    }
 
-//    public ConversationOutputData(String username, String creationTime, boolean useCaseFailed) {
-//        this.username = username;
-//        this.creationTime = creationTime;
-//        this.useCaseFailed = useCaseFailed;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public String getCreationTime() {
-//        return creationTime;
-//    }
-//
-//    public void setCreationTime(String creationTime) {
-//        this.creationTime = creationTime;
-//    }
-
+    public Conversation getConversation() {
+        return convo;
+    }
 }

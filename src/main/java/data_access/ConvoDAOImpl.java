@@ -12,6 +12,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
 import io.github.cdimascio.dotenv.Dotenv;
+import use_case.chat.IConvoDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class ConvoDAOImpl {
+public class ConvoDAOImpl implements IConvoDAO {
 
     @NotNull
     private static MongoClientSettings getMongoClientSettings() {
