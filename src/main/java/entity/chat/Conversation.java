@@ -1,38 +1,34 @@
 package entity.chat;
-
-import entity.chat.Message;
-import entity.people.User;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Conversation {
-    private List<User> participants;
-    private List<Message> messages;
+    List<String> participants;
+    List<Message> messages;
 
-    public Conversation() {
-        this.participants = new ArrayList<>();
-        this.messages = new ArrayList<>();
+    public Conversation(String user1, String user2, List<Message> messages) {
+        String[] arr = {user1, user2};
+        this.participants = Arrays.asList(arr);
+        this.messages = messages;
     }
 
-    // Add a participant to the chat
-    public void addParticipant(User user) {
-        participants.add(user);
-    }
-
-    // Add a message to the chat
     public void addMessage(Message message) {
         messages.add(message);
     }
 
-    // Get all messages in the chat
-    public List<Message> getMessages() {
-        return messages;
+    public void addParticipant(String participant) {
+        participants.add(participant);
     }
 
-    // Get the participants in the chat
-    public List<User> getParticipants() {
+    public List<String> getParticipants() {
         return participants;
     }
 
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
 }

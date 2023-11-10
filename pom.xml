@@ -78,6 +78,16 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>4.10.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson-record-codec</artifactId>
+            <version>4.10.2</version>
+        </dependency>
 
     </dependencies>
 

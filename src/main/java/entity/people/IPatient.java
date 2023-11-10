@@ -1,7 +1,5 @@
 package entity.people;
 
-import entity.chat.Conversation;
-
 import java.util.List;
 
 public interface IPatient extends User{
@@ -18,6 +16,4 @@ public interface IPatient extends User{
     void setWeight(double weight);
     String getBloodType();
     void setBloodType(String bloodType);
-    List<Conversation> getConvs();
-    void setConvs(List<Conversation> convs);
 }

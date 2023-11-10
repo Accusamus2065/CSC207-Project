@@ -1,7 +1,5 @@
 package entity.people;
 
-import entity.chat.Conversation;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +11,10 @@ public class CommonPatient implements IPatient {
     private double height;
     private double weight;
     private String bloodType;
-    private List<Conversation> convs;
 
     public CommonPatient(String username, String password) {
         this.username = username;
         this.password = password;
-        this.convs = new ArrayList<>();
     }
 
     public void addConversation() {
@@ -83,11 +79,5 @@ public class CommonPatient implements IPatient {
         this.bloodType = bloodType;
     }
 
-    public List<Conversation> getConvs() {
-        return convs;
-    }
 
-    public void setConvs(List<Conversation> convs) {
-        this.convs = convs;
-    }
 }
