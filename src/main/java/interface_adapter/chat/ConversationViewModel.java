@@ -1,6 +1,5 @@
 package interface_adapter.chat;
 
-import entity.chat.Conversation;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;

@@ -2,25 +2,24 @@ package data_access;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+import entity.chat.Conversation;
 import entity.chat.Message;
-import entity.people.User;
-import entity.people.UserFactory;
 import org.bson.Document;
-//import use_case.login.LoginUserDataAccessInterface;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
-import use_case.signup.SignupUserDataAccessInterface;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import io.github.cdimascio.dotenv.Dotenv;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class ConvoDAOImpl {
-    private final List<Message> messages = new ArrayList<>();
-
 
     @NotNull
     private static MongoClientSettings getMongoClientSettings() {
@@ -31,51 +30,101 @@ public class ConvoDAOImpl {
         ServerApi serverApi = ServerApi.builder().version(ServerApiVersion.V1).build();
 
         assert connectionString != null;
-        return MongoClientSettings.builder().applyConnectionString(
-                new ConnectionString(connectionString)).serverApi(serverApi).build();
+        return MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build();
     }
 
-    public static void main(String[] args) {
-        new ConvoDAOImpl();
+    private static MongoDatabase connectToDatabase() {
+        MongoClientSettings settings = getMongoClientSettings();
+        MongoClient mongoClient = MongoClients.create(settings);
+
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build())
+        );
+
+        return mongoClient.getDatabase("entities").withCodecRegistry(pojoCodecRegistry);
     }
 
     public ConvoDAOImpl() throws MongoException {
-        MongoClientSettings settings = getMongoClientSettings();
+        // Constructor logic
+    }
+    // TODO:interface method
+    public void save(Conversation convo) {
+        saveRemote(convo);
+    }
 
-        // Create a new client and connect to the server
-        try (MongoClient mongoClient = MongoClients.create(settings)) {
-            MongoCollection coll = mongoClient.getDatabase("entities").getCollection("message");
-            // Find all documents in the collection
-            MongoCursor<Document> cursor = coll.find().iterator();
-            System.out.println("=============");
+    // TODO:interface method
+    public Conversation query(String user1, String user2) {
+        Conversation convo = new Conversation(user1, user2, getMessagesForSinglePerson(user1, user2));
+        return convo;
+    }
 
-            // Iterate through the results
-            while (cursor.hasNext()) {
-                Document document = cursor.next();
-                // Access and process document data as needed
-                System.out.println(document.toJson());
-                System.out.println("=============");
-            }
+    // TODO:interface method
+    public void deleteAll() {
+        deleteAllMessages();
+    }
 
-            // Close resources
-            cursor.close();
+
+    // TODO:interface method
+    public List<Message> query() {
+        return getMessagesFromCollection();
+    }
+
+
+
+    private List<Message> getMessagesForSinglePerson(String user1, String user2) {
+        MongoDatabase database = connectToDatabase();
+        MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);
+        Bson filter = Filters.or(
+                Filters.and(Filters.eq("sender", user1), Filters.eq("receiver", user2)),
+                Filters.and(Filters.eq("sender", user2), Filters.eq("receiver", user1))
+        );
+        FindIterable<Message> messageIterable = messageCollection.find(filter);
+        List<Message> list = new ArrayList<>();
+        messageIterable.into(list);
+        return list;
+    }
+
+    private List<Message> getMessagesFromCollection() {
+        MongoDatabase database = connectToDatabase();
+        MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);
+        FindIterable<Message> messageIterable = messageCollection.find();
+        List<Message> list = new ArrayList<>();
+        messageIterable.into(list);
+        return list;
+    }
+
+    private void saveRemote(Conversation convo) {
+        MongoDatabase database = connectToDatabase();
+        MongoCollection<Document> collection = database.getCollection("message");
+        List<Document> docs = new ArrayList<>();
+
+        for (Message each : convo.getMessages()) {
+            docs.add(new Document("content", each.getContent())
+                    .append("sender", each.getSender())
+                    .append("receiver", each.getReceiver())
+                    .append("timestamp", each.getTimestamp()));
         }
+
+        collection.insertMany(docs);
+        System.out.println("Added messages in collection message");
     }
-    public void save(Message message) {
-        messages.add(message);
-        saveRemote(message);
+    private void deleteAllMessages() {
+        MongoDatabase database = connectToDatabase();
+        MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);
+
+        // Create an empty filter to match all documents
+        Bson filter = Filters.eq("_id", new Document("$exists", true)); // Assuming "_id" field exists in your documents
+
+        // Perform the delete operation
+        DeleteResult result = messageCollection.deleteMany(filter);
+
+        // Print the number of deleted documents
+        System.out.println("Deleted " + result.getDeletedCount() + " documents from the 'message' collection");
+
     }
 
-
-
-    private void saveRemote(Message message) {
-        MongoClientSettings settings = getMongoClientSettings();
-        try (MongoClient mongoClient = MongoClients.create(settings)) {
-            MongoDatabase database = mongoClient.getDatabase("entities");
-            MongoCollection<Document> patients = database.getCollection("message");
-            Document messagedoc = new Document("message", message);
-            patients.insertOne(messagedoc);
-            System.out.println("Added patient to database");
-        }
-    }
 }
