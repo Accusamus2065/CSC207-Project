@@ -3,7 +3,7 @@ package use_case.login;
 public class LoginOutputData {
 
     private final String username;
-    private boolean useCaseFailed;
+    private final boolean useCaseFailed;
 
     public LoginOutputData(String username, boolean useCaseFailed) {
         this.username = username;
@@ -14,4 +14,7 @@ public class LoginOutputData {
         return username;
     }
 
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
 }

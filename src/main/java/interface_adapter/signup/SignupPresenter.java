@@ -23,6 +23,8 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void prepareSuccessView(SignupOutputData response) {
+        assert !response.isUseCaseFailed();
+
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
