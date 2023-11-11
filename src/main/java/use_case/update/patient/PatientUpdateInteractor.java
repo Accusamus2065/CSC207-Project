@@ -33,6 +33,8 @@ public class PatientUpdateInteractor implements PatientUpdateInputBoundary {
                         patientUpdateInputData.getWeight(),
                         patientUpdateInputData.getBloodType());
                 userDataAccessObject.update(patientUpdateInputData.getOldUsername(), patient);
+                PatientUpdateOutputData outputData = new PatientUpdateOutputData(patient.getUsername(), false);
+                userPresenter.prepareSuccessView(outputData);
             }
         } catch (Exception e) {
             userPresenter.prepareFailView(e.getMessage());

@@ -1,10 +1,8 @@
 package use_case.update.patient;
 
-import use_case.signup.SignupOutputData;
-
 public interface PatientUpdateOutputBoundary {
 
-    void prepareSuccessView(SignupOutputData user);
+    void prepareSuccessView(PatientUpdateOutputData user);
 
     void prepareFailView(String error);
 }

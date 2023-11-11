@@ -30,6 +30,8 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
                         doctorUpdateInputData.getSpecialty(),
                         doctorUpdateInputData.getDegree());
                 userDataAccessObject.update(doctorUpdateInputData.getOldUsername(), doctor);
+                DoctorUpdateOutputData outputDate = new DoctorUpdateOutputData(doctor.getUsername(), false);
+                userPresenter.prepareSuccessView(outputDate);
             }
         } catch (Exception e) {
             userPresenter.prepareFailView(e.getMessage());
