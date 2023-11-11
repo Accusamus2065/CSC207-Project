@@ -5,6 +5,7 @@ import use_case.update.doctor.DoctorUpdateOutputData;
 
 public class DoctorUpdatePresenter implements DoctorUpdateOutputBoundary {
     //TODO: implement this when logged-in view is done
+
     @Override
     public void prepareSuccessView(DoctorUpdateOutputData response) {
         assert !response.isUseCaseFailed();
