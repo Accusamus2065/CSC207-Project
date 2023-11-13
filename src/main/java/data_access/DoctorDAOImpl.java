@@ -4,13 +4,14 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 import entity.mongo.MongoFactory;
 import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
 import entity.people.User;
 import org.bson.Document;
-import use_case.signup.SignupUserDataAccessInterface;
+import org.bson.conversions.Bson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,5 +60,23 @@ public class DoctorDAOImpl {
 
     public IDoctor get(String username) {
         return (IDoctor) accounts.get(username);
+    }
+
+    public void update(String oldUsername, IDoctor user) {
+        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoCollection<Document> patients = database.getCollection("doctors");
+
+        // this should return a single document since we assume oldUsername exists in the database as a username,
+        // and usernames should be unique
+        Document query = new Document("username", oldUsername);
+
+        Bson updates = Updates.combine(
+                Updates.set("username", user.getUsername()),
+                Updates.set("password", user.getPassword()),
+                Updates.set("specialty", user.getSpecialty()),
+                Updates.set("degree", user.getDegree())
+        );
+
+        patients.updateOne(query, updates);
     }
 }
