@@ -1,18 +1,29 @@
 package interface_adapter.welcome.signup;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 import use_case.welcome.WelcomeOutputData;
 import use_case.welcome.signup.WelcomeSignupOutputBoundary;
 
 public class WelcomeSignupPresenter implements WelcomeSignupOutputBoundary {
+    private final SignupViewModel signupViewModel;
+    private ViewManagerModel viewManagerModel;
+
+    public WelcomeSignupPresenter(SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
+        this.signupViewModel = signupViewModel;
+        this.viewManagerModel = viewManagerModel;
+    }
+
     @Override
     public void swapViews(WelcomeOutputData welcomeOutputData) {
-        // TODO: complete me; depends on SignupViewModel
-        boolean isDoctor = welcomeOutputData.isDoctor();
+        SignupState signupState = signupViewModel.getState();
+        signupState.setDoctor(welcomeOutputData.isDoctor());
+        this.signupViewModel.setState(signupState);
+        signupViewModel.firePropertyChanged();
 
-        if (isDoctor) {
-            System.out.println("Click 'Sign up'; isDoctor");
-        } else {
-            System.out.println("Click 'Sign up'; !isDoctor");
-        }
+        viewManagerModel.setActiveView(signupViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+        System.out.println("Press 'Signup'; isDoctor=" + welcomeOutputData.isDoctor());
     }
 }

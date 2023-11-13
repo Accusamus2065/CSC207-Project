@@ -2,14 +2,16 @@ package use_case.signup;
 
 public class SignupInputData {
 
-    final private String username;
-    final private String password;
-    final private String repeatPassword;
+    private final String username;
+    private final String password;
+    private final String repeatPassword;
+    private final boolean isDoctor;
 
-    public SignupInputData(String username, String password, String repeatPassword) {
+    public SignupInputData(String username, String password, String repeatPassword, boolean isDoctor) {
         this.username = username;
         this.password = password;
         this.repeatPassword = repeatPassword;
+        this.isDoctor = isDoctor;
     }
 
     String getUsername() {
@@ -22,5 +24,9 @@ public class SignupInputData {
 
     public String getRepeatPassword() {
         return repeatPassword;
+    }
+
+    public boolean isDoctor() {
+        return isDoctor;
     }
 }

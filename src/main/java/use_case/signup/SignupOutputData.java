@@ -1,15 +1,11 @@
 package use_case.signup;
 
 public class SignupOutputData {
-
     private final String username;
-    private String creationTime;
+    private final boolean useCaseFailed;
 
-    private boolean useCaseFailed;
-
-    public SignupOutputData(String username, String creationTime, boolean useCaseFailed) {
+    public SignupOutputData(String username, boolean useCaseFailed) {
         this.username = username;
-        this.creationTime = creationTime;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -17,12 +13,7 @@ public class SignupOutputData {
         return username;
     }
 
-    public String getCreationTime() {
-        return creationTime;
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
     }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
-    }
-
 }

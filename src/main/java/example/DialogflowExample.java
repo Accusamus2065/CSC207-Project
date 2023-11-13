@@ -17,7 +17,7 @@ public class DialogflowExample {
     private static final String PROJECT_ID = "benson-ag9e";
     private static final String LANGUAGE_CODE = "en-US";
     private static final String SESSION_ID = UUID.randomUUID().toString();
-    private static final String CREDENTIALS_FILE_PATH = "src/main/java/org/config/benson.json";
+    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/benson-ag9e-e8ef611e8721.json";
 
     public static void main(String[] args) throws IOException {
         // Set up Google Cloud credentials

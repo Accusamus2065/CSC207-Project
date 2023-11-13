@@ -1,11 +1,15 @@
 package use_case.login;
 
-import entity.User;
+import entity.people.IDoctor;
+import entity.people.IPatient;
+import entity.people.User;
 
 public interface LoginUserDataAccessInterface {
-    boolean existsByName(String identifier);
-
-    void save(User user);
+    boolean existsByName(boolean isDoctor, String identifier);
 
     User get(String username);
+
+    IDoctor getDoctor(String username);
+
+    IPatient getPatient(String username);
 }

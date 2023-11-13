@@ -1,10 +1,12 @@
 package use_case.signup;
 
 
+import entity.people.IDoctor;
+import entity.people.IPatient;
 import entity.people.User;
 
 public interface SignupUserDataAccessInterface {
-    boolean existsByName(String identifier);
-
-    void save(User user);
+    void save(IPatient user);
+    void save(IDoctor user);
+    boolean existsByName(boolean isDoctor, String identifier);
 }
