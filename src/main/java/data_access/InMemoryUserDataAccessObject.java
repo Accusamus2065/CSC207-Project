@@ -12,19 +12,21 @@ import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface {
 
-    private final Map<String, User> users = new HashMap<>();
+    private final Map<String, User> doctors = new HashMap<>();
+    private final Map<String, User> patients = new HashMap<>();
+
 
     @Override
-    public void save(IPatient user) {
+    public void save(IPatient user) {patients.put(user.getUsername(), user);
     }
 
     @Override
     public void save(IDoctor user) {
-        users.put(user.)
+        doctors.put(user.getUsername(), user);
     }
 
     @Override
     public boolean existsByName(boolean isDoctor, String identifier) {
-        return users.containsKey(identifier);
+        return doctors.containsKey(identifier) || patients.containsKey(identifier);
     }
 }
