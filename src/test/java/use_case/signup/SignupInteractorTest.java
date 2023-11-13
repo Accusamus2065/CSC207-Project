@@ -155,5 +155,4 @@ public class SignupInteractorTest {
         interactor.execute(inputData);
     }
 
-
 }
