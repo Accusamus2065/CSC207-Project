@@ -4,7 +4,7 @@ import entity.people.CommonPatient;
 import entity.people.IPatient;
 import org.junit.Test;
 
-public class TestDAOFacade {
+public class DAOFacadeTest {
     DAOFacade daoFacade = new DAOFacade();
 
     @Test
