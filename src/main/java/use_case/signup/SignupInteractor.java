@@ -21,24 +21,26 @@ public class SignupInteractor implements SignupInputBoundary {
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        if (userDataAccessObject.existsByName(signupInputData.isDoctor(), signupInputData.getUsername())) {
-            userPresenter.prepareFailView("User already exists.");
-        } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            userPresenter.prepareFailView("Passwords don't match.");
-        } else {
-            if (signupInputData.isDoctor()) {
-                IDoctor doctor = (IDoctor) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
-                userDataAccessObject.save(doctor);
-                SignupOutputData signupOutputData = new SignupOutputData(doctor.getUsername(), false,
-                        signupInputData.isDoctor());
-                userPresenter.prepareSuccessView(signupOutputData);
+        try {
+            if (userDataAccessObject.existsByName(signupInputData.isDoctor(), signupInputData.getUsername())) {
+                userPresenter.prepareFailView("User already exists.");
+            } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
+                userPresenter.prepareFailView("Passwords don't match.");
             } else {
-                IPatient patient = (IPatient) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
-                userDataAccessObject.save(patient);
-                SignupOutputData signupOutputData = new SignupOutputData(patient.getUsername(), false,
-                        signupInputData.isDoctor());
-                userPresenter.prepareSuccessView(signupOutputData);
+                if (signupInputData.isDoctor()) {
+                    IDoctor doctor = (IDoctor) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+                    userDataAccessObject.save(doctor);
+                    SignupOutputData signupOutputData = new SignupOutputData(doctor.getUsername(), false);
+                    userPresenter.prepareSuccessView(signupOutputData);
+                } else {
+                    IPatient patient = (IPatient) userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+                    userDataAccessObject.save(patient);
+                    SignupOutputData signupOutputData = new SignupOutputData(patient.getUsername(), false);
+                    userPresenter.prepareSuccessView(signupOutputData);
+                }
             }
+        } catch (Exception e) {
+            userPresenter.prepareFailView(e.getMessage());
         }
     }
 }
