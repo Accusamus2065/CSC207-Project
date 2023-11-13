@@ -1,11 +1,15 @@
 package front_end.Views;
 
 import ViewModels.LoginViewModel;
+import front_end.ViewModels.LoginViewModel;
+import interface_adapter.login.LoginState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class LoginView {
     private final JFrame frame;
@@ -16,6 +20,8 @@ public class LoginView {
     private JLabel passwordErrorField;
     private JButton logInButton;
     private JButton cancelButton;
+    private LoginViewModel loginViewModel;
+
 
     public LoginView() {
         // Create and do settings for frame
@@ -111,18 +117,22 @@ public class LoginView {
 
 
 
-//        usernameInputField.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {}
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {}
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {}
-//        });
+        usernameInputField.addKeyListener((new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                LoginState currentState = loginViewModel.getState();
+                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
+                loginViewModel.setState(currentState);
+            }
 
-    }
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
 
     public void show(){
         frame.setVisible(true);
