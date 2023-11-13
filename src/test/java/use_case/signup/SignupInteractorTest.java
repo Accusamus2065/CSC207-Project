@@ -1,7 +1,7 @@
 package use_case.signup;
 
 import data_access.InMemoryUserDataAccessObject;
-import entity.people.DoctorUserFactory;
+import entity.people.*;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +17,7 @@ public class SignupInteractorTest {
         SignupOutputBoundary successPresenter = new SignupOutputBoundary(){
             public void prepareSuccessView(SignupOutputData user){
                 assertEquals("doctor1", user.getUsername());
-                assertTrue(userRepository.existsByName(true, "tester"));
+                assertTrue(userRepository.existsByName(true, "doctor1"));
             }
 
             public void prepareFailView(String error){
@@ -38,7 +38,7 @@ public class SignupInteractorTest {
         SignupOutputBoundary successPresenter = new SignupOutputBoundary(){
             public void prepareSuccessView(SignupOutputData user){
                 assertEquals("patient1", user.getUsername());
-                assertTrue(userRepository.existsByName(false, "tester"));
+                assertTrue(userRepository.existsByName(false, "patient1"));
             }
 
             public void prepareFailView(String error){
@@ -49,4 +49,81 @@ public class SignupInteractorTest {
         SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new DoctorUserFactory());
         interactor.execute(inputData);
     }
+
+    @Test
+    void failurePasswordMismatchTestDoctor() {
+        SignupInputData inputData = new SignupInputData(
+                "doctor1", "password", "asl;dfjlkasdf", true);
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Passwords don't match.", error);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        interactor.execute(inputData);
+    }
+
+    void failurePasswordMismatchTestPatient() {
+        SignupInputData inputData = new SignupInputData(
+                "patient1", "password", "asl;dfjlkasdf", false);
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Passwords don't match.", error);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new PatientUserFactory());
+        interactor.execute(inputData);
+    }
+
+    void failureUserExistsTest() {
+        SignupInputData inputData = new SignupInputData(
+                "doctor1", "password", "password", true);
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Add Paul to the repo so that when we check later they already exist
+        DoctorUserFactory factory = new DoctorUserFactory();
+        IDoctor doctor = factory.create("doctor1", "ialreadyexist", "MedSchool", "Cancer");
+        userRepository.save(doctor);
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("User already exists.", error);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        interactor.execute(inputData);
+    }
+
+
 }
