@@ -1,12 +1,15 @@
 package data_access;
 
+
 import com.mongodb.client.*;
+import com.mongodb.client.model.Updates;
 import entity.mongo.MongoFactory;
 import entity.people.CommonPatient;
 import entity.people.IPatient;
 import entity.people.PatientUserFactory;
 import entity.people.User;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,5 +73,26 @@ public class PatientDAOImpl {
 
     public IPatient get(String username) {
         return (IPatient) accounts.get(username);
+    }
+
+    public void update(String oldUsername, IPatient user) {
+        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoCollection<Document> patients = database.getCollection("patients");
+
+        // this should return a single document since we assume oldUsername exists in the database as a username,
+        // and usernames should be unique
+        Document query = new Document("patients", oldUsername);
+
+        Bson updates = Updates.combine(
+                Updates.set("username", user.getUsername()),
+                Updates.set("password", user.getPassword()),
+                Updates.set("sex", user.getSex()),
+                Updates.set("gender", user.getGender()),
+                Updates.set("height", user.getHeight()),
+                Updates.set("weight", user.getWeight()),
+                Updates.set("bloodtype", user.getBloodType())
+        );
+
+        patients.updateOne(query, updates);
     }
 }

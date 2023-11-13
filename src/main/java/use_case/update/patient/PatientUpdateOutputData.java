@@ -1,11 +1,10 @@
-package use_case.login;
+package use_case.update.patient;
 
-public class LoginOutputData {
-
+public class PatientUpdateOutputData {
     private final String username;
     private final boolean useCaseFailed;
 
-    public LoginOutputData(String username, boolean useCaseFailed) {
+    public PatientUpdateOutputData(String username, boolean useCaseFailed) {
         this.username = username;
         this.useCaseFailed = useCaseFailed;
     }
