@@ -13,6 +13,7 @@ import org.bson.Document;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DoctorDAOImpl {
@@ -59,5 +60,9 @@ public class DoctorDAOImpl {
 
     public IDoctor get(String username) {
         return (IDoctor) accounts.get(username);
+    }
+
+    public List<String> getSpecialists(String intent) {
+        return null;
     }
 }
