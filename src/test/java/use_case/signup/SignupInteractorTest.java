@@ -46,12 +46,12 @@ public class SignupInteractorTest {
             }
 
         };
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new DoctorUserFactory());
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new PatientUserFactory());
         interactor.execute(inputData);
     }
 
     @Test
-    void failurePasswordMismatchTestDoctor() {
+    public void failurePasswordMismatchTestDoctor() {
         SignupInputData inputData = new SignupInputData(
                 "doctor1", "password", "asl;dfjlkasdf", true);
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -74,7 +74,7 @@ public class SignupInteractorTest {
         interactor.execute(inputData);
     }
 
-    void failurePasswordMismatchTestPatient() {
+    public void failurePasswordMismatchTestPatient() {
         SignupInputData inputData = new SignupInputData(
                 "patient1", "password", "asl;dfjlkasdf", false);
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -97,15 +97,45 @@ public class SignupInteractorTest {
         interactor.execute(inputData);
     }
 
-    void failureUserExistsTest() {
+    @Test
+    public void failureDoctorExistsTest() {
         SignupInputData inputData = new SignupInputData(
                 "doctor1", "password", "password", true);
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
         DoctorUserFactory factory = new DoctorUserFactory();
-        IDoctor doctor = factory.create("doctor1", "ialreadyexist", "MedSchool", "Cancer");
+        IDoctor doctor = (IDoctor) factory.create("doctor1", "ialreadyexist", "MedSchool", "Cancer");
         userRepository.save(doctor);
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("User already exists.", error);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
+    public void failurePatientExistsTest() {
+        SignupInputData inputData = new SignupInputData(
+                "patient1", "password", "password", false);
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Add Paul to the repo so that when we check later they already exist
+        PatientUserFactory factory = new PatientUserFactory();
+        IPatient patient = (IPatient) factory.create("patient1", "ialreadyexist");
+        userRepository.save(patient);
 
         // This creates a presenter that tests whether the test case is as we expect.
         SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
