@@ -74,6 +74,7 @@ public class SignupInteractorTest {
         interactor.execute(inputData);
     }
 
+    @Test
     public void failurePasswordMismatchTestPatient() {
         SignupInputData inputData = new SignupInputData(
                 "patient1", "password", "asl;dfjlkasdf", false);
