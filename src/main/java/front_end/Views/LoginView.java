@@ -1,6 +1,6 @@
 package front_end.Views;
 
-import ViewModels.LoginViewModel;
+
 import front_end.ViewModels.LoginViewModel;
 import interface_adapter.login.LoginState;
 
@@ -99,7 +99,8 @@ public class LoginView {
         logInButton.setFocusable(false);
         logInButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {}
+            public void actionPerformed(ActionEvent e) {
+            }
         });
         logInButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
         buttonPanel.add(logInButton);
@@ -110,14 +111,14 @@ public class LoginView {
         cancelButton.setFocusable(false);
         cancelButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {}
+            public void actionPerformed(ActionEvent e) {
+            }
         });
         cancelButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
         buttonPanel.add(cancelButton);
 
 
-
-        usernameInputField.addKeyListener((new KeyListener() {
+        usernameInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 LoginState currentState = loginViewModel.getState();
@@ -133,6 +134,7 @@ public class LoginView {
             public void keyReleased(KeyEvent e) {
             }
         });
+    }
 
     public void show(){
         frame.setVisible(true);

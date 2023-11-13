@@ -1,5 +1,7 @@
 package front_end.ViewModels;
 
+import interface_adapter.login.LoginState;
+
 import java.awt.*;
 
 public class LoginViewModel {
@@ -14,6 +16,13 @@ public class LoginViewModel {
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
     public static final Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 20);
     public static final Dimension BUTTON_DIMENSION = new Dimension(100, 70);
+    private LoginState state = new LoginState();
+
+    public LoginState getState() {return state;}
+
+    public void setState(LoginState state) {
+        this.state = state;
+    }
 
 //    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 //
