@@ -5,12 +5,16 @@ import entity.chat.Message;
 import entity.people.*;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
+import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
 import java.util.List;
 
 public class DAOFacade implements
         SignupUserDataAccessInterface,
-        LoginUserDataAccessInterface {
+        LoginUserDataAccessInterface,
+        DoctorUpdateUserDataAccessInterface,
+        PatientUpdateUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
     ConvoDAOImpl convoDAO = new ConvoDAOImpl();
@@ -27,6 +31,16 @@ public class DAOFacade implements
 
     public void save(Conversation convo) {
         convoDAO.save(convo);
+    }
+
+    @Override
+    public void update(String oldUsername, IDoctor user) {
+        doctorDAO.update(oldUsername, user);
+    }
+
+    @Override
+    public void update(String oldUsername, IPatient user) {
+        patientDAO.update(oldUsername, user);
     }
 
     public boolean existsByName(boolean isDoctor, String identifier) {
