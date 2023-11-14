@@ -4,7 +4,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Updates;
 import entity.mongo.MongoFactory;
 import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
@@ -15,6 +14,8 @@ import org.bson.conversions.Bson;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class DoctorDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
@@ -63,20 +64,24 @@ public class DoctorDAOImpl {
     }
 
     public void update(String oldUsername, IDoctor user) {
+        accounts.remove(oldUsername);
+        accounts.put(user.getUsername(), user);
+        updateDAO(oldUsername, user);
+    }
+
+    public void updateDAO(String oldUsername, IDoctor user) {
         MongoDatabase database = mongoClient.getDatabase("entities");
-        MongoCollection<Document> patients = database.getCollection("doctors");
+        MongoCollection<Document> doctors = database.getCollection("doctors");
 
         // this should return a single document since we assume oldUsername exists in the database as a username,
         // and usernames should be unique
-        Document query = new Document("username", oldUsername);
+        Bson query = eq("username", oldUsername);
 
-        Bson updates = Updates.combine(
-                Updates.set("username", user.getUsername()),
-                Updates.set("password", user.getPassword()),
-                Updates.set("specialty", user.getSpecialty()),
-                Updates.set("degree", user.getDegree())
-        );
+        Document document = new Document("username", user.getUsername())
+                .append("password", user.getPassword())
+                .append("specialty", user.getSpecialty())
+                .append("degree", user.getDegree());
 
-        patients.updateOne(query, updates);
+        doctors.replaceOne(query, document);
     }
 }
