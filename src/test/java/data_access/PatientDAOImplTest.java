@@ -12,66 +12,87 @@ import org.bson.conversions.Bson;
 import org.junit.Test;
 
 import static com.mongodb.client.model.Filters.eq;
-import static junit.framework.TestCase.*;
+import static org.junit.Assert.*;
 
 public class PatientDAOImplTest {
-    PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
-    private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
-    MongoDatabase database = mongoClient.getDatabase("entities");
-    MongoCollection<Document> patients = database.getCollection("patients");
+    private final PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
+    private final MongoClient mongoClient = MongoFactory.setUpMongoClient();
+    private final MongoDatabase database = mongoClient.getDatabase("entities");
+    private final MongoCollection<Document> patients = database.getCollection("patients");
+    private static final String USERNAME = "testUsername";
+    private static final String PASSWORD = "password";
+    private static final String UPDATE_USERNAME = "testUpdatedUsername";
+    private static final String UPDATE_PASSWORD = "testPassword";
 
     @Test
     public void testExistsByName() {
-        IPatient patient = new CommonPatient("username", "password");
+        IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         PatientUserFactory factory = new PatientUserFactory();
 
         // Test patientDAO.existsByName works with patientDAO.save
         patientDAO.save(patient);
-        assertTrue(patientDAO.existsByName("username"));
+        assertTrue(patientDAO.existsByName(USERNAME));
 
         // Test patientDAO.existsByName works with patientDAO.update
-        IPatient updatedPatient = (IPatient) factory.create("username1",
-                "password1",
+        IPatient updatedPatient = (IPatient) factory.create(UPDATE_USERNAME,
+                UPDATE_PASSWORD,
                 "male",
                 "female",
                 180,
                 60,
                 "O+");
-        patientDAO.update("username", updatedPatient);
-        assertTrue(patientDAO.existsByName("username1"));
+        patientDAO.update(USERNAME, updatedPatient);
+        assertTrue(patientDAO.existsByName(UPDATE_USERNAME));
 
-        Bson query = eq("username", "username1");
+        Bson query = eq("username", UPDATE_USERNAME);
         patients.deleteOne(query);
+    }
+
+    @Test
+    public void testExistsByNameFalse() {
+        Bson query = eq("username", USERNAME);
+        assertEquals(0, patients.countDocuments(query));
+
+        assertFalse(patientDAO.existsByName(USERNAME));
     }
 
     @Test
     public void testGet() {
-        IPatient patient = new CommonPatient("username", "password");
+        IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         patientDAO.save(patient);
-        IPatient getpatient = patientDAO.get("username");
-        assert getpatient != null;
-        assertEquals(patient, getpatient);
+
+        IPatient getPatient = patientDAO.get(USERNAME);
+        assertNotNull(getPatient);
+        assertSame(patient, getPatient);
 
 
-        Bson query = eq("username", "username");
+        Bson query = eq("username", USERNAME);
         patients.deleteOne(query);
     }
 
     @Test
+    public void getNullTest() {
+        Bson query = eq("username", USERNAME);
+        assertEquals(0, patients.countDocuments(query));
+
+        assertNull(patientDAO.get(USERNAME));
+    }
+
+    @Test
     public void testSave() {
-        IPatient patient = new CommonPatient("username", "password");
+        IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         patientDAO.save(patient);
 
-        assert patientDAO.existsByName("username");
+        assertTrue(patientDAO.existsByName(USERNAME));
 
-        Document query = new Document("username", "username");
+        Document query = new Document("username", USERNAME);
         assertEquals(1, patients.countDocuments(query));
-        Document DAOpatient = patients.find(query).first();
+        Document DAOPatient = patients.find(query).first();
 
 
-        assert DAOpatient != null;
-        assertEquals("username", DAOpatient.getString("username"));
-        assertEquals("password", DAOpatient.getString("password"));
+        assertNotNull(DAOPatient);
+        assertEquals(USERNAME, DAOPatient.getString("username"));
+        assertEquals(PASSWORD, DAOPatient.getString("password"));
         patients.deleteOne(query);
     }
 
@@ -79,34 +100,34 @@ public class PatientDAOImplTest {
     public void testUpdate() {
         PatientUserFactory factory = new PatientUserFactory();
 
-        IPatient patient = new CommonPatient("username", "password");
+        IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         patientDAO.save(patient);
-        IPatient updatedPatient = (IPatient) factory.create("username1",
-                "password1",
+        IPatient updatedPatient = (IPatient) factory.create(UPDATE_USERNAME,
+                UPDATE_PASSWORD,
                 "male",
                 "female",
                 180,
                 60,
                 "O+");
-        patientDAO.update("username", updatedPatient);
+        patientDAO.update(USERNAME, updatedPatient);
 
         // Test if old username document has been deleted
-        Document query = new Document("username", "username");
+        Document query = new Document("username", USERNAME);
         assertEquals(0, patients.countDocuments(query));
         // Test if new username document in collection
-        query = new Document("username", "username1");
+        query = new Document("username", UPDATE_USERNAME);
         assertEquals(1, patients.countDocuments(query));
         // Test if new document has updated information
-        Document DAOpatient = patients.find(query).first();
+        Document DAOPatient = patients.find(query).first();
 
-        assert DAOpatient != null;
-        assertEquals(updatedPatient.getUsername(), DAOpatient.getString("username"));
-        assertEquals(updatedPatient.getPassword(), DAOpatient.getString("password"));
-        assertEquals(updatedPatient.getSex(), DAOpatient.getString("sex"));
-        assertEquals(updatedPatient.getGender(), DAOpatient.getString("gender"));
-        assertEquals(updatedPatient.getHeight(), DAOpatient.getDouble("height"));
-        assertEquals(updatedPatient.getWeight(), DAOpatient.getDouble("weight"));
-        assertEquals(updatedPatient.getBloodType(), DAOpatient.getString("bloodtype"));
+        assertNotNull(DAOPatient);
+        assertEquals(updatedPatient.getUsername(), DAOPatient.getString("username"));
+        assertEquals(updatedPatient.getPassword(), DAOPatient.getString("password"));
+        assertEquals(updatedPatient.getSex(), DAOPatient.getString("sex"));
+        assertEquals(updatedPatient.getGender(), DAOPatient.getString("gender"));
+        assertEquals(updatedPatient.getHeight(), DAOPatient.getDouble("height"), 0);
+        assertEquals(updatedPatient.getWeight(), DAOPatient.getDouble("weight"), 0);
+        assertEquals(updatedPatient.getBloodType(), DAOPatient.getString("bloodtype"));
 
         patients.deleteOne(query);
     }
