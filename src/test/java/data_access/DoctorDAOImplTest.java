@@ -35,6 +35,14 @@ public class DoctorDAOImplTest {
     }
 
     @Test
+    public void getNullTest() {
+        Bson query = eq("username", "testUsername");
+        assertEquals(0, doctors.countDocuments(query));
+
+        assertNull(doctorDAO.get("testUsername"));
+    }
+
+    @Test
     public void saveTest() {
         IDoctor doctor = (IDoctor) factory.create("testUsername",
                 "password",
@@ -101,5 +109,13 @@ public class DoctorDAOImplTest {
 
         Bson query = eq("username", "testUsername1");
         doctors.deleteOne(query);
+    }
+
+    @Test
+    public void existsByNameFalseTest() {
+        Bson query = eq("username", "testUsername");
+        assertEquals(0, doctors.countDocuments(query));
+
+        assertFalse(doctorDAO.existsByName("testUsername"));
     }
 }

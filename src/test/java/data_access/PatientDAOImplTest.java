@@ -12,7 +12,7 @@ import org.bson.conversions.Bson;
 import org.junit.Test;
 
 import static com.mongodb.client.model.Filters.eq;
-import static junit.framework.TestCase.*;
+import static org.junit.Assert.*;
 
 public class PatientDAOImplTest {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
@@ -59,6 +59,14 @@ public class PatientDAOImplTest {
     }
 
     @Test
+    public void getNullTest() {
+        Bson query = eq("username", "testUsername");
+        assertEquals(0, patients.countDocuments(query));
+
+        assertNull(patientDAO.get("testUsername"));
+    }
+
+    @Test
     public void testSave() {
         IPatient patient = new CommonPatient("testUsername", "password");
         patientDAO.save(patient);
@@ -67,12 +75,12 @@ public class PatientDAOImplTest {
 
         Document query = new Document("username", "testUsername");
         assertEquals(1, patients.countDocuments(query));
-        Document DAOpatient = patients.find(query).first();
+        Document DAOPatient = patients.find(query).first();
 
 
-        assertNotNull(DAOpatient);
-        assertEquals("testUsername", DAOpatient.getString("username"));
-        assertEquals("password", DAOpatient.getString("password"));
+        assertNotNull(DAOPatient);
+        assertEquals("testUsername", DAOPatient.getString("username"));
+        assertEquals("password", DAOPatient.getString("password"));
         patients.deleteOne(query);
     }
 
@@ -98,16 +106,16 @@ public class PatientDAOImplTest {
         query = new Document("username", "testUsername1");
         assertEquals(1, patients.countDocuments(query));
         // Test if new document has updated information
-        Document DAOpatient = patients.find(query).first();
+        Document DAOPatient = patients.find(query).first();
 
-        assertNotNull(DAOpatient);
-        assertEquals(updatedPatient.getUsername(), DAOpatient.getString("username"));
-        assertEquals(updatedPatient.getPassword(), DAOpatient.getString("password"));
-        assertEquals(updatedPatient.getSex(), DAOpatient.getString("sex"));
-        assertEquals(updatedPatient.getGender(), DAOpatient.getString("gender"));
-        assertEquals(updatedPatient.getHeight(), DAOpatient.getDouble("height"));
-        assertEquals(updatedPatient.getWeight(), DAOpatient.getDouble("weight"));
-        assertEquals(updatedPatient.getBloodType(), DAOpatient.getString("bloodtype"));
+        assertNotNull(DAOPatient);
+        assertEquals(updatedPatient.getUsername(), DAOPatient.getString("username"));
+        assertEquals(updatedPatient.getPassword(), DAOPatient.getString("password"));
+        assertEquals(updatedPatient.getSex(), DAOPatient.getString("sex"));
+        assertEquals(updatedPatient.getGender(), DAOPatient.getString("gender"));
+        assertEquals(updatedPatient.getHeight(), DAOPatient.getDouble("height"), 0);
+        assertEquals(updatedPatient.getWeight(), DAOPatient.getDouble("weight"), 0);
+        assertEquals(updatedPatient.getBloodType(), DAOPatient.getString("bloodtype"));
 
         patients.deleteOne(query);
     }
