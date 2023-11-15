@@ -23,32 +23,33 @@ public class DoctorDAOImplTest {
 
     @Test
     public void getTest() {
-        IDoctor doctor = new CommonDoctor("username", "password");
+        IDoctor doctor = new CommonDoctor("testUsername", "password");
         doctorDAO.save(doctor);
 
-        IDoctor getDoctor = doctorDAO.get("username");
-        assert getDoctor != null;
+        IDoctor getDoctor = doctorDAO.get("testUsername");
+        assertNotNull(getDoctor);
+        assertSame(doctor, getDoctor);
 
-        Bson query = eq("username", "username");
+        Bson query = eq("username", "testUsername");
         doctors.deleteOne(query);
     }
 
     @Test
     public void saveTest() {
-        IDoctor doctor = (IDoctor) factory.create("username",
+        IDoctor doctor = (IDoctor) factory.create("testUsername",
                 "password",
                 "MD",
                 "orthopedics");
         doctorDAO.save(doctor);
 
-        assert doctorDAO.existsByName("username");
+        assertTrue(doctorDAO.existsByName("testUsername"));
 
-        Document query = new Document("username", "username");
+        Document query = new Document("username", "testUsername");
         assertEquals(1, doctors.countDocuments(query));
         Document DAOdoctor = doctors.find(query).first();
 
-        assert DAOdoctor != null;
-        assertEquals("username", DAOdoctor.getString("username"));
+        assertNotNull(DAOdoctor);
+        assertEquals("testUsername", DAOdoctor.getString("username"));
         assertEquals("password", DAOdoctor.getString("password"));
         assertEquals("MD", DAOdoctor.getString("degree"));
         assertEquals("orthopedics", DAOdoctor.getString("specialty"));
@@ -57,24 +58,24 @@ public class DoctorDAOImplTest {
 
     @Test
     public void updateTest() {
-        IDoctor doctor = new CommonDoctor("username", "password");
+        IDoctor doctor = new CommonDoctor("testUsername", "password");
         doctorDAO.save(doctor);
-        IDoctor updatedDoctor = (IDoctor) factory.create("username1",
+        IDoctor updatedDoctor = (IDoctor) factory.create("testUsername1",
                 "password1",
                 "MD",
                 "orthopedics");
-        doctorDAO.update("username", updatedDoctor);
+        doctorDAO.update("testUsername", updatedDoctor);
 
         // Test if old username document has been deleted
-        Document query = new Document("username", "username");
+        Document query = new Document("username", "testUsername");
         assertEquals(0, doctors.countDocuments(query));
         // Test if new username document in collection
-        query = new Document("username", "username1");
+        query = new Document("username", "testUsername1");
         assertEquals(1, doctors.countDocuments(query));
         // Test if new document has updated information
         Document DAOdoctor = doctors.find(query).first();
 
-        assert DAOdoctor != null;
+        assertNotNull(DAOdoctor);
         assertEquals(updatedDoctor.getUsername(), DAOdoctor.getString("username"));
         assertEquals(updatedDoctor.getPassword(), DAOdoctor.getString("password"));
         assertEquals(updatedDoctor.getDegree(), DAOdoctor.getString("degree"));
@@ -85,20 +86,20 @@ public class DoctorDAOImplTest {
 
     @Test
     public void existsByNameTest() {
-        IDoctor doctor = new CommonDoctor("username", "password");
+        IDoctor doctor = new CommonDoctor("testUsername", "password");
 
         // test doctorDAO.existsByName works with doctorDAO.save
         doctorDAO.save(doctor);
-        assertTrue(doctorDAO.existsByName("username"));
+        assertTrue(doctorDAO.existsByName("testUsername"));
 
-        IDoctor updatedDoctor = (IDoctor) factory.create("username1",
+        IDoctor updatedDoctor = (IDoctor) factory.create("testUsername1",
                 "password1",
                 "MD",
                 "orthopedics");
-        doctorDAO.update("username", updatedDoctor);
-        assertTrue(doctorDAO.existsByName("username1"));
+        doctorDAO.update("testUsername", updatedDoctor);
+        assertTrue(doctorDAO.existsByName("testUsername1"));
 
-        Bson query = eq("username", "username1");
+        Bson query = eq("username", "testUsername1");
         doctors.deleteOne(query);
     }
 }
