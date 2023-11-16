@@ -84,7 +84,6 @@ public class ListOfPatientsView {
             button.setBackground(Color.white);
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            Integer finalI = i;
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
