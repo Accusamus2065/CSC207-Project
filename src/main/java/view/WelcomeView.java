@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WelcomeView extends JPanel implements ActionListener{
+public class WelcomeView extends JPanel implements ActionListener {
     public final String viewName = "welcome";
     private final JButton logInButton;
     private final JButton signUpButton;
