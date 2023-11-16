@@ -165,7 +165,10 @@ public class LoginView implements ActionListener, PropertyChangeListener {
 
 
     @Override
-
+    public void propertyChange(PropertyChangeEvent e) {
+        LoginState state = (LoginState) e.getNewValue();
+        setFields(state);
+    }
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
