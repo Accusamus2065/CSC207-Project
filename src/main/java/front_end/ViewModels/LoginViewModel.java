@@ -1,8 +1,11 @@
 package front_end.ViewModels;
 
 import interface_adapter.login.LoginState;
+import interface_adapter.welcome.WelcomeState;
 
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel {
     public static final String TITLE_LABEL = "Login Screen";
@@ -24,7 +27,13 @@ public class LoginViewModel {
         this.state = state;
     }
 
-//    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-//
-//    private WelcomeState state = new WelcomeState();
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    private WelcomeState welcomeState = new WelcomeState();
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+
 }
