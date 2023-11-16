@@ -2,11 +2,13 @@ package front_end.Views;
 
 import ViewModels.ListOfPatientsViewModel;
 import ViewModels.PatientsChatWithBotViewModel;
+import interface_adapter.choosepatient.ChoosePatientController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ListOfPatientsView {
     private JFrame frame;
@@ -15,7 +17,10 @@ public class ListOfPatientsView {
     private JLabel listOfPatientsLabel;
     private JButton modifyButton;
 
-    public ListOfPatientsView() {
+    private final ChoosePatientController choosePatientController;
+
+    public ListOfPatientsView(ChoosePatientController choosePatientController) {
+        this.choosePatientController = choosePatientController;
         // Create and do settings for frame
         frame = new JFrame();
         frame.setTitle(ListOfPatientsViewModel.TITLE_LABEL);
@@ -71,10 +76,10 @@ public class ListOfPatientsView {
         midPanel.setLayout(new BoxLayout(midPanel, BoxLayout.Y_AXIS));
         midPanel.setBackground(Color.lightGray);
 
-
+        List<String> patients = choosePatientController.getPatients();
         // Add the buttons that will link doctor to the chat with the patients
-        for(int i = 1; i < 25; i++) {
-            JButton button = new JButton("Chat Patient " + i);
+        for(String p: patients) {
+            JButton button = new JButton(p);
             button.setFont(ListOfPatientsViewModel.BUTTON_FONT);
             button.setBackground(Color.white);
             button.setFocusable(false);
