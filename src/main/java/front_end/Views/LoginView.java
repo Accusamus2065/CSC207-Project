@@ -11,16 +11,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class LoginView {
+public class LoginView implements ActionListener, PropertyChangeListener {
     private final JFrame frame;
     private JPanel panel;
     private JTextField usernameInputField;
     private JLabel usernameErrorField;
     private JPasswordField passwordInputField;
     private JLabel passwordErrorField;
-    private JButton logInButton;
-    private JButton cancelButton;
+    private final JButton logInButton;
+    private final JButton cancelButton;
     private final LoginViewModel loginViewModel;
     private final LoginController loginController;
 
@@ -124,13 +126,10 @@ public class LoginView {
         cancelButton = new JButton(LoginViewModel.CANCEL_BUTTON_LABEL);
         cancelButton.setFont(LoginViewModel.BUTTON_FONT);
         cancelButton.setFocusable(false);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        cancelButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
+
         buttonPanel.add(cancelButton);
+
+        cancelButton.addActionListener(this);
 
 
         usernameInputField.addKeyListener(new KeyListener() {
@@ -157,23 +156,20 @@ public class LoginView {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
+        System.out.println("Click " + e.getActionCommand());
     }
 
         /**
      * React to a button click that results in evt.
      */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-    }
+
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    }
 
-    private void setFields() {
-    }
 
+    private void setFields(LoginState state) {
+        usernameInputField.setText(state.getUsername());
+    }
 
 }
 
