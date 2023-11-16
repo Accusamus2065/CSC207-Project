@@ -3,6 +3,8 @@ package front_end.Views;
 import front_end.ViewModels.ListOfPatientsViewModel;
 import front_end.ViewModels.PatientsChatWithBotViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
+import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +20,11 @@ public class ListOfPatientsView {
     private JButton modifyButton;
 
     private final ChoosePatientController choosePatientController;
+    private final ChoosePatientViewModel choosePatientViewModel;
 
-    public ListOfPatientsView(ChoosePatientController choosePatientController) {
+    public ListOfPatientsView(ChoosePatientController choosePatientController, ChoosePatientViewModel choosePatientViewModel) {
         this.choosePatientController = choosePatientController;
+        this.choosePatientViewModel = choosePatientViewModel;
         // Create and do settings for frame
         frame = new JFrame();
         frame.setTitle(ListOfPatientsViewModel.TITLE_LABEL);
@@ -88,7 +92,10 @@ public class ListOfPatientsView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Linked to Patient number " + finalI);
+                    ChoosePatientState currentState = choosePatientViewModel.getState();
+
+                    choosePatientController.executeChoose(p);
+
                 }
             });
             midPanel.add(button);

@@ -21,13 +21,13 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
     }
 
     @Override
-    public void executeChoose() {
+    public void executeChoose(String patient) {
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
         Boolean isDoctor = loginInputData.getIsDoctor();
         try {
             User user = userDataAccessObject // TODO FIX THIS
-            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData()
+            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData(patient, false);
             choosePatientPresenter.prepareSuccessView();
             if (!userDataAccessObject.existsByName(isDoctor, username)) {
                 loginPresenter.prepareFailView(username + ": Account does not exist.");
@@ -40,7 +40,7 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
                     User user = userDataAccessObject.get(loginInputData.getUsername());
 
                     ChoosePatientOutputData loginOutputData = new ChoosePatientOutputData(user.getUsername(), false);
-                    loginPresenter.prepareSuccessView(loginOutputData);
+                    loginPresenter.prepareSuccessView(patient);
                 }
             }
         } catch (Exception e) {
@@ -49,9 +49,7 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
     }
 
     @Override
-    public List<String> executeGetPatients() {
-        return (List)userDataAccessObject.getAccountsPatient().keySet();
-        }
+    public List<String> executeGetPatients() {return (List<String>) userDataAccessObject.getAccountsPatient().keySet();}
 
     }
 

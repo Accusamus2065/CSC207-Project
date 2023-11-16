@@ -15,11 +15,8 @@ public class ChoosePatientController {
     }
 
 
-    public void execute(String username, String password, Boolean isDoctor) {
-        LoginInputData loginInputData = new LoginInputData(
-                username, password, isDoctor);
-
-        choosePatientInteractor.execute(loginInputData);
+    public void executeChoose(String p) {
+        choosePatientInteractor.executeChoose(p);
     }
 
     public List<String> getPatients(){
