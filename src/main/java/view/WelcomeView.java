@@ -23,7 +23,7 @@ public class WelcomeView extends JPanel implements ActionListener{
         // Create and do settings for main panel
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 65));
         this.setBackground(Color.lightGray);
-        this.setPreferredSize(welcomeViewModel.PANEL_DIMENSION);
+        this.setPreferredSize(WelcomeViewModel.PANEL_DIMENSION);
 
         // Create and add label to main panel
         label = new JLabel("BENSON");
@@ -38,7 +38,7 @@ public class WelcomeView extends JPanel implements ActionListener{
 
         // Create and add checkbox to main panel indicating whether the user is a doctor
         checkBox = new JCheckBox();
-        checkBox.setText(welcomeViewModel.DOCTOR_CHECKBOX_LABEL);
+        checkBox.setText(WelcomeViewModel.DOCTOR_CHECKBOX_LABEL);
         checkBox.setFont(new Font("Sans-serif", Font.PLAIN, 18));
         checkBox.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
         checkBoxPanel.add(checkBox);
@@ -61,7 +61,7 @@ public class WelcomeView extends JPanel implements ActionListener{
         this.add(buttonPanel, BorderLayout.CENTER);
 
         // Create and do settings for login button
-        logInButton = new JButton(welcomeViewModel.LOGIN_BUTTON_LABEL);
+        logInButton = new JButton(WelcomeViewModel.LOGIN_BUTTON_LABEL);
         logInButton.setFont(WelcomeViewModel.BUTTON_FONT);
         logInButton.setFocusable(false);
         logInButton.addActionListener(
