@@ -2,6 +2,7 @@ package front_end.Views;
 
 
 import front_end.ViewModels.LoginViewModel;
+import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 
 import javax.swing.*;
@@ -20,10 +21,15 @@ public class LoginView {
     private JLabel passwordErrorField;
     private JButton logInButton;
     private JButton cancelButton;
-    private LoginViewModel loginViewModel;
+    private final LoginViewModel loginViewModel;
+    private final LoginController loginController;
 
 
-    public LoginView() {
+    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+        this.loginController = controller;
+        this.loginViewModel = loginViewModel;
+
+        this.loginViewModel.addPropertyChangeListener(this);
         // Create and do settings for frame
         frame = new JFrame();
         frame.setTitle(LoginViewModel.TITLE_LABEL);
@@ -100,6 +106,15 @@ public class LoginView {
         logInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(logInButton)) {
+                    LoginState currentState = loginViewModel.getState();
+
+                    loginController.execute(
+                            currentState.getUsername(),
+                            currentState.getPassword(),
+                            currentState.isDoctor()
+                    );
+                }
             }
         });
         logInButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
@@ -140,24 +155,24 @@ public class LoginView {
         frame.setVisible(true);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        //        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
-//    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
+    }
 
-    //    /**
-//     * React to a button click that results in evt.
-//     */
-//    public void actionPerformed(ActionEvent evt) {
-//        System.out.println("Click " + evt.getActionCommand());
-//    }
-//
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//    }
-//
-//    private void setFields() {
-//    }
+        /**
+     * React to a button click that results in evt.
+     */
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+    }
+
+    private void setFields() {
+    }
 
 
 }
