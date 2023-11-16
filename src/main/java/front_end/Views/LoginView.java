@@ -148,6 +148,24 @@ public class LoginView implements ActionListener, PropertyChangeListener {
             public void keyReleased(KeyEvent e) {
             }
         });
+
+        passwordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        LoginState currentState = loginViewModel.getState();
+                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        loginViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
     }
 
     public void show(){
