@@ -2,6 +2,9 @@ package use_case.choosepatient;
 
 import entity.people.User;
 
+import java.util.List;
+import java.util.Map;
+
 public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
     final ChoosePatientUserDataAccessInterface userDataAccessObject;
     final ChoosePatientOutputBoundary choosePatientPresenter;
@@ -44,4 +47,12 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
             loginPresenter.prepareFailView(e.getMessage());
         }
     }
+
+    @Override
+    public List<String> executeGetPatients() {
+        return (List)userDataAccessObject.getAccountsPatient().keySet();
+        }
+
+    }
+
 }
