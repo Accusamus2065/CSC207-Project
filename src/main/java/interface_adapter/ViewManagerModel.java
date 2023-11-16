@@ -13,7 +13,7 @@ public class ViewManagerModel {
     }
 
     public void setActiveView(String activeView) {
-        this.activeViewName = activeViewName;
+        this.activeViewName = activeView;
     }
 
     public void firePropertyChanged() {
