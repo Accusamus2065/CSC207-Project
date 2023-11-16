@@ -4,5 +4,6 @@ public interface ChoosePatientInputBoundary {
     void executeChoosePaitent;
     void executeLogOut();
     void executeChoose();
+    void executeGetPatients();
 
 }

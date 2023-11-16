@@ -1,5 +1,7 @@
 package interface_adapter.choosepatient;
 
+import use_case.choosepatient.ChoosePatientInputBoundary;
+import use_case.choosepatient.ChoosePatientInputData;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
 
@@ -7,9 +9,9 @@ import java.util.List;
 
 public class ChoosePatientController {
 
-    final LoginInputBoundary loginUseCaseInteractor;
-    public ChoosePatientController(LoginInputBoundary loginUseCaseInteractor) {
-        this.loginUseCaseInteractor = loginUseCaseInteractor;
+    final ChoosePatientInputBoundary choosePatientInteractor;
+    public ChoosePatientController(ChoosePatientInputBoundary choosePatientInputBoundary) {
+        this.choosePatientInteractor = choosePatientInputBoundary;
     }
 
 
@@ -17,10 +19,10 @@ public class ChoosePatientController {
         LoginInputData loginInputData = new LoginInputData(
                 username, password, isDoctor);
 
-        loginUseCaseInteractor.execute(loginInputData);
+        choosePatientInteractor.execute(loginInputData);
     }
 
     public List<String> getPatients(){
-        loginUseCaseInteractor.executeGetPatients();
+        return choosePatientInteractor.executeGetPatients();
     }
 }
