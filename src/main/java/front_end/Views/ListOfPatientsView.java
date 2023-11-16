@@ -1,7 +1,7 @@
 package front_end.Views;
 
-import ViewModels.ListOfPatientsViewModel;
-import ViewModels.PatientsChatWithBotViewModel;
+import front_end.ViewModels.ListOfPatientsViewModel;
+import front_end.ViewModels.PatientsChatWithBotViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
 
 import javax.swing.*;
@@ -76,6 +76,7 @@ public class ListOfPatientsView {
         midPanel.setLayout(new BoxLayout(midPanel, BoxLayout.Y_AXIS));
         midPanel.setBackground(Color.lightGray);
 
+        // get a list of patients
         List<String> patients = choosePatientController.getPatients();
         // Add the buttons that will link doctor to the chat with the patients
         for(String p: patients) {
