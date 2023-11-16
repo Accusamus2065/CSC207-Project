@@ -95,4 +95,8 @@ public class PatientDAOImpl {
 
         patients.updateOne(query, updates);
     }
+
+    public Map<String, User> getAccounts() {
+        return accounts;
+    }
 }

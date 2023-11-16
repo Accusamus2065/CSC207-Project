@@ -4,12 +4,12 @@ import entity.people.User;
 
 public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
     final ChoosePatientUserDataAccessInterface userDataAccessObject;
-    final ChoosePatientOutputBoundary loginPresenter;
+    final ChoosePatientOutputBoundary choosePatientPresenter;
 
     public ChoosePatientInteractor(ChoosePatientUserDataAccessInterface userDataAccessInterface,
-                                   ChoosePatientOutputBoundary loginOutputBoundary) {
+                                   ChoosePatientOutputBoundary choosePatientOutputBoundary) {
         this.userDataAccessObject = userDataAccessInterface;
-        this.loginPresenter = loginOutputBoundary;
+        this.choosePatientPresenter = choosePatientOutputBoundary;
     }
 
     @Override
@@ -23,6 +23,9 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
         String password = loginInputData.getPassword();
         Boolean isDoctor = loginInputData.getIsDoctor();
         try {
+            User user = userDataAccessObject // TODO FIX THIS
+            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData()
+            choosePatientPresenter.prepareSuccessView();
             if (!userDataAccessObject.existsByName(isDoctor, username)) {
                 loginPresenter.prepareFailView(username + ": Account does not exist.");
             } else {
