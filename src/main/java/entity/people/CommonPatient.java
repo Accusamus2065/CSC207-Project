@@ -1,8 +1,5 @@
 package entity.people;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommonPatient implements IPatient {
     private String username;
     private String password;
@@ -78,6 +75,4 @@ public class CommonPatient implements IPatient {
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
-
-
 }
