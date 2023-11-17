@@ -3,7 +3,6 @@ package view;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import use_case.signup.SignupInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +14,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final JFrame frame;
-    private JPanel panel;
-    private JTextField usernameInputField;
-    private JLabel usernameErrorField;
-    private JPasswordField passwordInputField;
-    private JLabel passwordErrorField;
-    private JPasswordField repeatPasswordInputField;
-    private JLabel repeatPasswordErrorField;
-    private JButton signUpButton;
-    private JButton cancelButton;
-//    public final String viewName = "sign up";
-//    private final JButton signUp;
+    public final String viewName = "sign up";
+    private final JButton signUp;
 
     public SignupView(SignupViewModel signupViewModel, SignupController signupController) {
 
@@ -142,7 +131,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
         buttonPanel.add(cancelButton);
 
-        signupViewModel.addPropertyChangeListener(this);
+//         signupViewModel.addPropertyChangeListener(this);
 //        JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
 //        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
