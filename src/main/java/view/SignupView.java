@@ -3,7 +3,6 @@ package view;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import use_case.signup.SignupInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +15,9 @@ import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
-    boolean isDoctor;
     private final JButton signUp;
 
-    public SignupView(SignupViewModel signupViewModel, SignupController signupController, boolean isDoctor) {
+    public SignupView(SignupViewModel signupViewModel, SignupController signupController) {
 
         signupViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
@@ -48,7 +46,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                 currentState.getUsername(),
                                 currentState.getPassword(),
                                 currentState.getPasswordError(),
-                                isDoctor
+                                currentState.isDoctor()
                         );
                     }
                 }
