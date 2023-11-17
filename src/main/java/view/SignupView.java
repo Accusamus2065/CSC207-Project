@@ -3,6 +3,7 @@ package view;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.swap_views.welcome.SwaptoWelcomeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,35 +16,31 @@ import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
-    private final JButton signUp;
+    private final JTextField usernameInputField;
+    private final JPasswordField passwordInputField;
+    private final JPasswordField repeatPasswordInputField;
+    private final JButton signUpButton;
+    private final JButton cancelButton;
 
-    public SignupView(SignupViewModel signupViewModel, SignupController signupController) {
-
-        // Create and do settings for frame
-        frame = new JFrame();
-        frame.setTitle(SignupViewModel.TITLE_LABEL);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(SignupViewModel.FRAME_WIDTH_SIZE, SignupViewModel.FRAME_HEIGHT_SIZE);
-        frame.setLocationRelativeTo(null);
-
+    public SignupView(SignupViewModel signupViewModel,
+                      SignupController signupController,
+                      SwaptoWelcomeController swapController) {
         // Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(SignupViewModel.PANEL_DIMENSION);
-        frame.add(panel, BorderLayout.SOUTH);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(SignupViewModel.PANEL_DIMENSION);
 
         // Create a buffer sub-panel for a gap
         JPanel gapPanel = new JPanel();
         gapPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 13));
         gapPanel.setBackground(Color.lightGray);
-        panel.add(gapPanel, BorderLayout.SOUTH);
+        this.add(gapPanel, BorderLayout.SOUTH);
 
         // Create a sub-panel for the username text field
         JPanel usernameTextFieldPanel = new JPanel();
         usernameTextFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         usernameTextFieldPanel.setBackground(Color.lightGray);
-        panel.add(usernameTextFieldPanel, BorderLayout.SOUTH);
+        this.add(usernameTextFieldPanel, BorderLayout.SOUTH);
 
         // Create and do settings for the username text field
         usernameInputField = new JTextField(15);
@@ -64,7 +61,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel passwordTextFieldPanel = new JPanel();
         passwordTextFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         passwordTextFieldPanel.setBackground(Color.lightGray);
-        panel.add(passwordTextFieldPanel, BorderLayout.SOUTH);
+        this.add(passwordTextFieldPanel, BorderLayout.SOUTH);
 
         // Create and do settings for the password text field
         passwordInputField = new JPasswordField(15);
@@ -85,7 +82,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel repeatPasswordTextFieldPanel = new JPanel();
         repeatPasswordTextFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         repeatPasswordTextFieldPanel.setBackground(Color.lightGray);
-        panel.add(repeatPasswordTextFieldPanel, BorderLayout.SOUTH);
+        this.add(repeatPasswordTextFieldPanel, BorderLayout.SOUTH);
 
         // Create and do settings for the repeat password text field
         repeatPasswordInputField = new JPasswordField(15);
@@ -107,7 +104,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 40));
         buttonPanel.setBackground(Color.lightGray);
-        panel.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.CENTER);
 
         // Create and do settings for the login button
         signUpButton = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
@@ -126,28 +123,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancelButton.setFocusable(false);
         cancelButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {}
+            public void actionPerformed(ActionEvent e) {
+                swapController.execute();
+            }
         });
         cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
         buttonPanel.add(cancelButton);
-
-//         signupViewModel.addPropertyChangeListener(this);
-//        JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-//        JTextField usernameInputField = new JTextField(15);
-//        LabelTextPanel usernameInfo = new LabelTextPanel(
-//                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
-//        JPasswordField passwordInputField = new JPasswordField(15);
-//        LabelTextPanel passwordInfo = new LabelTextPanel(
-//                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
-//        JPasswordField repeatPasswordInputField = new JPasswordField(15);
-//        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-//                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-
-//        JPanel buttons = new JPanel();
-//        signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
-//        buttons.add(signUp);
 
         signUpButton.addActionListener(
                 evt -> {
@@ -229,12 +210,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//        this.add(title);
-//        this.add(usernameInfo);
-//        this.add(passwordInfo);
-//        this.add(repeatPasswordInfo);
-//        this.add(buttons);
     }
 
     @Override
