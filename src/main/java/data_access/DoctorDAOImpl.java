@@ -5,10 +5,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import entity.mongo.MongoFactory;
-import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
-import entity.people.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -18,7 +16,7 @@ import java.util.Map;
 import static com.mongodb.client.model.Filters.eq;
 
 public class DoctorDAOImpl {
-    private final Map<String, User> accounts = new HashMap<>();
+    private final Map<String, IDoctor> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
     public DoctorDAOImpl(DoctorUserFactory doctorUserFactory) {
@@ -32,7 +30,7 @@ public class DoctorDAOImpl {
                             document.getString("specialty"),
                             document.getString("degree")));
         }
-        for (Map.Entry<String, User> entry : accounts.entrySet()) {
+        for (Map.Entry<String, IDoctor> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
     }
@@ -41,7 +39,7 @@ public class DoctorDAOImpl {
         return accounts.containsKey(identifier);
     }
 
-    public void save(User user) {
+    public void save(IDoctor user) {
         accounts.put(user.getUsername(), user);
         save();
     }
@@ -49,18 +47,17 @@ public class DoctorDAOImpl {
     private void save() {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("doctors");
-        for (User user : accounts.values()) {
-            CommonDoctor commonDoctor = (CommonDoctor) user;
-            Document document = new Document("username", commonDoctor.getUsername())
-                    .append("password", commonDoctor.getPassword())
-                    .append("specialty", commonDoctor.getSpecialty())
-                    .append("degree", commonDoctor.getDegree());
+        for (IDoctor doctor : accounts.values()) {
+            Document document = new Document("username", doctor.getUsername())
+                    .append("password", doctor.getPassword())
+                    .append("specialty", doctor.getSpecialty())
+                    .append("degree", doctor.getDegree());
             patients.insertOne(document);
         }
     }
 
     public IDoctor get(String username) {
-        return (IDoctor) accounts.get(username);
+        return accounts.get(username);
     }
 
     public void update(String oldUsername, IDoctor user) {
