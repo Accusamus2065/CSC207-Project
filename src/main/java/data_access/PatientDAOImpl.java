@@ -3,10 +3,8 @@ package data_access;
 
 import com.mongodb.client.*;
 import entity.mongo.MongoFactory;
-import entity.people.CommonPatient;
 import entity.people.IPatient;
 import entity.people.PatientUserFactory;
-import entity.people.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -16,7 +14,7 @@ import java.util.Map;
 import static com.mongodb.client.model.Filters.eq;
 
 public class PatientDAOImpl {
-    private final Map<String, User> accounts = new HashMap<>();
+    private final Map<String, IPatient> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
     public PatientDAOImpl(PatientUserFactory patientUserFactory) {
@@ -42,7 +40,7 @@ public class PatientDAOImpl {
         }
 
         // Printing the data stored in the Map object
-        for (Map.Entry<String, User> entry : accounts.entrySet()) {
+        for (Map.Entry<String, IPatient> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
     }
@@ -51,7 +49,7 @@ public class PatientDAOImpl {
         return accounts.containsKey(identifier);
     }
 
-    public void save(User user) {
+    public void save(IPatient user) {
         accounts.put(user.getUsername(), user);
         save();
     }
@@ -59,8 +57,7 @@ public class PatientDAOImpl {
     private void save() {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
-        for (User user : accounts.values()) {
-            CommonPatient patient = (CommonPatient) user;
+        for (IPatient patient : accounts.values()) {
             Document document = new Document("username", patient.getUsername())
                     .append("password", patient.getPassword())
                     .append("sex", patient.getSex())
@@ -73,7 +70,7 @@ public class PatientDAOImpl {
     }
 
     public IPatient get(String username) {
-        return (IPatient) accounts.get(username);
+        return accounts.get(username);
     }
 
     public void update(String oldUsername, IPatient user) {
