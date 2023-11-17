@@ -16,8 +16,6 @@ import use_case.welcome.signup.WelcomeSignupInteractor;
 import use_case.welcome.signup.WelcomeSignupOutputBoundary;
 import view.WelcomeView;
 
-import javax.swing.*;
-
 public class WelcomeUseCaseFactory {
 
     /** Prevent instantiation. */
@@ -29,9 +27,7 @@ public class WelcomeUseCaseFactory {
                                      ViewManagerModel viewManagerModel) {
         WelcomeSignupController signupController = createSignupUseCase(signupViewModel, viewManagerModel);
         WelcomeLoginController loginController = createLoginUseCase(loginViewModel, viewManagerModel);
-        // TODO: fix this create method to use the new WelcomeView constructor
-        return new WelcomeView(new JButton());
-        // return new WelcomeView(welcomeViewModel, signupController, loginController);
+         return new WelcomeView(welcomeViewModel, signupController, loginController);
     }
 
     private static WelcomeSignupController createSignupUseCase(SignupViewModel signupViewModel,
