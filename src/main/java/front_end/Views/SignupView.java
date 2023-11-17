@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignupView {
-
     private final JFrame frame;
     private JPanel panel;
     private JTextField usernameInputField;
