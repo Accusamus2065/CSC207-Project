@@ -1,23 +1,17 @@
 package data_access;
 
 import entity.chat.Conversation;
-import entity.chat.Message;
 import entity.people.*;
-import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
 import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
-import java.util.List;
-import java.util.Map;
-
 public class DAOFacade implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         DoctorUpdateUserDataAccessInterface,
-        PatientUpdateUserDataAccessInterface,
-        ChoosePatientUserDataAccessInterface {
+        PatientUpdateUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
     ConvoDAOImpl convoDAO = new ConvoDAOImpl();
@@ -55,11 +49,6 @@ public class DAOFacade implements
     }
 
     @Override
-    public User get(String username) {
-        return null;
-    }
-
-    @Override
     public IDoctor getDoctor(String username) {
         return doctorDAO.get(username);
     }
@@ -68,6 +57,4 @@ public class DAOFacade implements
     public IPatient getPatient(String username) {
         return patientDAO.get(username);
     }
-
-    public Map<String, User> getAccountsPatient(){return patientDAO.getAccounts();}
 }

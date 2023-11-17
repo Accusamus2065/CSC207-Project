@@ -1,6 +1,7 @@
 package use_case.login;
 
-import entity.people.User;
+import entity.people.IDoctor;
+import entity.people.IPatient;
 
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
@@ -16,20 +17,29 @@ public class LoginInteractor implements LoginInputBoundary {
     public void execute(LoginInputData loginInputData) {
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
-        Boolean isDoctor = loginInputData.getIsDoctor();
+        boolean isDoctor = loginInputData.getIsDoctor();
         try {
             if (!userDataAccessObject.existsByName(isDoctor, username)) {
                 loginPresenter.prepareFailView(username + ": Account does not exist.");
             } else {
-                String pwd = userDataAccessObject.get(username).getPassword();
-                if (!password.equals(pwd)) {
-                    loginPresenter.prepareFailView("Incorrect password for " + username + ".");
+                if (isDoctor) {
+                    IDoctor doctor = userDataAccessObject.getDoctor(username);
+                    String pwd = doctor.getPassword();
+                    if (!password.equals(pwd)) {
+                        loginPresenter.prepareFailView("Incorrect password for " + username + ".");
+                    } else {
+                        LoginOutputData loginOutputData = new LoginOutputData(doctor.getUsername(), false);
+                        loginPresenter.prepareSuccessView(loginOutputData);
+                    }
                 } else {
-
-                    User user = userDataAccessObject.get(loginInputData.getUsername());
-
-                    LoginOutputData loginOutputData = new LoginOutputData(user.getUsername(), false);
-                    loginPresenter.prepareSuccessView(loginOutputData);
+                    IPatient patient = userDataAccessObject.getPatient(username);
+                    String pwd = patient.getPassword();
+                    if (!password.equals(pwd)) {
+                        loginPresenter.prepareFailView("Incorrect password for " + username + ".");
+                    } else {
+                        LoginOutputData loginOutputData = new LoginOutputData(patient.getUsername(), false);
+                        loginPresenter.prepareSuccessView(loginOutputData);
+                    }
                 }
             }
         } catch (Exception e) {

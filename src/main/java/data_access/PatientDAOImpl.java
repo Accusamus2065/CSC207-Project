@@ -2,7 +2,6 @@ package data_access;
 
 
 import com.mongodb.client.*;
-import com.mongodb.client.model.Updates;
 import entity.mongo.MongoFactory;
 import entity.people.CommonPatient;
 import entity.people.IPatient;
@@ -13,6 +12,8 @@ import org.bson.conversions.Bson;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class PatientDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
@@ -76,24 +77,28 @@ public class PatientDAOImpl {
     }
 
     public void update(String oldUsername, IPatient user) {
+        accounts.remove(oldUsername);
+        accounts.put(user.getUsername(), user);
+        updateDAO(oldUsername, user);
+    }
+
+    public void updateDAO(String oldUsername, IPatient user) {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
 
         // this should return a single document since we assume oldUsername exists in the database as a username,
         // and usernames should be unique
-        Document query = new Document("patients", oldUsername);
+        Bson query = eq("username", oldUsername);
 
-        Bson updates = Updates.combine(
-                Updates.set("username", user.getUsername()),
-                Updates.set("password", user.getPassword()),
-                Updates.set("sex", user.getSex()),
-                Updates.set("gender", user.getGender()),
-                Updates.set("height", user.getHeight()),
-                Updates.set("weight", user.getWeight()),
-                Updates.set("bloodtype", user.getBloodType())
-        );
+        Document document = new Document("username", user.getUsername())
+                .append("password", user.getPassword())
+                .append("sex", user.getSex())
+                .append("gender", user.getGender())
+                .append("height", user.getHeight())
+                .append("weight", user.getWeight())
+                .append("bloodtype", user.getBloodType());
 
-        patients.updateOne(query, updates);
+        patients.replaceOne(query, document);
     }
 
     public Map<String, User> getAccounts() {
