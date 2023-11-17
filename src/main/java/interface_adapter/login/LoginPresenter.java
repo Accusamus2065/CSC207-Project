@@ -5,6 +5,8 @@ import interface_adapter.chat.ConversationViewModel;
 
 import interface_adapter.ViewManagerModel;
 
+import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -13,27 +15,42 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
     private final ConversationViewModel conversationViewModel;
+    private final ChoosePatientViewModel choosePatientViewModel;
     private ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           ConversationViewModel conversationViewModel,
+                          ChoosePatientViewModel choosePatientViewModel,
                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.conversationViewModel = conversationViewModel;
         this.loginViewModel = loginViewModel;
+        this.choosePatientViewModel = choosePatientViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the logged in view.
+        // On success, switch to the choosepatient or conversation in view.
 
-        ConversationState conversationState = conversationViewModel.getState();
-        conversationState.setConversation(null);  // TODO: Change this to actual conversation
-        this.conversationViewModel.setState(conversationState);
-        this.conversationViewModel.firePropertyChanged();
+        LoginState loginState = loginViewModel.getState();
 
-        this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
+        if (loginState.isDoctor()){
+            ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+            this.choosePatientViewModel.setState(choosePatientState);
+
+            this.choosePatientViewModel.firePropertyChanged();
+
+            this.viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
+        } else {
+            ConversationState conversationState = conversationViewModel.getState();
+            conversationState.setConversation(null);  // TODO: Change this to actual conversation
+            this.conversationViewModel.setState(conversationState);
+            this.conversationViewModel.firePropertyChanged();
+
+            this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ package interface_adapter.choosepatient;//package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
+import interface_adapter.chat.ConversationViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -16,9 +17,10 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public LoginPresenter(ViewManagerModel viewManagerModel,
-                          LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel) {
+    public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
+                           ConversationViewModel conversationViewModel,
+                          
+                          ChoosePatientViewModel choosePatientViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;

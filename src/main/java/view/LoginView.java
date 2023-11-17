@@ -1,7 +1,7 @@
 package view;
 
 
-import front_end.ViewModels.LoginViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 
