@@ -4,8 +4,8 @@ package interface_adapter.choosepatient;//package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
-import interface_adapter.chat.ConversationState;
 import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.welcome.WelcomeViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -14,25 +14,42 @@ import java.util.List;
 
 public class ChoosePatientPresenter implements LoginOutputBoundary {
 
+    private final ViewManagerModel viewManagerModel;
+    private final ConversationViewModel conversationViewModel;
+    private final WelcomeViewModel welcomeViewModel;
+    private final ModifyViewModel modifyViewModel;
+    private ChoosePatientViewModel choosePatientViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
     private final ConversationViewModel conversationViewModel;
     private ViewManagerModel viewManagerModel;
 
+    public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
+                                  ConversationViewModel conversationViewModel,
+                                  WelcomeViewModel welcomeViewModel,
+                                  ModifyViewModel modifyViewModel,
+                                  ChoosePatientViewModel choosePatientViewModel) {
     public ChoosePatientPresenter(ChoosePatientViewModel choosePatientViewModel,
                                   ConversationViewModel conversationViewModel,
                                   ViewManagerModel viewManagerModel) {
         this.choosePatientViewModel = choosePatientViewModel;
         this.conversationViewModel = conversationViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
-        this.loginViewModel = loginViewModel;
+        this.conversationViewModel = conversationViewModel;
+        this.welcomeViewModel = welcomeViewModel;
+        this.modifyViewModel = modifyViewModel;
+        this.choosePatientViewModel = choosePatientViewModel;
     }
-
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the logged in view.
 
+
+
+        LoggedInState loggedInState = loggedInViewModel.getState();
+        loggedInState.setUsername(response.getUsername());
+        this.loggedInViewModel.setState(loggedInState);
+        this.loggedInViewModel.firePropertyChanged();
         ConversationState conversationState = conversationViewModel.getState();
         conversationState.setUser(response.getUsername()); // TODO conversation state needs to be fixed, but not my file
         this.conversationViewModel.setState(conversationState);
@@ -44,9 +61,9 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        ConversationState conversationState = conversationViewModel.getState();
-        conversationState.setError(error); // TODO need to implement this too.
-        conversationViewModel.firePropertyChanged();
+        LoginState loginState = loginViewModel.getState();
+        loginState.setUsernameError(error);
+        loginViewModel.firePropertyChanged();
     }
 
 
