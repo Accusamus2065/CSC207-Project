@@ -25,7 +25,7 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
             } else if (!doctorUpdateInputData.getPassword().equals(doctorUpdateInputData.getRepeatPassword())) {
                 userPresenter.prepareFailView("Passwords don't match.");
             } else {
-                IDoctor doctor = (IDoctor) userFactory.create(doctorUpdateInputData.getNewUsername(),
+                IDoctor doctor = userFactory.create(doctorUpdateInputData.getNewUsername(),
                         doctorUpdateInputData.getPassword(),
                         doctorUpdateInputData.getSpecialty(),
                         doctorUpdateInputData.getDegree());
