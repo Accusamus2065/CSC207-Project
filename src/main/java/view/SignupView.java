@@ -26,6 +26,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                       SignupController signupController,
                       SwaptoWelcomeController swapController) {
         this.viewName = signupViewModel.getViewName();
+        signupViewModel.addPropertyChangeListener(this);
 
         // Create and do settings for main panel
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
@@ -163,7 +164,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         signupController.execute(
                                 currentState.getUsername(),
                                 currentState.getPassword(),
-                                currentState.getPasswordError(),
+                                currentState.getRepeatPassword(),
                                 currentState.isDoctor()
                         );
                     }
