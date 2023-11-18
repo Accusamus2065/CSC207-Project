@@ -15,7 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "sign up";
+    public final String viewName;
     private final JTextField usernameInputField;
     private final JPasswordField passwordInputField;
     private final JPasswordField repeatPasswordInputField;
@@ -25,6 +25,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public SignupView(SignupViewModel signupViewModel,
                       SignupController signupController,
                       SwaptoWelcomeController swapController) {
+        this.viewName = signupViewModel.getViewName();
+
         // Create and do settings for main panel
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
         this.setBackground(Color.lightGray);

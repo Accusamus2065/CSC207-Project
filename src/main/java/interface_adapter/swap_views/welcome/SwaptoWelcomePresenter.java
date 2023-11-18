@@ -15,7 +15,7 @@ public class SwaptoWelcomePresenter implements SwaptoWelcomeOutputBoundary {
 
     @Override
     public void execute() {
-        viewManagerModel.setActiveView(welcomeViewModel.getViewName());
+        viewManagerModel.setActiveView("welcome");
         viewManagerModel.firePropertyChanged();
     }
 }

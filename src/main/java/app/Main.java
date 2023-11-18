@@ -1,9 +1,12 @@
 package app;
 
+import com.mongodb.MongoException;
+import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
+import view.SignupView;
 import view.ViewManager;
 import view.WelcomeView;
 
@@ -29,6 +32,16 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
+        DAOFacade entityDataAccessObject;
+        try {
+            entityDataAccessObject = new DAOFacade();
+            System.out.println("Connected to MongoDB database");
+        } catch (MongoException e) {
+            System.out.println("Couldn't connect to MongoDB database, aborting application...");
+            throw new RuntimeException(e);
+        }
+
+
         // The data for the views, such as username and password, are in the ViewModels.
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
@@ -39,6 +52,8 @@ public class Main {
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, entityDataAccessObject);
+        views.add(signupView, signupView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
