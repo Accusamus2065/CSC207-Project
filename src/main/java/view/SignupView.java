@@ -46,12 +46,27 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         usernameInputField = new JTextField(15);
         usernameInputField.setFont(SignupViewModel.INPUT_FIELD_FONT);
         usernameInputField.setToolTipText("Enter your username");
-        usernameInputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ///
-            }
-        });
+        usernameInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        String text = usernameInputField.getText() + e.getKeyChar();
+                        currentState.setUsername(text);
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
+
         JLabel usernameLabel = new JLabel(SignupViewModel.USERNAME_FIELD_LABEL);
         usernameLabel.setFont(SignupViewModel.INPUT_FIELD_FONT);
         usernameTextFieldPanel.add(usernameLabel);
@@ -67,12 +82,25 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         passwordInputField = new JPasswordField(15);
         passwordInputField.setFont(SignupViewModel.INPUT_FIELD_FONT);
         passwordInputField.setToolTipText("Enter your password");
-        passwordInputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ///
-            }
-        });
+        passwordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        String password = new String(passwordInputField.getPassword()) + e.getKeyChar();
+                        currentState.setPassword(password);
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                }
+        );
         JLabel passwordLabel = new JLabel(SignupViewModel.PASSWORD_FIELD_LABEL);
         passwordLabel.setFont(SignupViewModel.INPUT_FIELD_FONT);
         passwordTextFieldPanel.add(passwordLabel);
@@ -88,12 +116,26 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         repeatPasswordInputField = new JPasswordField(15);
         repeatPasswordInputField.setFont(SignupViewModel.INPUT_FIELD_FONT);
         repeatPasswordInputField.setToolTipText("Re-enter your password");
-        repeatPasswordInputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ///
-            }
-        });
+        repeatPasswordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        String repeatPassword = new String(repeatPasswordInputField.getPassword()) + e.getKeyChar();
+                        currentState.setRepeatPassword(repeatPassword);
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                }
+        );
+
         JLabel repeatPasswordLabel = new JLabel(SignupViewModel.REPEAT_PASSWORD_FIELD_LABEL);
         repeatPasswordLabel.setFont(SignupViewModel.INPUT_FIELD_FONT);
         repeatPasswordTextFieldPanel.add(repeatPasswordLabel);
@@ -110,31 +152,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         signUpButton = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         signUpButton.setFont(SignupViewModel.BUTTON_FONT);
         signUpButton.setFocusable(false);
-        signUpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {}
-        });
         signUpButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
         buttonPanel.add(signUpButton);
-
-        // Create and do settings for the cancel button
-        cancelButton = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
-        cancelButton.setFont(SignupViewModel.BUTTON_FONT);
-        cancelButton.setFocusable(false);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                swapController.execute();
-            }
-        });
-        cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
-        buttonPanel.add(cancelButton);
-
         signUpButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(signUpButton)) {
                         SignupState currentState = signupViewModel.getState();
-
                         signupController.execute(
                                 currentState.getUsername(),
                                 currentState.getPassword(),
@@ -145,71 +168,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        usernameInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        String text = usernameInputField.getText() + e.getKeyChar();
-                        currentState.setUsername(text);
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
-
-        passwordInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        String password = new String(passwordInputField.getPassword()) + e.getKeyChar();
-                        currentState.setPassword(password);
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
-
-        repeatPasswordInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        String repeatPassword = new String(repeatPasswordInputField.getPassword()) + e.getKeyChar();
-                        currentState.setRepeatPassword(repeatPassword);
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
+        // Create and do settings for the cancel button
+        cancelButton = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
+        cancelButton.setFont(SignupViewModel.BUTTON_FONT);
+        cancelButton.setFocusable(false);
+        cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
+        buttonPanel.add(cancelButton);
+        cancelButton.addActionListener(e -> swapController.execute());
     }
 
     @Override
