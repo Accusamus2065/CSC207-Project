@@ -24,9 +24,9 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
     private JTextField degree;
     private JButton saveButton;
 
-    DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
-                     SwapToPatientListController swapController,
-                     DoctorUpdateController updateController) {
+    public DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
+                            SwapToPatientListController swapController,
+                            DoctorUpdateController updateController) {
         this.viewName = doctorUpdateViewModel.getViewName();
         doctorUpdateViewModel.addPropertyChangeListener(this);
 
