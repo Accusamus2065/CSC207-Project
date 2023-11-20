@@ -5,7 +5,9 @@ import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
+import view.DoctorUpdateView;
 import view.SignupView;
 import view.ViewManager;
 import view.WelcomeView;
@@ -50,11 +52,14 @@ public class Main {
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
+        DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, entityDataAccessObject);
         views.add(signupView, signupView.viewName);
+        DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, docUpdateViewModel);
+        views.add(docUpdateView, docUpdateView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
