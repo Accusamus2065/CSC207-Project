@@ -29,6 +29,4 @@ public class PatientUpdateController {
                 weight,
                 bloodType);
     }
-
-
 }
