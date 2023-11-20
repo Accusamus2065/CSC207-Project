@@ -6,18 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PatientUpdateView {
-    private JFrame frame;
-    private JPanel panel;
-    private JButton backButton;
-    private JTextField username;
-    private JPasswordField password;
-    private JPasswordField repeatPassword;
-    private JTextField sex;
-    private JTextField gender;
-    private JTextField height;
-    private JTextField weight;
-    private JTextField bloodType;
-    private JButton saveButton;
+    private final JFrame frame;
+    private final JPanel panel;
+    private final JButton backButton;
+    private final JTextField username;
+    private final JPasswordField password;
+    private final JPasswordField repeatPassword;
+    private final JTextField sex;
+    private final JTextField gender;
+    private final JTextField height;
+    private final JTextField weight;
+    private final JTextField bloodType;
+    private final JButton saveButton;
 
     // Create and do settings for frame
     PatientUpdateView() {
@@ -181,7 +181,8 @@ public class PatientUpdateView {
         saveButton.setPreferredSize(PatientUpdateViewModel.BUTTON_DIMENSION);
         lowerPanel.add(saveButton);
     }
-    public void show(){
+
+    public void show() {
         frame.setVisible(true);
     }
 }
