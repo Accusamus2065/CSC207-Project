@@ -1,6 +1,8 @@
 package use_case.choosepatient;
 
 
+import interface_adapter.choosepatient.ChoosePatientState;
+
 import java.util.List;
 
 public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
@@ -15,14 +17,31 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
     @Override
     public void executeLogOut() {
+        try {
+            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("logout",false);
+            choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
+        } catch (Exception e) {
+            choosePatientPresenter.prepareFailView(e.getMessage());
+        }
 
     }
 
+    public void executeUpdate(){
+    try {
+        ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("modify",false);
+        choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
+    } catch (Exception e) {
+        choosePatientPresenter.prepareFailView(e.getMessage());
+    }
+
+}
+
+
     @Override
     public void executeChoose(String patient) {
-
         try {
-            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData(patient, false);
+            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData(patient,
+                    "choosePatient",false);
             choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
 
         } catch (Exception e) {
@@ -32,8 +51,7 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
     @Override
     public List<String> executeGetPatients() {
-        List<String> strings = (List<String>) userDataAccessObject.getAccountsPatient().keySet();
-        return  strings;}
+        return (List<String>) userDataAccessObject.getAccountsPatient().keySet();}
 
 }
 

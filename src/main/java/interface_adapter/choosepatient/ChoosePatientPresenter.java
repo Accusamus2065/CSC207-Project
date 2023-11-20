@@ -6,8 +6,10 @@ import interface_adapter.ViewManagerModel;
 
 import interface_adapter.chat.ConversationState;
 import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.update.doctor.DoctorUpdateState;
 import interface_adapter.welcome.WelcomeState;
 import interface_adapter.welcome.WelcomeViewModel;
+import use_case.choosepatient.ChoosePatientOutputData;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -19,7 +21,7 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final ConversationViewModel conversationViewModel;
     private final WelcomeViewModel welcomeViewModel;
-    private final ModifyViewModel modifyViewModel;
+    private final DoctorUpdateState modifyViewModel;
     private ChoosePatientViewModel choosePatientViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
     private final ConversationViewModel conversationViewModel;
@@ -28,7 +30,7 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
     public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
                                   ConversationViewModel conversationViewModel,
                                   WelcomeViewModel welcomeViewModel,
-                                  ModifyViewModel modifyViewModel,
+                                  DoctorUpdateState modifyViewModel,
                                   ChoosePatientViewModel choosePatientViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.choosePatientViewModel = choosePatientViewModel;
@@ -38,30 +40,38 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginOutputData response) {
-        //
+    public void prepareSuccessView(ChoosePatientOutputData response) {
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+        if (response.getUsecase().equals("logout")){
+            WelcomeState welcomeState = welcomeViewModel.getState();
+            this.conversationViewModel.setState(conversationState);
+            this.conversationViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
+        } else if (response.getUsecase().equals("choosePatient")){
+            ConversationState conversationState = conversationViewModel.getState();
+            conversationState.setConversation(null);
+            conversationState.setUser(response.getPatient()); // TODO conversation state needs to be fixed, but not my file
+            this.conversationViewModel.setState(conversationState);
+            this.conversationViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
+        } else if (response.getUsecase("modify")) {
+            DoctorUpdateState modifyState = modifyViewModel.getState();
+            this.modifyViewModel.setState(modifyState);
+            this.modifyViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveView(modifyViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
+        }
 
 
-        ConversationState conversationState = conversationViewModel.getState();
-        conversationState.setConversation(null);
-        WelcomeState welcomeState = welcomeViewModel.getState();
-
-        ModifyState modifyState = modifyViewModel.getState();
-        ConversationState conversationState = conversationViewModel.getState();
-        conversationState.setUser(response.getUsername()); // TODO conversation state needs to be fixed, but not my file
-        this.conversationViewModel.setState(conversationState);
-        this.conversationViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override
     public void prepareFailView(String error) {
-        LoginState loginState = loginViewModel.getState();
-        loginState.setUsernameError(error);
-        loginViewModel.firePropertyChanged();
+        ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+        choosePatientState.setError(error);
+        choosePatientViewModel.firePropertyChanged();
     }
 
 
