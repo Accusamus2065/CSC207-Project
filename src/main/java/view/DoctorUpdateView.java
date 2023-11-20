@@ -1,15 +1,22 @@
 package view;
 
+import interface_adapter.update.doctor.DoctorUpdateController;
+import interface_adapter.update.doctor.DoctorUpdateState;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
+import org.checkerframework.checker.units.qual.K;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class DoctorUpdateView {
-    private JFrame frame;
-    private JPanel panel;
+public class DoctorUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName;
     private JButton backButton;
-    private String oldUsername;
     private JTextField username;
     private JPasswordField password;
     private JTextField repeatPassword;
@@ -17,26 +24,21 @@ public class DoctorUpdateView {
     private JTextField degree;
     private JButton saveButton;
 
-    DoctorUpdateView() {
-        // Create and do settings for frame
-        frame = new JFrame();
-        frame.setTitle(DoctorUpdateViewModel.TITLE_LABEL);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(DoctorUpdateViewModel.FRAME_WIDTH_SIZE, DoctorUpdateViewModel.FRAME_HEIGHT_SIZE);
-        frame.setLocationRelativeTo(null);
+    DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
+                     DoctorUpdateController updateController) {
+        this.viewName = doctorUpdateViewModel.getViewName();
+        doctorUpdateViewModel.addPropertyChangeListener(this);
 
         // Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 10));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(DoctorUpdateViewModel.PANEL_DIMENSION);
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 10));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(DoctorUpdateViewModel.PANEL_DIMENSION);
 
         // Create the upper sub-panel that will contain the button to go back
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 10));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.WEST);
+        this.add(upperPanel, BorderLayout.WEST);
 
         // Create the button for logging out of the profile
         backButton = new JButton(DoctorUpdateViewModel.BACK_BUTTON_LABEL);
@@ -44,12 +46,18 @@ public class DoctorUpdateView {
         backButton.setFocusable(false);
         backButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: implement back to ListOfPatientsView use case
+            }
+        });
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         usernamePanel.setBackground(Color.lightGray);
-        panel.add(usernamePanel, BorderLayout.CENTER);
+        this.add(usernamePanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         username = new JTextField(20);
@@ -59,12 +67,31 @@ public class DoctorUpdateView {
         usernameLabel.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         usernamePanel.add(usernameLabel);
         usernamePanel.add(username);
+        username.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                String text = username.getText() + e.getKeyChar();
+                currentState.setNewUsername(text);
+                doctorUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the password text field
         JPanel passwordPanel = new JPanel();
         passwordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         passwordPanel.setBackground(Color.lightGray);
-        panel.add(passwordPanel, BorderLayout.CENTER);
+        this.add(passwordPanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         password = new JPasswordField(20);
@@ -74,12 +101,31 @@ public class DoctorUpdateView {
         passwordLabel.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         passwordPanel.add(passwordLabel);
         passwordPanel.add(password);
+        password.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                String text = password.getText() + e.getKeyChar();
+                currentState.setPassword(text);
+                doctorUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the repeat password text field
         JPanel repeatPasswordPanel = new JPanel();
         repeatPasswordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         repeatPasswordPanel.setBackground(Color.lightGray);
-        panel.add(repeatPasswordPanel, BorderLayout.CENTER);
+        this.add(repeatPasswordPanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         repeatPassword = new JPasswordField(20);
@@ -89,12 +135,31 @@ public class DoctorUpdateView {
         repeatPasswordLabel.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         repeatPasswordPanel.add(repeatPasswordLabel);
         repeatPasswordPanel.add(repeatPassword);
+        repeatPassword.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                String text = repeatPassword.getText() + e.getKeyChar();
+                currentState.setRepeatPassword(text);
+                doctorUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the specialty text field
         JPanel specialtyPanel = new JPanel();
         specialtyPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         specialtyPanel.setBackground(Color.lightGray);
-        panel.add(specialtyPanel, BorderLayout.CENTER);
+        this.add(specialtyPanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         specialty = new JTextField(20);
@@ -104,14 +169,33 @@ public class DoctorUpdateView {
         specialtyLabel.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         specialtyPanel.add(specialtyLabel);
         specialtyPanel.add(specialty);
+        specialty.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                String text = specialty.getText() + e.getKeyChar();
+                currentState.setSpecialty(text);
+                doctorUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the specialty text field
         JPanel degreePanel = new JPanel();
         degreePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 7));
         degreePanel.setBackground(Color.lightGray);
-        panel.add(degreePanel, BorderLayout.CENTER);
+        this.add(degreePanel, BorderLayout.CENTER);
 
-        // Create and do settings for the username text field
+        // Create and do settings for the degree text field
         degree = new JTextField(20);
         degree.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         degree.setToolTipText("Enter your new degree");
@@ -119,21 +203,60 @@ public class DoctorUpdateView {
         degreeLabel.setFont(DoctorUpdateViewModel.INPUT_FIELD_FONT);
         degreePanel.add(degreeLabel);
         degreePanel.add(degree);
+        degree.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                String text = degree.getText() + e.getKeyChar();
+                currentState.setDegree(text);
+                doctorUpdateViewModel.setState(currentState);
+            }
 
-        // Create the upper sub-panel that will contain the button to go back
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        // Create the upper sub-panel that will contain the button to save
         JPanel lowerPanel = new JPanel();
         lowerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 630, 25));
         lowerPanel.setBackground(Color.lightGray);
-        panel.add(lowerPanel, BorderLayout.EAST);
+        this.add(lowerPanel, BorderLayout.EAST);
 
-        // Create the button for logging out of the profile
+        // Create the button for saving
         saveButton = new JButton(DoctorUpdateViewModel.SAVE_BUTTON_LABEL);
         saveButton.setFont(DoctorUpdateViewModel.BUTTON_FONT);
         saveButton.setFocusable(false);
         saveButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         lowerPanel.add(saveButton);
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+                updateController.execute(
+                        currentState.getUsername(),
+                        currentState.getNewUsername(),
+                        currentState.getPassword(),
+                        currentState.getRepeatPassword(),
+                        currentState.getSpecialty(),
+                        currentState.getDegree());
+            }
+        });
     }
-    public void show(){
-        frame.setVisible(true);
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // TODO raise errors for invalid inputs
     }
 }
