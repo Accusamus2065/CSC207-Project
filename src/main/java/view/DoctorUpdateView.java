@@ -1,9 +1,9 @@
 package view;
 
+import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.update.doctor.DoctorUpdateController;
 import interface_adapter.update.doctor.DoctorUpdateState;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
-import org.checkerframework.checker.units.qual.K;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +25,7 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
     private JButton saveButton;
 
     DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
+                     SwapToPatientListController swapController,
                      DoctorUpdateController updateController) {
         this.viewName = doctorUpdateViewModel.getViewName();
         doctorUpdateViewModel.addPropertyChangeListener(this);
@@ -49,7 +50,7 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: implement back to ListOfPatientsView use case
+                swapController.execute();
             }
         });
 
