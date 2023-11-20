@@ -38,9 +38,9 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
-//        views.add(welcomeView, welcomeView.viewName);
+        views.add(welcomeView, welcomeView.viewName);
 
-//        viewManagerModel.setActiveView(welcomeView.viewName);
+        viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

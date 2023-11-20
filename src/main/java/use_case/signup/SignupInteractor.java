@@ -5,14 +5,17 @@ import entity.people.*;
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary signupPresenter;
-    final UserFactory userFactory;
+    final DoctorUserFactory doctorUserFactory;
+    final PatientUserFactory patientUserFactory;
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
-                            UserFactory userFactory) {
+                            DoctorUserFactory doctorUserFactory,
+                            PatientUserFactory patientUserFactory) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.signupPresenter = signupOutputBoundary;
-        this.userFactory = userFactory;
+        this.doctorUserFactory = doctorUserFactory;
+        this.patientUserFactory = patientUserFactory;
     }
 
     @Override
@@ -27,11 +30,12 @@ public class SignupInteractor implements SignupInputBoundary {
             } else if (!password.equals(repeatedPassword)) {
                 signupPresenter.prepareFailView("Passwords don't match.");
             } else {
-                User user = userFactory.create(username, password);
                 if (isDoctor) {
-                    userDataAccessObject.save((IDoctor) user);
+                    IDoctor doctor = doctorUserFactory.create(username, password);
+                    userDataAccessObject.save(doctor);
                 } else {
-                    userDataAccessObject.save((IPatient) user);
+                    IPatient patient = patientUserFactory.create(username, password);
+                    userDataAccessObject.save(patient);
                 }
                 SignupOutputData signupOutputData = new SignupOutputData(username, false);
                 signupPresenter.prepareSuccessView(signupOutputData);
