@@ -23,9 +23,7 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
     private final WelcomeViewModel welcomeViewModel;
     private final DoctorUpdateState modifyViewModel;
     private ChoosePatientViewModel choosePatientViewModel;
-    private final ChoosePatientViewModel choosePatientViewModel;
-    private final ConversationViewModel conversationViewModel;
-    private ViewManagerModel viewManagerModel;
+
 
     public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
                                   ConversationViewModel conversationViewModel,
@@ -44,9 +42,9 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
         if (response.getUsecase().equals("logout")){
             WelcomeState welcomeState = welcomeViewModel.getState();
-            this.conversationViewModel.setState(conversationState);
-            this.conversationViewModel.firePropertyChanged();
-            this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            this.welcomeViewModel.setState(welcomeState);
+            this.welcomeViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveView(welcomeViewModel.getViewName());
             this.viewManagerModel.firePropertyChanged();
         } else if (response.getUsecase().equals("choosePatient")){
             ConversationState conversationState = conversationViewModel.getState();
