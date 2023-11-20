@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WelcomeView extends JPanel implements ActionListener {
-    public final String viewName = "welcome";
+    public final String viewName;
     private final JButton logInButton;
     private final JButton signUpButton;
     private final JLabel label;
@@ -20,6 +20,8 @@ public class WelcomeView extends JPanel implements ActionListener {
     public WelcomeView(WelcomeViewModel welcomeViewModel,
                        WelcomeSignupController signupController,
                        WelcomeLoginController loginController) {
+        this.viewName = welcomeViewModel.getViewName();
+
         // Create and do settings for main panel
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 65));
         this.setBackground(Color.lightGray);

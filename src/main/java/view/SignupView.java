@@ -15,7 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "sign up";
+    public final String viewName;
     private final JTextField usernameInputField;
     private final JPasswordField passwordInputField;
     private final JPasswordField repeatPasswordInputField;
@@ -25,6 +25,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public SignupView(SignupViewModel signupViewModel,
                       SignupController signupController,
                       SwaptoWelcomeController swapController) {
+        this.viewName = signupViewModel.getViewName();
+        signupViewModel.addPropertyChangeListener(this);
+
         // Create and do settings for main panel
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
         this.setBackground(Color.lightGray);
@@ -161,7 +164,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         signupController.execute(
                                 currentState.getUsername(),
                                 currentState.getPassword(),
-                                currentState.getPasswordError(),
+                                currentState.getRepeatPassword(),
                                 currentState.isDoctor()
                         );
                     }
@@ -189,5 +192,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         } else if (state.getPasswordError() != null) {
             JOptionPane.showMessageDialog(this, state.getPasswordError());
         }
+        state.setUsernameError(null);
+        state.setPasswordError(null);
     }
 }
