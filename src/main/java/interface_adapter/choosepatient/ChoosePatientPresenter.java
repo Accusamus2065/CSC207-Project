@@ -30,16 +30,11 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
                                   WelcomeViewModel welcomeViewModel,
                                   ModifyViewModel modifyViewModel,
                                   ChoosePatientViewModel choosePatientViewModel) {
-    public ChoosePatientPresenter(ChoosePatientViewModel choosePatientViewModel,
-                                  ConversationViewModel conversationViewModel,
-                                  ViewManagerModel viewManagerModel) {
-        this.choosePatientViewModel = choosePatientViewModel;
-        this.conversationViewModel = conversationViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.choosePatientViewModel = choosePatientViewModel;
         this.conversationViewModel = conversationViewModel;
         this.welcomeViewModel = welcomeViewModel;
         this.modifyViewModel = modifyViewModel;
-        this.choosePatientViewModel = choosePatientViewModel;
     }
 
     @Override
@@ -53,13 +48,6 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
         WelcomeState welcomeState = welcomeViewModel.getState();
 
         ModifyState modifyState = modifyViewModel.getState();
-
-
-
-        LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
-        this.loggedInViewModel.setState(loggedInState);
-        this.loggedInViewModel.firePropertyChanged();
         ConversationState conversationState = conversationViewModel.getState();
         conversationState.setUser(response.getUsername()); // TODO conversation state needs to be fixed, but not my file
         this.conversationViewModel.setState(conversationState);
