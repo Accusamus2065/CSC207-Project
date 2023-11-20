@@ -7,4 +7,5 @@ public interface ChoosePatientInputBoundary {
     void executeChoose(String Patient);
     List<String> executeGetPatients();
 
+    void executeUpdate();
 }

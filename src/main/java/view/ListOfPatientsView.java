@@ -1,10 +1,9 @@
 package view;
 
-import front_end.ViewModels.ListOfPatientsViewModel;
-import front_end.ViewModels.PatientsChatWithBotViewModel;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
 import interface_adapter.choosepatient.ChoosePatientState;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
 
 import javax.swing.*;
 import java.awt.*;

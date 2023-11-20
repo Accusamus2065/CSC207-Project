@@ -36,6 +36,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
         if (loginState.isDoctor()){
             ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+            choosePatientState.setUsername(response.getUsername());
             this.choosePatientViewModel.setState(choosePatientState);
 
             this.choosePatientViewModel.firePropertyChanged();

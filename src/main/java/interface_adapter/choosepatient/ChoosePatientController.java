@@ -19,7 +19,22 @@ public class ChoosePatientController {
         choosePatientInteractor.executeChoose(p);
     }
 
-    public List<String> getPatients(){
+    public List<String> executeGetPatients(){
         return choosePatientInteractor.executeGetPatients();
+    }
+
+    public void executeUpdate(){
+        choosePatientInteractor.executeUpdate();
+    }
+
+    public void executeLogout(){
+        choosePatientInteractor.executeLogOut();
+    }
+
+    public void execute(String username, String password, Boolean isDoctor) {
+        LoginInputData loginInputData = new LoginInputData(
+                username, password, isDoctor);
+
+        loginUseCaseInteractor.execute(loginInputData);
     }
 }
