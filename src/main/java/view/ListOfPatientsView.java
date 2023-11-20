@@ -27,9 +27,9 @@ public class ListOfPatientsView {
         this.choosePatientViewModel = choosePatientViewModel;
         // Create and do settings for frame
         frame = new JFrame();
-        frame.setTitle(ListOfPatientsViewModel.TITLE_LABEL);
+        frame.setTitle(listOfPatientsLabel.TITLE_LABEL);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(ListOfPatientsViewModel.FRAME_WIDTH_SIZE, ListOfPatientsViewModel.FRAME_HEIGHT_SIZE);
+        frame.setSize(listOfPatientsLabel.FRAME_WIDTH_SIZE, listOfPatientsLabel.FRAME_HEIGHT_SIZE);
         frame.setLocationRelativeTo(null);
 
         // Create and do settings for main panel
@@ -37,7 +37,7 @@ public class ListOfPatientsView {
         panel.setLayout(new BorderLayout());
 //        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
         panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(ListOfPatientsViewModel.PANEL_DIMENSION);
+        panel.setPreferredSize(listOfPatientsLabel.PANEL_DIMENSION);
         frame.add(panel, BorderLayout.CENTER);
 
         // Create the upper sub-panel that will contain the button to log out, listOfPatients label, and modify button
@@ -47,25 +47,25 @@ public class ListOfPatientsView {
         panel.add(upperPanel, BorderLayout.NORTH);
 
         // Create the button for logging out of the profile
-        logOutButton = new JButton(ListOfPatientsViewModel.LOGOUT_BUTTON_LABEL);
-        logOutButton.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+        logOutButton = new JButton(listOfPatientsLabel.LOGOUT_BUTTON_LABEL);
+        logOutButton.setFont(listOfPatientsLabel.BUTTON_FONT);
         logOutButton.setFocusable(false);
         logOutButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) { //
                     }});
-        logOutButton.setPreferredSize(ListOfPatientsViewModel.BUTTON_DIMENSION);
+        logOutButton.setPreferredSize(listOfPatientsLabel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
         // Create and add label of List of Patients to the upper panel
-        listOfPatientsLabel = new JLabel(ListOfPatientsViewModel.MAIN_LABEL);
-        listOfPatientsLabel.setFont(ListOfPatientsViewModel.MAIN_LABEL_FONT);
+        listOfPatientsLabel = new JLabel(listOfPatientsLabel.MAIN_LABEL);
+        listOfPatientsLabel.setFont(listOfPatientsLabel.MAIN_LABEL_FONT);
         upperPanel.add(listOfPatientsLabel);
 
         // Create the button for modifying the profile
-        modifyButton = new JButton(ListOfPatientsViewModel.MODIFY_BUTTON_LABEL);
-        modifyButton.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+        modifyButton = new JButton(listOfPatientsLabel.MODIFY_BUTTON_LABEL);
+        modifyButton.setFont(listOfPatientsLabel.BUTTON_FONT);
         modifyButton.setFocusable(false);
         modifyButton.addActionListener(
                 new ActionListener() {
@@ -85,7 +85,7 @@ public class ListOfPatientsView {
         // Add the buttons that will link doctor to the chat with the patients
         for(String p: patients) {
             JButton button = new JButton(p);
-            button.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+            button.setFont(listOfPatientsLabel.BUTTON_FONT);
             button.setBackground(Color.white);
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -4,7 +4,9 @@ package interface_adapter.choosepatient;//package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
+import interface_adapter.chat.ConversationState;
 import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.welcome.WelcomeState;
 import interface_adapter.welcome.WelcomeViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
@@ -42,7 +44,15 @@ public class ChoosePatientPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the logged in view.
+        //
+        ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+
+
+        ConversationState conversationState = conversationViewModel.getState();
+        conversationState.setConversation(null);
+        WelcomeState welcomeState = welcomeViewModel.getState();
+
+        ModifyState modifyState = modifyViewModel.getState();
 
 
 
