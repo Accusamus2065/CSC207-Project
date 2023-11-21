@@ -8,14 +8,12 @@ public class RegexCredentialChecker implements CredentialCheckerStrategy {
     public RegexCredentialChecker() { }
 
     public boolean validPassword(String password) {
-        Pattern pattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).{5,}$");
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+        String regex = "^(?=.*[a-zA-Z])(?=.*[0-9]).{5,}$";
+        return Pattern.matches(regex, password);
     }
 
     public boolean validUsername(String username) {
-        Pattern pattern = Pattern.compile("^\\w.{3,}$");
-        Matcher matcher = pattern.matcher(username);
-        return matcher.matches();
+        String regex = "^\\w.{3,}$";
+        return Pattern.matches(regex, username);
     }
 }
