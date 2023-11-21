@@ -3,7 +3,7 @@ package view;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.swap_views.welcome.SwaptoWelcomeController;
+import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(SignupViewModel signupViewModel,
                       SignupController signupController,
-                      SwaptoWelcomeController swapController) {
+                      SwapToWelcomeController swapController) {
         this.viewName = signupViewModel.getViewName();
         signupViewModel.addPropertyChangeListener(this);
 

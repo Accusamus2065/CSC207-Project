@@ -16,7 +16,7 @@ public class SwaptoWelcomePresenterTest {
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         viewManagerModel.setActiveView(signupViewModel.getViewName());
 
-        SwaptoWelcomePresenter swaptoWelcomePresenter = new SwaptoWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
         swaptoWelcomePresenter.execute();
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
@@ -29,7 +29,7 @@ public class SwaptoWelcomePresenterTest {
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
 
-        SwaptoWelcomePresenter swaptoWelcomePresenter = new SwaptoWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
         swaptoWelcomePresenter.execute();
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
