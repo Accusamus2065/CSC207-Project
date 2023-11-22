@@ -65,6 +65,9 @@ public class Main {
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
+        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel);
+        views.add(listOfPatientsView, listOfPatientsView.viewName);
+
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
