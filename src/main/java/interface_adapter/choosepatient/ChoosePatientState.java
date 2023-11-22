@@ -18,7 +18,9 @@ public class ChoosePatientState {
     // Because of the previous copy constructor, the default constructor must be explicit.
     public ChoosePatientState() {}
 
-
+    public String getUsername() {
+        return username;
+    }
 
     public List<String> getPatients() {
         return patients;

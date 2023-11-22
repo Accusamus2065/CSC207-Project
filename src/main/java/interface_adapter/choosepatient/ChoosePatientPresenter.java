@@ -51,13 +51,14 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
         } else if (response.getUsecase().equals("choosePatient")){
             ConversationState conversationState = conversationViewModel.getState();
             conversationState.setConversation(null);
-            conversationState.setUser(response.getPatient()); // TODO conversation state needs to be fixed, but not my file
-            this.conversationViewModel.setState(conversationState);
+            conversationState.setUsername(response.getPatient()); // TODO conversation state needs to be fixed, but not my file
+            this.conversationViewModel.setState(conversationState); // Also need to add who I am talking to
             this.conversationViewModel.firePropertyChanged();
             this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
             this.viewManagerModel.firePropertyChanged();
         } else if (response.getUsecase().equals("update")) {
             DoctorUpdateState doctorUpdateState = doctorUpdateViewModel.getState();
+            doctorUpdateState.setUsername(response.getUsername());
             this.doctorUpdateViewModel.setState(doctorUpdateState);
             this.doctorUpdateViewModel.firePropertyChanged();
             this.viewManagerModel.setActiveView(doctorUpdateViewModel.getViewName());

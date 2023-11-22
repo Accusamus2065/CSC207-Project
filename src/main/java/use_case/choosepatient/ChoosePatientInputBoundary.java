@@ -3,9 +3,9 @@ package use_case.choosepatient;
 import java.util.List;
 
 public interface ChoosePatientInputBoundary {
-    void executeLogOut();
-    void executeChoose(String Patient);
+    void executeLogOut(ChoosePatientInputData choosePatientInputData);
+    void executeChoose(ChoosePatientInputData choosePatientInputData);
     List<String> executeGetPatients();
 
-    void executeUpdate();
+    void executeUpdate(ChoosePatientInputData choosePatientInputData);
 }

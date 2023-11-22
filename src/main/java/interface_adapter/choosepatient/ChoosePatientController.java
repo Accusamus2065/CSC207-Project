@@ -15,26 +15,20 @@ public class ChoosePatientController {
     }
 
 
-    public void executeChoose(String p) {
-        choosePatientInteractor.executeChoose(p);
+    public void executeChoose(ChoosePatientInputData choosePatientInputData) {
+        choosePatientInteractor.executeChoose(choosePatientInputData);
     }
 
     public List<String> executeGetPatients(){
         return choosePatientInteractor.executeGetPatients();
     }
 
-    public void executeUpdate(){
-        choosePatientInteractor.executeUpdate();
+    public void executeUpdate(ChoosePatientInputData choosePatientInputData){
+        choosePatientInteractor.executeUpdate(choosePatientInputData);
     }
 
-    public void executeLogout(){
-        choosePatientInteractor.executeLogOut();
+    public void executeLogout(ChoosePatientInputData choosePatientInputData){
+        choosePatientInteractor.executeLogOut(choosePatientInputData);
     }
 
-    public void execute(String username, String password, Boolean isDoctor) {
-        LoginInputData loginInputData = new LoginInputData(
-                username, password, isDoctor);
-
-        loginUseCaseInteractor.execute(loginInputData);
-    }
 }

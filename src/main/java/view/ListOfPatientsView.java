@@ -93,7 +93,7 @@ public class ListOfPatientsView {
                 public void actionPerformed(ActionEvent e) {
                     ChoosePatientState currentState = choosePatientViewModel.getState();
 
-                    choosePatientController.executeChoose(p);
+                    // TODO choosePatientController.executeChoose();
 
                 }
             });
