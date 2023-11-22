@@ -1,8 +1,6 @@
 package use_case.choosepatient;
 
 
-import interface_adapter.choosepatient.ChoosePatientState;
-
 import java.util.List;
 
 public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
@@ -16,9 +14,11 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
     }
 
     @Override
-    public void executeLogOut() {
+    public void executeLogOut(ChoosePatientInputData choosePatientInputData) {
+        String username = choosePatientInputData.getUsername();
+
         try {
-            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("logout",false);
+            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("logout",false, username);
             choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
         } catch (Exception e) {
             choosePatientPresenter.prepareFailView(e.getMessage());
@@ -26,9 +26,10 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
     }
 
-    public void executeUpdate(){
+    public void executeUpdate(ChoosePatientInputData choosePatientInputData){
     try {
-        ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("modify",false);
+        String username = choosePatientInputData.getUsername();
+        ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("modify",false, username);
         choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
     } catch (Exception e) {
         choosePatientPresenter.prepareFailView(e.getMessage());
@@ -38,10 +39,13 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
 
     @Override
-    public void executeChoose(String patient) {
+    public void executeChoose(ChoosePatientInputData choosePatientInputData) {
+        String username = choosePatientInputData.getUsername();
+        String patient = choosePatientInputData.getPatient();
+
         try {
             ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData(patient,
-                    "choosePatient",false);
+                    "choosePatient",false, username);
             choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
 
         } catch (Exception e) {
@@ -55,4 +59,3 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
 }
 
-}
