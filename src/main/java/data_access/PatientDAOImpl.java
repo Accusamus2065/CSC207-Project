@@ -98,7 +98,7 @@ public class PatientDAOImpl {
         patients.replaceOne(query, document);
     }
 
-    public Map<String, User> getAccounts() {
+    public Map<String, IPatient> getAccounts() {
         return accounts;
     }
 }
