@@ -32,10 +32,12 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
             } else if (!credentialChecker.validPassword(doctorUpdateInputData.getPassword())) {
                 userPresenter.prepareFailView("Password requires a digit and a letter, be more than 5 characters, and cannot have any other characters.");
             } else {
-                IDoctor doctor = userFactory.create(doctorUpdateInputData.getNewUsername(),
+                IDoctor doctor = userFactory.create(
+                        doctorUpdateInputData.getNewUsername(),
                         doctorUpdateInputData.getPassword(),
-                        doctorUpdateInputData.getSpecialty(),
-                        doctorUpdateInputData.getDegree());
+                        doctorUpdateInputData.getDegree(),
+                        doctorUpdateInputData.getSpecialty()
+                );
                 userDataAccessObject.update(doctorUpdateInputData.getOldUsername(), doctor);
                 DoctorUpdateOutputData outputDate = new DoctorUpdateOutputData(doctor.getUsername(), false);
                 userPresenter.prepareSuccessView(outputDate);
