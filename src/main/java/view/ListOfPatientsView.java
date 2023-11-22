@@ -52,7 +52,12 @@ public class ListOfPatientsView {
         logOutButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { //
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource().equals(modifyButton)){
+                            ChoosePatientState currentState = choosePatientViewModel.getState();
+
+                            choosePatientController.executeLogout(currentState.getUsername());
+                        }
                     }});
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
@@ -69,9 +74,15 @@ public class ListOfPatientsView {
         modifyButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { //
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource().equals(modifyButton)){
+                            ChoosePatientState currentState = choosePatientViewModel.getState();
+
+                            choosePatientController.executeUpdate(currentState.getUsername());
+                        }
                     }});
-        modifyButton.setPreferredSize(ConversationViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
+        // USING WRONG BUTTON DIMENSINO RN
+        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -91,12 +102,12 @@ public class ListOfPatientsView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ChoosePatientState currentState = choosePatientViewModel.getState();
+                    if(e.getSource().equals(modifyButton)){
+                        ChoosePatientState currentState = choosePatientViewModel.getState();
 
-                    // TODO choosePatientController.executeChoose();
-
-                }
-            });
+                        choosePatientController.executeUpdate(currentState.getUsername());
+                    }
+                }});
             midPanel.add(button);
         }
 
