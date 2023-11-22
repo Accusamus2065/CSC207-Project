@@ -26,9 +26,9 @@ public class ListOfPatientsView {
         this.choosePatientViewModel = choosePatientViewModel;
         // Create and do settings for frame
         frame = new JFrame();
-        frame.setTitle(listOfPatientsLabel.TITLE_LABEL);
+        frame.setTitle(ChoosePatientViewModel.TITLE_LABEL);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(listOfPatientsLabel.FRAME_WIDTH_SIZE, listOfPatientsLabel.FRAME_HEIGHT_SIZE);
+        frame.setSize(ChoosePatientViewModel.FRAME_WIDTH_SIZE, ChoosePatientViewModel.FRAME_HEIGHT_SIZE);
         frame.setLocationRelativeTo(null);
 
         // Create and do settings for main panel
@@ -36,7 +36,7 @@ public class ListOfPatientsView {
         panel.setLayout(new BorderLayout());
 //        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
         panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(listOfPatientsLabel.PANEL_DIMENSION);
+        panel.setPreferredSize(ChoosePatientViewModel.PANEL_DIMENSION);
         frame.add(panel, BorderLayout.CENTER);
 
         // Create the upper sub-panel that will contain the button to log out, listOfPatients label, and modify button
@@ -46,32 +46,32 @@ public class ListOfPatientsView {
         panel.add(upperPanel, BorderLayout.NORTH);
 
         // Create the button for logging out of the profile
-        logOutButton = new JButton(listOfPatientsLabel.LOGOUT_BUTTON_LABEL);
-        logOutButton.setFont(listOfPatientsLabel.BUTTON_FONT);
+        logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
+        logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
         logOutButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) { //
                     }});
-        logOutButton.setPreferredSize(listOfPatientsLabel.BUTTON_DIMENSION);
+        logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
         // Create and add label of List of Patients to the upper panel
-        listOfPatientsLabel = new JLabel(listOfPatientsLabel.MAIN_LABEL);
-        listOfPatientsLabel.setFont(listOfPatientsLabel.MAIN_LABEL_FONT);
+        listOfPatientsLabel = new JLabel(ChoosePatientViewModel.MAIN_LABEL);
+        listOfPatientsLabel.setFont(ChoosePatientViewModel.MAIN_LABEL_FONT);
         upperPanel.add(listOfPatientsLabel);
 
         // Create the button for modifying the profile
-        modifyButton = new JButton(listOfPatientsLabel.MODIFY_BUTTON_LABEL);
-        modifyButton.setFont(listOfPatientsLabel.BUTTON_FONT);
+        modifyButton = new JButton(ChoosePatientViewModel.MODIFY_BUTTON_LABEL);
+        modifyButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         modifyButton.setFocusable(false);
         modifyButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) { //
                     }});
-        modifyButton.setPreferredSize(PatientsChatWithBotViewModel.BUTTON_DIMENSION);
+        modifyButton.setPreferredSize(ConversationViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -80,11 +80,11 @@ public class ListOfPatientsView {
         midPanel.setBackground(Color.lightGray);
 
         // get a list of patients
-        List<String> patients = choosePatientController.getPatients();
+        List<String> patients = choosePatientController.executeGetPatients();
         // Add the buttons that will link doctor to the chat with the patients
         for(String p: patients) {
             JButton button = new JButton(p);
-            button.setFont(listOfPatientsLabel.BUTTON_FONT);
+            button.setFont(ChoosePatientViewModel.BUTTON_FONT);
             button.setBackground(Color.white);
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
