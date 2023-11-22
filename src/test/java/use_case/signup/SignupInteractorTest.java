@@ -1,126 +1,92 @@
 package use_case.signup;
 
 import data_access.InMemoryUserDataAccessObject;
-import entity.people.*;
+import entity.people.DoctorUserFactory;
+import entity.people.PatientUserFactory;
 import org.junit.Test;
 
-import javax.print.Doc;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class SignupInteractorTest {
     @Test
-    public void successDoctorTest(){
-        SignupInputData inputData = new SignupInputData(
-                "doctor1", "password", "password", true);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        SignupOutputBoundary successPresenter = new SignupOutputBoundary(){
-            public void prepareSuccessView(SignupOutputData user){
-                assertEquals("doctor1", user.getUsername());
-                assertTrue(userRepository.existsByName(true, "doctor1"));
-            }
-
-            public void prepareFailView(String error){
-                fail("User case failure is not expected");
-            }
-
-        };
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
-    }
-
-    @Test
-    public void successPatientTest(){
-        SignupInputData inputData = new SignupInputData(
-                "patient1", "password", "password", false);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        SignupOutputBoundary successPresenter = new SignupOutputBoundary(){
-            public void prepareSuccessView(SignupOutputData user){
-                assertEquals("patient1", user.getUsername());
-                assertTrue(userRepository.existsByName(false, "patient1"));
-            }
-
-            public void prepareFailView(String error){
-                fail("User case failure is not expected");
-            }
-
-        };
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
-    }
-
-    @Test
-    public void failurePasswordMismatchTestDoctor() {
-        SignupInputData inputData = new SignupInputData(
-                "doctor1", "password", "asl;dfjlkasdf", true);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        // This creates a presenter that tests whether the test case is as we expect.
-        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+    public void signupPatientSuccessTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
-                // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                fail("Use case success is unexpected.");
+                assertTrue(userDAO.existsByName(false, user.getUsername()));
+                assertFalse(user.isUseCaseFailed());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Test expected to pass.");
+            }
+        };
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+
+        SignupInputData inputData = new SignupInputData("taml5", "Testing1", "Testing1", false);
+        signupInteractor.execute(inputData);
+    }
+
+    @Test
+    public void signupDoctorSuccessTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                assertTrue(userDAO.existsByName(false, user.getUsername()));
+                assertFalse(user.isUseCaseFailed());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Test expected to pass.");
+            }
+        };
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+
+        SignupInputData inputData = new SignupInputData("taml5", "Testing1", "Testing1", true);
+        signupInteractor.execute(inputData);
+    }
+
+    @Test
+    public void signupFailMatchingPasswordsTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Test expected to fail since passwords don't match.");
             }
 
             @Override
             public void prepareFailView(String error) {
                 assertEquals("Passwords don't match.", error);
+                assertFalse(userDAO.existsByName(false, "taml5"));
             }
         };
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
 
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
+        SignupInputData signupInputData = new SignupInputData("taml5", "Abce45", "Abce5", false);
+        signupInteractor.execute(signupInputData);
     }
 
     @Test
-    public void failurePasswordMismatchTestPatient() {
-        SignupInputData inputData = new SignupInputData(
-                "patient1", "password", "asl;dfjlkasdf", false);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        // This creates a presenter that tests whether the test case is as we expect.
-        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+    public void signupFailUserExistingTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
-                // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                fail("Use case success is unexpected.");
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                assertEquals("Passwords don't match.", error);
-            }
-        };
-
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
-    }
-
-    @Test
-    public void failureDoctorExistsTest() {
-        SignupInputData inputData = new SignupInputData(
-                "doctor1", "password", "password", true);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        // Add Paul to the repo so that when we check later they already exist
-        DoctorUserFactory factory = new DoctorUserFactory();
-        IDoctor doctor = (IDoctor) factory.create("doctor1", "ialreadyexist", "MedSchool", "Cancer");
-        userRepository.save(doctor);
-
-        // This creates a presenter that tests whether the test case is as we expect.
-        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
-            @Override
-            public void prepareSuccessView(SignupOutputData user) {
-                // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                fail("Use case success is unexpected.");
+                fail("Test expected to fail since user already exists.");
             }
 
             @Override
@@ -128,40 +94,105 @@ public class SignupInteractorTest {
                 assertEquals("User already exists.", error);
             }
         };
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+        userDAO.save(patFactory.create("taml5", "Abcedf123"));
 
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
+        SignupInputData signupInputData = new SignupInputData("taml5", "Abce45", "Abce5", false);
+        signupInteractor.execute(signupInputData);
     }
 
     @Test
-    public void failurePatientExistsTest() {
-        SignupInputData inputData = new SignupInputData(
-                "patient1", "password", "password", false);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        // Add Paul to the repo so that when we check later they already exist
-        PatientUserFactory factory = new PatientUserFactory();
-        IPatient patient = (IPatient) factory.create("patient1", "ialreadyexist");
-        userRepository.save(patient);
-
-        // This creates a presenter that tests whether the test case is as we expect.
-        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+    public void validUsernameTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
-                // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                fail("Use case success is unexpected.");
+                assertTrue(userDAO.existsByName(false, "taml5"));
+                assertNotNull(user);
+                assertFalse(user.isUseCaseFailed());
+                assertEquals(user.getUsername(), "taml5");
             }
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("User already exists.", error);
+                fail("Username expected to pass.");
             }
         };
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
 
-        SignupInputBoundary interactor = new
-                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
-        interactor.execute(inputData);
+        SignupInputData inputData = new SignupInputData("taml5", "Abc123", "Abc123", false);
+        signupInteractor.execute(inputData);
     }
 
+    @Test
+    public void invalidUsernameTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Username expected to fail.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Username is invalid.", error);
+                assertFalse(userDAO.existsByName(false, "a"));
+            }
+        };
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+
+        SignupInputData inputData = new SignupInputData("a", "Abc123", "Abc123", false);
+        signupInteractor.execute(inputData);
+    }
+
+    @Test
+    public void validPasswordTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                assertTrue(userDAO.existsByName(false, "taml5"));
+                assertNotNull(user);
+                assertEquals(user.getUsername(), "taml5");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Password expected to pass.");
+            }
+        };
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+
+        SignupInputData inputData = new SignupInputData("taml5", "Abc123", "Abc123", false);
+        signupInteractor.execute(inputData);
+    }
+
+    @Test
+    public void invalidPasswordTest() {
+        SignupUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                fail("Password expected to fail.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Password requires a digit and a letter, be more than 5 characters, and cannot have any other characters.", error);
+                assertFalse(userDAO.existsByName(false, "taml5"));
+            }
+        };
+        DoctorUserFactory docFactory = new DoctorUserFactory();
+        PatientUserFactory patFactory = new PatientUserFactory();
+        SignupInteractor signupInteractor = new SignupInteractor(userDAO, signupPresenter, docFactory, patFactory);
+
+        SignupInputData inputData = new SignupInputData("taml5", "A13", "A13", false);
+        signupInteractor.execute(inputData);
+    }
 }
