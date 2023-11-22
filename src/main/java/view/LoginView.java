@@ -15,7 +15,8 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class LoginView implements ActionListener, PropertyChangeListener {
+public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName;
     private final JFrame frame;
     private JPanel panel;
     private JTextField usernameInputField;
@@ -28,7 +29,7 @@ public class LoginView implements ActionListener, PropertyChangeListener {
 
     public LoginView(LoginViewModel loginViewModel, LoginController loginController, SwapToWelcomeController swapController) {
 
-
+        this.viewName = loginViewModel.getViewName();
         loginViewModel.addPropertyChangeListener(this);
         // Create and do settings for frame
         frame = new JFrame();
@@ -124,6 +125,7 @@ public class LoginView implements ActionListener, PropertyChangeListener {
         cancelButton = new JButton(LoginViewModel.CANCEL_BUTTON_LABEL);
         cancelButton.setFont(LoginViewModel.BUTTON_FONT);
         cancelButton.setFocusable(false);
+        cancelButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
 
         buttonPanel.add(cancelButton);
 

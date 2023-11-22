@@ -3,14 +3,14 @@ package app;
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
-import view.DoctorUpdateView;
-import view.SignupView;
-import view.ViewManager;
-import view.WelcomeView;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +53,9 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
+        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
+
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
@@ -60,6 +63,8 @@ public class Main {
         views.add(signupView, signupView.viewName);
         DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, docUpdateViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
+        views.add(loginView, loginView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
