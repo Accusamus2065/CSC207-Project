@@ -47,4 +47,3 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
         }
     }
 }
-
