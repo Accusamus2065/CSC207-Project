@@ -2,8 +2,6 @@ package interface_adapter.choosepatient;
 
 import use_case.choosepatient.ChoosePatientInputBoundary;
 import use_case.choosepatient.ChoosePatientInputData;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInputData;
 
 import java.util.List;
 
@@ -15,20 +13,23 @@ public class ChoosePatientController {
     }
 
 
-    public void executeChoose(ChoosePatientInputData choosePatientInputData) {
+    public void executeChoose(String username, String patient, String usecase) {
+        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username, patient, usecase);
         choosePatientInteractor.executeChoose(choosePatientInputData);
+    }
+
+    public void executeUpdate(String username, String patient, String usecase){
+        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username, patient, usecase);
+        choosePatientInteractor.executeUpdate(choosePatientInputData);
+    }
+
+    public void executeLogout(String username, String patient, String usecase){
+        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username, patient, usecase);
+        choosePatientInteractor.executeLogOut(choosePatientInputData);
     }
 
     public List<String> executeGetPatients(){
         return choosePatientInteractor.executeGetPatients();
-    }
-
-    public void executeUpdate(ChoosePatientInputData choosePatientInputData){
-        choosePatientInteractor.executeUpdate(choosePatientInputData);
-    }
-
-    public void executeLogout(ChoosePatientInputData choosePatientInputData){
-        choosePatientInteractor.executeLogOut(choosePatientInputData);
     }
 
 }
