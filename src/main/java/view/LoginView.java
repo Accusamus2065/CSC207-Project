@@ -17,45 +17,34 @@ import java.beans.PropertyChangeListener;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
-    private final JFrame frame;
-    private JPanel panel;
-    private JTextField usernameInputField;
+    private final JTextField usernameInputField;
     private JLabel usernameErrorField;
-    private JPasswordField passwordInputField;
+    private final JPasswordField passwordInputField;
     private JLabel passwordErrorField;
     private final JButton logInButton;
     private final JButton cancelButton;
 
 
     public LoginView(LoginViewModel loginViewModel, LoginController loginController, SwapToWelcomeController swapController) {
-
         this.viewName = loginViewModel.getViewName();
         loginViewModel.addPropertyChangeListener(this);
-        // Create and do settings for frame
-        frame = new JFrame();
-        frame.setTitle(LoginViewModel.TITLE_LABEL);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(LoginViewModel.FRAME_WIDTH_SIZE, LoginViewModel.FRAME_HEIGHT_SIZE);
-        frame.setLocationRelativeTo(null);
 
         // Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(LoginViewModel.PANEL_DIMENSION);
-        frame.add(panel, BorderLayout.SOUTH);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 30));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(LoginViewModel.PANEL_DIMENSION);
 
         // Create a buffer sub-panel for a gap
         JPanel gapPanel = new JPanel();
         gapPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 20));
         gapPanel.setBackground(Color.lightGray);
-        panel.add(gapPanel, BorderLayout.SOUTH);
+        this.add(gapPanel, BorderLayout.SOUTH);
 
         // Create a sub-panel for the username text field
         JPanel usernameTextFieldPanel = new JPanel();
         usernameTextFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         usernameTextFieldPanel.setBackground(Color.lightGray);
-        panel.add(usernameTextFieldPanel, BorderLayout.SOUTH);
+        this.add(usernameTextFieldPanel, BorderLayout.SOUTH);
 
         // Create and do settings for the username text field
         usernameInputField = new JTextField(15);
@@ -76,7 +65,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         JPanel passwordTextFieldPanel = new JPanel();
         passwordTextFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         passwordTextFieldPanel.setBackground(Color.lightGray);
-        panel.add(passwordTextFieldPanel, BorderLayout.SOUTH);
+        this.add(passwordTextFieldPanel, BorderLayout.SOUTH);
 
         // Create and do settings for the password text field
         passwordInputField = new JPasswordField(15);
@@ -98,7 +87,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 70));
         buttonPanel.setBackground(Color.lightGray);
-        panel.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel, BorderLayout.CENTER);
 
         // Create and do settings for the login button
         logInButton = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
@@ -166,10 +155,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     public void keyReleased(KeyEvent e) {
                     }
                 });
-    }
-
-    public void show(){
-        frame.setVisible(true);
     }
 
     @Override
