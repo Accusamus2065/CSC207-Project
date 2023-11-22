@@ -44,14 +44,14 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
         if (response.getUsecase().equals("logout")){
             WelcomeState welcomeState = welcomeViewModel.getState();
-            this.welcomeViewModel.setState(welcomeState);  //Welcome Viewmodel does not have a setstate function yet
+            // this.welcomeViewModel.setState(welcomeState);  // TODO WELCOMEVIEWMODEL NEEDS A SETSTATE METHOD
             this.welcomeViewModel.firePropertyChanged();
             this.viewManagerModel.setActiveView(welcomeViewModel.getViewName());
             this.viewManagerModel.firePropertyChanged();
         } else if (response.getUsecase().equals("choosePatient")){
             ConversationState conversationState = conversationViewModel.getState();
             conversationState.setConversation(null);
-            conversationState.setUsername(response.getPatient()); // TODO conversation state needs to be fixed, but not my file
+            // conversationState.setUsername(response.getPatient()); // TODO CONVERSATION STATE NEEDS A SET USERNAME METHOD
             this.conversationViewModel.setState(conversationState); // Also need to add who I am talking to
             this.conversationViewModel.firePropertyChanged();
             this.viewManagerModel.setActiveView(conversationViewModel.getViewName());

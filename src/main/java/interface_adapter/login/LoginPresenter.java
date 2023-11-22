@@ -45,8 +45,8 @@ public class LoginPresenter implements LoginOutputBoundary {
             this.viewManagerModel.firePropertyChanged();
         } else {
             ConversationState conversationState = conversationViewModel.getState();
-            conversationState.setUsername(response.getUsername());
-            conversationState.setConversation(null);  // TODO: Change this to actual conversation
+            // conversationState.setUsername(response.getUsername());  // Conversation state needs method setUsername
+            // conversationState.setConversation(null);  // TODO: Change this to actual conversation
             this.conversationViewModel.setState(conversationState);
             this.conversationViewModel.firePropertyChanged();
 
