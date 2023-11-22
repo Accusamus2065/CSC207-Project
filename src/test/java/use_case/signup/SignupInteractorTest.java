@@ -4,6 +4,8 @@ import data_access.InMemoryUserDataAccessObject;
 import entity.people.*;
 import org.junit.Test;
 
+import javax.print.Doc;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -25,7 +27,7 @@ public class SignupInteractorTest {
             }
 
         };
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new DoctorUserFactory());
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new);
         interactor.execute(inputData);
     }
 
@@ -70,7 +72,8 @@ public class SignupInteractorTest {
             }
         };
 
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
@@ -94,7 +97,8 @@ public class SignupInteractorTest {
             }
         };
 
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new PatientUserFactory());
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
@@ -123,7 +127,8 @@ public class SignupInteractorTest {
             }
         };
 
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
@@ -152,7 +157,8 @@ public class SignupInteractorTest {
             }
         };
 
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory());
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, failurePresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
