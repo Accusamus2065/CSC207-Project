@@ -12,6 +12,7 @@ public class DoctorUpdateState {
     private String degree = "";
     private String degreeError = null;
     private boolean isDoctor;
+    private String newUsername = null;
 
     public DoctorUpdateState() {
     }
@@ -116,6 +117,14 @@ public class DoctorUpdateState {
 
     public void setDoctor(boolean doctor) {
         isDoctor = doctor;
+    }
+
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
     }
 
     @Override

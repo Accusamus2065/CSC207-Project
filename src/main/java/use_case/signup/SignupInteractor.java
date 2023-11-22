@@ -2,6 +2,9 @@ package use_case.signup;
 
 import entity.people.*;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary signupPresenter;
@@ -29,6 +32,10 @@ public class SignupInteractor implements SignupInputBoundary {
                 signupPresenter.prepareFailView("User already exists.");
             } else if (!password.equals(repeatedPassword)) {
                 signupPresenter.prepareFailView("Passwords don't match.");
+            } else if (!validUsername(username)) {
+                signupPresenter.prepareFailView("Username is invalid.");
+            } else if (!validPassword(password)) {
+                signupPresenter.prepareFailView("Password requires a digit and a letter, be more than 5 characters, and cannot have any other characters.");
             } else {
                 if (isDoctor) {
                     IDoctor doctor = doctorUserFactory.create(username, password);
@@ -43,5 +50,17 @@ public class SignupInteractor implements SignupInputBoundary {
         } catch (Exception e) {
             signupPresenter.prepareFailView(e.getMessage());
         }
+    }
+
+    private boolean validPassword(String password) {
+        Pattern pattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).{5,}$");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    private boolean validUsername(String username) {
+        Pattern pattern = Pattern.compile("^\\w.{3,}$");
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
     }
 }

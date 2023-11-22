@@ -19,7 +19,7 @@ public class WelcomeViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public WelcomeViewModel() {
-        super("Welcome");
+        super("welcome");
     }
     @Override
     public void firePropertyChanged() {
