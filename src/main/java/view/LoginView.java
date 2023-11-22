@@ -4,6 +4,7 @@ package view;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
+import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,15 +24,12 @@ public class LoginView implements ActionListener, PropertyChangeListener {
     private JLabel passwordErrorField;
     private final JButton logInButton;
     private final JButton cancelButton;
-    private final LoginViewModel loginViewModel;
-    private final LoginController loginController;
 
 
-    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
-        this.loginController = controller;
-        this.loginViewModel = loginViewModel;
+    public LoginView(LoginViewModel loginViewModel, LoginController loginController, SwapToWelcomeController swapController) {
 
-        this.loginViewModel.addPropertyChangeListener(this);
+
+        loginViewModel.addPropertyChangeListener(this);
         // Create and do settings for frame
         frame = new JFrame();
         frame.setTitle(LoginViewModel.TITLE_LABEL);
@@ -129,7 +127,7 @@ public class LoginView implements ActionListener, PropertyChangeListener {
 
         buttonPanel.add(cancelButton);
 
-        cancelButton.addActionListener(this);
+        cancelButton.addActionListener(e -> swapController.execute());
 
 
         usernameInputField.addKeyListener(new KeyListener() {
