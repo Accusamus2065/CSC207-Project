@@ -8,7 +8,9 @@ import entity.people.PatientUserFactory;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -100,5 +102,9 @@ public class PatientDAOImpl {
 
     public Map<String, IPatient> getAccounts() {
         return accounts;
+    }
+
+    public List<String> getPatientList() {
+        return new ArrayList<>(accounts.keySet());
     }
 }
