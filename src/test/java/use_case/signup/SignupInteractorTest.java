@@ -27,7 +27,8 @@ public class SignupInteractorTest {
             }
 
         };
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new);
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
@@ -48,7 +49,8 @@ public class SignupInteractorTest {
             }
 
         };
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new PatientUserFactory());
+        SignupInputBoundary interactor = new
+                SignupInteractor(userRepository, successPresenter, new DoctorUserFactory(), new PatientUserFactory());
         interactor.execute(inputData);
     }
 
