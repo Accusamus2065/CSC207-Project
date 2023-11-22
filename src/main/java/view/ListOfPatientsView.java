@@ -1,10 +1,9 @@
-package front_end.Views;
+package view;
 
-import front_end.ViewModels.ListOfPatientsViewModel;
-import front_end.ViewModels.PatientsChatWithBotViewModel;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
 import interface_adapter.choosepatient.ChoosePatientState;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,9 +26,9 @@ public class ListOfPatientsView {
         this.choosePatientViewModel = choosePatientViewModel;
         // Create and do settings for frame
         frame = new JFrame();
-        frame.setTitle(ListOfPatientsViewModel.TITLE_LABEL);
+        frame.setTitle(ChoosePatientViewModel.TITLE_LABEL);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(ListOfPatientsViewModel.FRAME_WIDTH_SIZE, ListOfPatientsViewModel.FRAME_HEIGHT_SIZE);
+        frame.setSize(ChoosePatientViewModel.FRAME_WIDTH_SIZE, ChoosePatientViewModel.FRAME_HEIGHT_SIZE);
         frame.setLocationRelativeTo(null);
 
         // Create and do settings for main panel
@@ -37,7 +36,7 @@ public class ListOfPatientsView {
         panel.setLayout(new BorderLayout());
 //        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
         panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(ListOfPatientsViewModel.PANEL_DIMENSION);
+        panel.setPreferredSize(ChoosePatientViewModel.PANEL_DIMENSION);
         frame.add(panel, BorderLayout.CENTER);
 
         // Create the upper sub-panel that will contain the button to log out, listOfPatients label, and modify button
@@ -47,32 +46,43 @@ public class ListOfPatientsView {
         panel.add(upperPanel, BorderLayout.NORTH);
 
         // Create the button for logging out of the profile
-        logOutButton = new JButton(ListOfPatientsViewModel.LOGOUT_BUTTON_LABEL);
-        logOutButton.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+        logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
+        logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
         logOutButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { //
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource().equals(modifyButton)){
+                            ChoosePatientState currentState = choosePatientViewModel.getState();
+
+                            choosePatientController.executeLogout(currentState.getUsername());
+                        }
                     }});
-        logOutButton.setPreferredSize(ListOfPatientsViewModel.BUTTON_DIMENSION);
+        logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
         // Create and add label of List of Patients to the upper panel
-        listOfPatientsLabel = new JLabel(ListOfPatientsViewModel.MAIN_LABEL);
-        listOfPatientsLabel.setFont(ListOfPatientsViewModel.MAIN_LABEL_FONT);
+        listOfPatientsLabel = new JLabel(ChoosePatientViewModel.MAIN_LABEL);
+        listOfPatientsLabel.setFont(ChoosePatientViewModel.MAIN_LABEL_FONT);
         upperPanel.add(listOfPatientsLabel);
 
         // Create the button for modifying the profile
-        modifyButton = new JButton(ListOfPatientsViewModel.MODIFY_BUTTON_LABEL);
-        modifyButton.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+        modifyButton = new JButton(ChoosePatientViewModel.MODIFY_BUTTON_LABEL);
+        modifyButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         modifyButton.setFocusable(false);
         modifyButton.addActionListener(
                 new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { //
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource().equals(modifyButton)){
+                            ChoosePatientState currentState = choosePatientViewModel.getState();
+
+                            choosePatientController.executeUpdate(currentState.getUsername());
+                        }
                     }});
-        modifyButton.setPreferredSize(PatientsChatWithBotViewModel.BUTTON_DIMENSION);
+        // USING WRONG BUTTON DIMENSINO RN
+        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -81,23 +91,23 @@ public class ListOfPatientsView {
         midPanel.setBackground(Color.lightGray);
 
         // get a list of patients
-        List<String> patients = choosePatientController.getPatients();
+        List<String> patients = choosePatientController.executeGetPatients();
         // Add the buttons that will link doctor to the chat with the patients
         for(String p: patients) {
             JButton button = new JButton(p);
-            button.setFont(ListOfPatientsViewModel.BUTTON_FONT);
+            button.setFont(ChoosePatientViewModel.BUTTON_FONT);
             button.setBackground(Color.white);
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ChoosePatientState currentState = choosePatientViewModel.getState();
+                    if(e.getSource().equals(modifyButton)){
+                        ChoosePatientState currentState = choosePatientViewModel.getState();
 
-                    choosePatientController.executeChoose(p);
-
-                }
-            });
+                        choosePatientController.executeUpdate(currentState.getUsername());
+                    }
+                }});
             midPanel.add(button);
         }
 
