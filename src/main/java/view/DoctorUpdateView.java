@@ -16,13 +16,13 @@ import java.beans.PropertyChangeListener;
 
 public class DoctorUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
-    private JButton backButton;
-    private JTextField username;
-    private JPasswordField password;
-    private JTextField repeatPassword;
-    private JTextField specialty;
-    private JTextField degree;
-    private JButton saveButton;
+    private final JButton backButton;
+    private final JTextField username;
+    private final JPasswordField password;
+    private final JTextField repeatPassword;
+    private final JTextField specialty;
+    private final JTextField degree;
+    private final JButton saveButton;
 
     public DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
                             SwapToPatientListController swapController,
