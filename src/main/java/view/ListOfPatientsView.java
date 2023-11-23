@@ -11,7 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ListOfPatientsView {
+public class ListOfPatientsView extends JPanel {
+    public String viewName;
     private JFrame frame;
     private JPanel panel;
     private JButton logOutButton;
@@ -22,6 +23,7 @@ public class ListOfPatientsView {
     private final ChoosePatientViewModel choosePatientViewModel;
 
     public ListOfPatientsView(ChoosePatientController choosePatientController, ChoosePatientViewModel choosePatientViewModel) {
+        this.viewName = choosePatientViewModel.getViewName();
         this.choosePatientController = choosePatientController;
         this.choosePatientViewModel = choosePatientViewModel;
         // Create and do settings for frame

@@ -39,19 +39,19 @@ public class LoginPresenter implements LoginOutputBoundary {
             choosePatientState.setUsername(response.getUsername());
             this.choosePatientViewModel.setState(choosePatientState);
 
-            this.choosePatientViewModel.firePropertyChanged();
+            choosePatientViewModel.firePropertyChanged();
 
-            this.viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
-            this.viewManagerModel.firePropertyChanged();
+            viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
         } else {
             ConversationState conversationState = conversationViewModel.getState();
             // conversationState.setUsername(response.getUsername());  // Conversation state needs method setUsername
             // conversationState.setConversation(null);  // TODO: Change this to actual conversation
-            this.conversationViewModel.setState(conversationState);
-            this.conversationViewModel.firePropertyChanged();
+            conversationViewModel.setState(conversationState);
+            conversationViewModel.firePropertyChanged();
 
-            this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
-            this.viewManagerModel.firePropertyChanged();
+            viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
         }
     }
 
