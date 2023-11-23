@@ -2,12 +2,15 @@ package view;
 
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.update.patient.PatientUpdateController;
+import interface_adapter.update.patient.PatientUpdateState;
 import interface_adapter.update.patient.PatientUpdateViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -26,7 +29,7 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
 
     // Create and do settings for frame
     PatientUpdateView(PatientUpdateViewModel patientUpdateViewModel,
-                      SwapToLoginController swapToLoginController,
+                      SwapToLoginController swapController,
                       PatientUpdateController updateController) {
         this.viewName = patientUpdateViewModel.getViewName();
         patientUpdateViewModel.addPropertyChangeListener(this);
@@ -48,7 +51,7 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         backButton.setFocusable(false);
         backButton.setPreferredSize(PatientUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
-//        backButton.addActionListener();
+        backButton.addActionListener(e -> swapController.execute());
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
@@ -64,7 +67,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         usernameLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         usernamePanel.add(usernameLabel);
         usernamePanel.add(username);
-//        username.addKeyListener();
+        username.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = username.getText() + e.getKeyChar();
+                currentState.setNewUsername(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the password text field
         JPanel passwordPanel = new JPanel();
@@ -80,7 +101,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         passwordLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         passwordPanel.add(passwordLabel);
         passwordPanel.add(password);
-//        password.addKeyListener();
+        password.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = password.getText() + e.getKeyChar();
+                currentState.setPassword(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the repeat password text field
         JPanel repeatPasswordPanel = new JPanel();
@@ -96,7 +135,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         repeatPasswordLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         repeatPasswordPanel.add(repeatPasswordLabel);
         repeatPasswordPanel.add(repeatPassword);
-//        repeatPassword.addKeyListener();
+        repeatPassword.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = repeatPassword.getText() + e.getKeyChar();
+                currentState.setRepeatPassword(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the sex text field
         JPanel sexPanel = new JPanel();
@@ -112,7 +169,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         sexLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         sexPanel.add(sexLabel);
         sexPanel.add(sex);
-//        sex.addKeyListener();
+        sex.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = sex.getText() + e.getKeyChar();
+                currentState.setSex(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the gender text field
         JPanel genderPanel = new JPanel();
@@ -128,7 +203,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         genderLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         genderPanel.add(genderLabel);
         genderPanel.add(gender);
-//        gender.addKeyListener();
+        gender.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = gender.getText() + e.getKeyChar();
+                currentState.setGender(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the height text field
         JPanel heightPanel = new JPanel();
@@ -144,7 +237,22 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         heightLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         heightPanel.add(heightLabel);
         heightPanel.add(height);
-//        height.addKeyListener();
+        height.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the weight text field
         JPanel weightPanel = new JPanel();
@@ -160,7 +268,22 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         weightLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         weightPanel.add(weightLabel);
         weightPanel.add(weight);
-//        weight.addKeyListener();
+        weight.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create a sub-panel for the weight text field
         JPanel bloodTypePanel = new JPanel();
@@ -176,7 +299,25 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         bloodTypeLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         bloodTypePanel.add(bloodTypeLabel);
         bloodTypePanel.add(bloodType);
-//        bloodType.addKeyListener();
+        bloodType.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = bloodType.getText() + e.getKeyChar();
+                currentState.setBloodType(text);
+                patientUpdateViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         // Create the upper sub-panel that will contain the button to go back
         JPanel lowerPanel = new JPanel();

@@ -47,12 +47,7 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         backButton.setFocusable(false);
         backButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                swapController.execute();
-            }
-        });
+        backButton.addActionListener(e -> swapController.execute());
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
@@ -236,18 +231,15 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         saveButton.setFocusable(false);
         saveButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         lowerPanel.add(saveButton);
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
-                updateController.execute(
-                        currentState.getUsername(),
-                        currentState.getNewUsername(),
-                        currentState.getPassword(),
-                        currentState.getRepeatPassword(),
-                        currentState.getSpecialty(),
-                        currentState.getDegree());
-            }
+        saveButton.addActionListener(e -> {
+            DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+            updateController.execute(
+                    currentState.getUsername(),
+                    currentState.getNewUsername(),
+                    currentState.getPassword(),
+                    currentState.getRepeatPassword(),
+                    currentState.getSpecialty(),
+                    currentState.getDegree());
         });
     }
 
