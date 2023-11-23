@@ -10,11 +10,9 @@ import java.util.Map;
 public interface ChoosePatientUserDataAccessInterface {
     boolean existsByName(boolean isDoctor, String identifier);
 
-    User get(String username);
-
     IDoctor getDoctor(String username);
 
     IPatient getPatient(String username);
 
-    Map<String, User> getAccountsPatient();
+    List<String> getPatientList();
 }

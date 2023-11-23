@@ -55,7 +55,7 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
     @Override
     public List<String> executeGetPatients() {
-        return (List<String>) userDataAccessObject.getAccountsPatient().keySet();}
+        return userDataAccessObject.getPatientList();}
 
 }
 
