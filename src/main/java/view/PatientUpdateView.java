@@ -1,13 +1,17 @@
 package view;
 
+import interface_adapter.update.patient.PatientUpdateController;
 import interface_adapter.update.patient.PatientUpdateViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class PatientUpdateView {
-    private final JFrame frame;
-    private final JPanel panel;
+public class PatientUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName;
     private final JButton backButton;
     private final JTextField username;
     private final JPasswordField password;
@@ -20,26 +24,21 @@ public class PatientUpdateView {
     private final JButton saveButton;
 
     // Create and do settings for frame
-    PatientUpdateView() {
-        frame = new JFrame();
-        frame.setTitle(PatientUpdateViewModel.TITLE_LABEL);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(PatientUpdateViewModel.FRAME_WIDTH_SIZE, PatientUpdateViewModel.FRAME_HEIGHT_SIZE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+    PatientUpdateView(PatientUpdateViewModel patientUpdateViewModel,
+                      PatientUpdateController updateController) {
+        this.viewName = patientUpdateViewModel.getViewName();
+        patientUpdateViewModel.addPropertyChangeListener(this);
 
         // Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 3));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(PatientUpdateViewModel.PANEL_DIMENSION);
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 3));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(PatientUpdateViewModel.PANEL_DIMENSION);
 
         // Create the upper sub-panel that will contain the button to go back
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.WEST);
+        this.add(upperPanel, BorderLayout.WEST);
 
         // Create the button for going back
         backButton = new JButton(PatientUpdateViewModel.BACK_BUTTON_LABEL);
@@ -47,12 +46,13 @@ public class PatientUpdateView {
         backButton.setFocusable(false);
         backButton.setPreferredSize(PatientUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
+//        backButton.addActionListener();
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         usernamePanel.setBackground(Color.lightGray);
-        panel.add(usernamePanel, BorderLayout.CENTER);
+        this.add(usernamePanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         username = new JTextField(20);
@@ -62,12 +62,13 @@ public class PatientUpdateView {
         usernameLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         usernamePanel.add(usernameLabel);
         usernamePanel.add(username);
+//        username.addKeyListener();
 
         // Create a sub-panel for the password text field
         JPanel passwordPanel = new JPanel();
         passwordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         passwordPanel.setBackground(Color.lightGray);
-        panel.add(passwordPanel, BorderLayout.CENTER);
+        this.add(passwordPanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         password = new JPasswordField(20);
@@ -77,12 +78,13 @@ public class PatientUpdateView {
         passwordLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         passwordPanel.add(passwordLabel);
         passwordPanel.add(password);
+//        password.addKeyListener();
 
         // Create a sub-panel for the repeat password text field
         JPanel repeatPasswordPanel = new JPanel();
         repeatPasswordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         repeatPasswordPanel.setBackground(Color.lightGray);
-        panel.add(repeatPasswordPanel, BorderLayout.CENTER);
+        this.add(repeatPasswordPanel, BorderLayout.CENTER);
 
         // Create and do settings for the username text field
         repeatPassword = new JPasswordField(20);
@@ -92,12 +94,13 @@ public class PatientUpdateView {
         repeatPasswordLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         repeatPasswordPanel.add(repeatPasswordLabel);
         repeatPasswordPanel.add(repeatPassword);
+//        repeatPassword.addKeyListener();
 
         // Create a sub-panel for the sex text field
         JPanel sexPanel = new JPanel();
         sexPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         sexPanel.setBackground(Color.lightGray);
-        panel.add(sexPanel, BorderLayout.CENTER);
+        this.add(sexPanel, BorderLayout.CENTER);
 
         // Create and do settings for the sex text field
         sex = new JTextField(20);
@@ -107,12 +110,13 @@ public class PatientUpdateView {
         sexLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         sexPanel.add(sexLabel);
         sexPanel.add(sex);
+//        sex.addKeyListener();
 
         // Create a sub-panel for the gender text field
         JPanel genderPanel = new JPanel();
         genderPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         genderPanel.setBackground(Color.lightGray);
-        panel.add(genderPanel, BorderLayout.CENTER);
+        this.add(genderPanel, BorderLayout.CENTER);
 
         // Create and do settings for the sex text field
         gender = new JTextField(20);
@@ -122,12 +126,13 @@ public class PatientUpdateView {
         genderLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         genderPanel.add(genderLabel);
         genderPanel.add(gender);
+//        gender.addKeyListener();
 
         // Create a sub-panel for the height text field
         JPanel heightPanel = new JPanel();
         heightPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         heightPanel.setBackground(Color.lightGray);
-        panel.add(heightPanel, BorderLayout.CENTER);
+        this.add(heightPanel, BorderLayout.CENTER);
 
         // Create and do settings for the height text field
         height = new JTextField(20);
@@ -137,12 +142,13 @@ public class PatientUpdateView {
         heightLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         heightPanel.add(heightLabel);
         heightPanel.add(height);
+//        height.addKeyListener();
 
         // Create a sub-panel for the weight text field
         JPanel weightPanel = new JPanel();
         weightPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         weightPanel.setBackground(Color.lightGray);
-        panel.add(weightPanel, BorderLayout.CENTER);
+        this.add(weightPanel, BorderLayout.CENTER);
 
         // Create and do settings for the sex text field
         weight = new JTextField(20);
@@ -152,12 +158,13 @@ public class PatientUpdateView {
         weightLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         weightPanel.add(weightLabel);
         weightPanel.add(weight);
+//        weight.addKeyListener();
 
         // Create a sub-panel for the weight text field
         JPanel bloodTypePanel = new JPanel();
         bloodTypePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 3));
         bloodTypePanel.setBackground(Color.lightGray);
-        panel.add(bloodTypePanel, BorderLayout.CENTER);
+        this.add(bloodTypePanel, BorderLayout.CENTER);
 
         // Create and do settings for the sex text field
         bloodType = new JTextField(20);
@@ -167,12 +174,13 @@ public class PatientUpdateView {
         bloodTypeLabel.setFont(PatientUpdateViewModel.INPUT_FIELD_FONT);
         bloodTypePanel.add(bloodTypeLabel);
         bloodTypePanel.add(bloodType);
+//        bloodType.addKeyListener();
 
         // Create the upper sub-panel that will contain the button to go back
         JPanel lowerPanel = new JPanel();
         lowerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 630, 5));
         lowerPanel.setBackground(Color.lightGray);
-        panel.add(lowerPanel, BorderLayout.EAST);
+        this.add(lowerPanel, BorderLayout.EAST);
 
         // Create the button for logging out of the profile
         saveButton = new JButton(PatientUpdateViewModel.SAVE_BUTTON_LABEL);
@@ -182,7 +190,13 @@ public class PatientUpdateView {
         lowerPanel.add(saveButton);
     }
 
-    public void show() {
-        frame.setVisible(true);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }
