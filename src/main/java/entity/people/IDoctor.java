@@ -1,6 +1,6 @@
 package entity.people;
 
-public interface IDoctor {
+public interface IDoctor extends User {
     void setUsername(String username);
 
     void setPassword(String password);

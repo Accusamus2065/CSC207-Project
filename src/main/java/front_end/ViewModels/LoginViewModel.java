@@ -1,6 +1,11 @@
 package front_end.ViewModels;
 
+import interface_adapter.login.LoginState;
+import interface_adapter.welcome.WelcomeState;
+
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel {
     public static final String TITLE_LABEL = "Login Screen";
@@ -14,8 +19,21 @@ public class LoginViewModel {
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
     public static final Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 20);
     public static final Dimension BUTTON_DIMENSION = new Dimension(100, 70);
+    private LoginState state = new LoginState();
 
-//    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-//
-//    private WelcomeState state = new WelcomeState();
+    public LoginState getState() {return state;}
+
+    public void setState(LoginState state) {
+        this.state = state;
+    }
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    private WelcomeState welcomeState = new WelcomeState();
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+
 }
