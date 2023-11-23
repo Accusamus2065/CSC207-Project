@@ -61,8 +61,8 @@ public class SignupUseCaseFactory {
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel
     ) {
-        SwapToWelcomeOutputBoundary swaptoWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
-        SwapToWelcomeInputBoundary swaptoWelcomeInteractor = new SwapToWelcomeInteractor(swaptoWelcomeOutputBoundary);
-        return new SwapToWelcomeController(swaptoWelcomeInteractor);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
+        return new SwapToWelcomeController(swapToWelcomeInteractor);
     }
 }
