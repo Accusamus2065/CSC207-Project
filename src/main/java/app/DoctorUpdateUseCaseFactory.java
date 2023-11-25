@@ -3,6 +3,7 @@ package app;
 import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.choosepatient.ChoosePatientViewModel;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListPresenter;
 import interface_adapter.update.doctor.DoctorUpdateController;
@@ -21,8 +22,11 @@ public class DoctorUpdateUseCaseFactory {
     /* Prevent instantiation. */
     public DoctorUpdateUseCaseFactory() { }
 
-    public static DoctorUpdateView create(DAOFacade daoFacade, DoctorUpdateViewModel doctorUpdateViewModel) {
-        SwapToPatientListController swapToPatientListController = createSwapToPatientListUseCase();
+    public static DoctorUpdateView create(DAOFacade daoFacade,
+                                          ViewManagerModel viewManagerModel,
+                                          DoctorUpdateViewModel doctorUpdateViewModel,
+                                          ChoosePatientViewModel choosePatientViewModel) {
+        SwapToPatientListController swapToPatientListController = createSwapToPatientListUseCase(viewManagerModel, choosePatientViewModel);
         DoctorUpdateController updateController = createDoctorUpdateUseCase(daoFacade);
         return new DoctorUpdateView(doctorUpdateViewModel, swapToPatientListController, updateController);
     }
@@ -34,8 +38,8 @@ public class DoctorUpdateUseCaseFactory {
         return new DoctorUpdateController(doctorInteractor);
     }
 
-    private static SwapToPatientListController createSwapToPatientListUseCase() {
-        SwapToPatientListOutputBoundary toPatientListPresenter = new SwapToPatientListPresenter();
+    private static SwapToPatientListController createSwapToPatientListUseCase(ViewManagerModel viewManagerModel, ChoosePatientViewModel choosePatientViewModel) {
+        SwapToPatientListOutputBoundary toPatientListPresenter = new SwapToPatientListPresenter(viewManagerModel, choosePatientViewModel);
         SwapToPatientListInputBoundary toPatientListInteractor = new SwapToPatientListInteractor(toPatientListPresenter);
         return new SwapToPatientListController(toPatientListInteractor);
     }
