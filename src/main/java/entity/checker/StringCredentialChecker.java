@@ -1,6 +1,6 @@
-package use_case.strategies;
+package entity.checker;
 
-public interface CredentialCheckerStrategy {
+public interface StringCredentialChecker {
     boolean validUsername(String username);
 
     boolean validPassword(String password);

@@ -1,9 +1,8 @@
-package use_case.strategies;
+package entity.checker;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexCredentialChecker implements CredentialCheckerStrategy {
+public class RegexCredentialChecker implements StringCredentialChecker {
 
     public RegexCredentialChecker() {
     }
