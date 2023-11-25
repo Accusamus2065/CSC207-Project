@@ -1,16 +1,18 @@
 package use_case.update.patient;
 
+import entity.checker.CredentialChecker;
+import entity.checker.CredentialCheckerFacade;
 import entity.people.PatientUserFactory;
 import entity.people.IPatient;
-import use_case.strategies.CredentialCheckerStrategy;
-import use_case.strategies.RegexCredentialChecker;
+import entity.checker.StringCredentialChecker;
+import entity.checker.RegexCredentialChecker;
 
 
 public class PatientUpdateInteractor implements PatientUpdateInputBoundary {
     final PatientUpdateUserDataAccessInterface userDataAccessObject;
     final PatientUpdateOutputBoundary userPresenter;
     final PatientUserFactory userFactory;
-    private final CredentialCheckerStrategy credentialChecker = new RegexCredentialChecker();
+    private final CredentialChecker credentialChecker = new CredentialCheckerFacade();
 
     public PatientUpdateInteractor(PatientUpdateUserDataAccessInterface userDataAccessInterface,
                                    PatientUpdateOutputBoundary userPresenter,
@@ -35,6 +37,10 @@ public class PatientUpdateInteractor implements PatientUpdateInputBoundary {
                 userPresenter.prepareFailView("Sex must be either 'M', 'F' or 'O'.");
             } else if (!credentialChecker.validGender(patientUpdateInputData.getGender())) {
                 userPresenter.prepareFailView("Gender is Empty");
+            } else if (!credentialChecker.validWeight(patientUpdateInputData.getWeight())) {
+                userPresenter.prepareFailView("Weight is invalid");
+            } else if (!credentialChecker.validHeight(patientUpdateInputData.getHeight())) {
+                userPresenter.prepareFailView("Height is invalid");
             } else if (!credentialChecker.validBloodType(patientUpdateInputData.getBloodType())) {
                 userPresenter.prepareFailView("Blood Type must be (A, B, AB, O with + or -)");
             } else {

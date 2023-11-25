@@ -2,15 +2,15 @@ package use_case.update.doctor;
 
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
-import use_case.strategies.CredentialCheckerStrategy;
-import use_case.strategies.RegexCredentialChecker;
+import entity.checker.StringCredentialChecker;
+import entity.checker.RegexCredentialChecker;
 
 
 public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
     final DoctorUpdateUserDataAccessInterface userDataAccessObject;
     final DoctorUpdateOutputBoundary userPresenter;
     final DoctorUserFactory userFactory;
-    private final CredentialCheckerStrategy credentialChecker = new RegexCredentialChecker();
+    private final StringCredentialChecker credentialChecker = new RegexCredentialChecker();
 
     public DoctorUpdateInteractor(DoctorUpdateUserDataAccessInterface userDataAccessInterface,
                                   DoctorUpdateOutputBoundary userPresenter,
