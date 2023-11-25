@@ -13,8 +13,6 @@ import java.util.List;
 
 public class ListOfPatientsView extends JPanel {
     public String viewName;
-    private JFrame frame;
-    private JPanel panel;
     private JButton logOutButton;
     private JLabel listOfPatientsLabel;
     private JButton modifyButton;
@@ -26,26 +24,18 @@ public class ListOfPatientsView extends JPanel {
         this.viewName = choosePatientViewModel.getViewName();
         this.choosePatientController = choosePatientController;
         this.choosePatientViewModel = choosePatientViewModel;
-        // Create and do settings for frame
-        frame = new JFrame();
-        frame.setTitle(ChoosePatientViewModel.TITLE_LABEL);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(ChoosePatientViewModel.FRAME_WIDTH_SIZE, ChoosePatientViewModel.FRAME_HEIGHT_SIZE);
-        frame.setLocationRelativeTo(null);
 
         // Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-//        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(ChoosePatientViewModel.PANEL_DIMENSION);
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+//        this.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(ChoosePatientViewModel.PANEL_DIMENSION);
 
         // Create the upper sub-panel that will contain the button to log out, listOfPatients label, and modify button
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 20));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.NORTH);
+        this.add(upperPanel, BorderLayout.NORTH);
 
         // Create the button for logging out of the profile
         logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
@@ -116,10 +106,7 @@ public class ListOfPatientsView extends JPanel {
         // Add midPanel to a JScrollPane
         JScrollPane scrollPane = new JScrollPane(midPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        panel.add(scrollPane);
+        this.add(scrollPane);
     }
 
-    public void show() {
-        frame.setVisible(true);
-    }
 }
