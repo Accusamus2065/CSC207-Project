@@ -2,18 +2,16 @@ package interface_adapter.signup;
 
 public class SignupState {
     private String username = "";
-    private String usernameError = null;
     private String password = "";
-    private String passwordError = null;
     private String repeatPassword = "";
+    private String error = null;
     private boolean isDoctor;
 
     public SignupState(SignupState copy) {
         username = copy.username;
-        usernameError = copy.usernameError;
         password = copy.password;
-        passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
+        error = copy.error;
         isDoctor = copy.isDoctor;
     }
 
@@ -24,40 +22,32 @@ public class SignupState {
         return username;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRepeatPassword() {
         return repeatPassword;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public boolean isDoctor() {
