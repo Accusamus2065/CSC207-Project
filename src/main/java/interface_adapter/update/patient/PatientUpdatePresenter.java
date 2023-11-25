@@ -3,6 +3,7 @@ package interface_adapter.update.patient;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupState;
 import use_case.update.patient.PatientUpdateOutputBoundary;
 import use_case.update.patient.PatientUpdateOutputData;
 
@@ -35,6 +36,8 @@ public class PatientUpdatePresenter implements PatientUpdateOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-
+        PatientUpdateState patientUpdateState = patientUpdateViewModel.getState();
+        patientUpdateState.setError(error);
+        patientUpdateViewModel.firePropertyChanged();
     }
 }

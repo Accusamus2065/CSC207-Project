@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.signup.SignupState;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.update.patient.PatientUpdateController;
 import interface_adapter.update.patient.PatientUpdateState;
@@ -331,15 +332,32 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         saveButton.setFocusable(false);
         saveButton.setPreferredSize(PatientUpdateViewModel.BUTTON_DIMENSION);
         lowerPanel.add(saveButton);
+        saveButton.addActionListener(e -> {
+            PatientUpdateState currentState = patientUpdateViewModel.getState();
+            updateController.execute(
+                    currentState.getUsername(),
+                    currentState.getNewUsername(),
+                    currentState.getPassword(),
+                    currentState.getRepeatPassword(),
+                    currentState.getSex(),
+                    currentState.getGender(),
+                    currentState.getHeight(),
+                    currentState.getWeight(),
+                    currentState.getBloodType()
+            );
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        PatientUpdateState state = (PatientUpdateState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }
