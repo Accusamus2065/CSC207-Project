@@ -11,7 +11,5 @@ public class LoginInteractorTest {
         SignupInputData inputData = new SignupInputData(
                 "doctor1", "password", "password", true);
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
     }
-
 }

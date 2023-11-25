@@ -21,7 +21,7 @@ public class DAOFacadeTest {
     private final MongoDatabase database = mongoClient.getDatabase("entities");
     private final MongoCollection<Document> doctors = database.getCollection("doctors");
     private final MongoCollection<Document> patients = database.getCollection("patients");
-    
+
     private static final String USERNAME = "testUsername";
     private static final String PASSWORD = "password";
     private static final String UPDATE_USERNAME = "testUpdatedUsername";
@@ -152,7 +152,7 @@ public class DAOFacadeTest {
     public void testSavePatient() {
         IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         daoFacade.save(patient);
-        
+
         assertTrue(daoFacade.existsByName(false, USERNAME));
         assertTrue(daoFacade.patientDAO.existsByName(USERNAME));
 
