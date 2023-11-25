@@ -16,7 +16,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final ConversationViewModel conversationViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           ConversationViewModel conversationViewModel,

@@ -64,7 +64,8 @@ public class SignupState {
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", repeatPassword='" + repeatPassword + '\'' +
-                "isDoctor=" + isDoctor +
+                ", error='" + error + '\'' +
+                ", isDoctor=" + isDoctor +
                 '}';
     }
 }

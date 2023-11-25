@@ -2,32 +2,25 @@ package interface_adapter.update.doctor;
 
 public class DoctorUpdateState {
     private String username = "";
-    private String usernameError = null;
+    private String newUsername = "";
     private String password = "";
-    private String passwordError = null;
     private String repeatPassword = "";
-    private String repeatPasswordError = null;
     private String specialty = "";
-    private String specialtyError = null;
     private String degree = "";
-    private String degreeError = null;
+    private String error = null;
     private boolean isDoctor;
-    private String newUsername = null;
 
     public DoctorUpdateState() {
     }
 
     public DoctorUpdateState(DoctorUpdateState copy) {
         username = copy.username;
-        usernameError = copy.usernameError;
+        newUsername = copy.newUsername;
         password = copy.password;
-        passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
         specialty = copy.specialty;
-        specialtyError = copy.specialtyError;
         degree = copy.degree;
-        degreeError = copy.degreeError;
+        error = copy.error;
         isDoctor = copy.isDoctor;
     }
 
@@ -39,12 +32,12 @@ public class DoctorUpdateState {
         this.username = username;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public String getNewUsername() {
+        return newUsername;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
     }
 
     public String getPassword() {
@@ -55,28 +48,12 @@ public class DoctorUpdateState {
         this.password = password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
     public String getRepeatPassword() {
         return repeatPassword;
     }
 
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
     }
 
     public String getSpecialty() {
@@ -87,14 +64,6 @@ public class DoctorUpdateState {
         this.specialty = specialty;
     }
 
-    public String getSpecialtyError() {
-        return specialtyError;
-    }
-
-    public void setSpecialtyError(String specialtyError) {
-        this.specialtyError = specialtyError;
-    }
-
     public String getDegree() {
         return degree;
     }
@@ -103,12 +72,12 @@ public class DoctorUpdateState {
         this.degree = degree;
     }
 
-    public String getDegreeError() {
-        return degreeError;
+    public String getError() {
+        return error;
     }
 
-    public void setDegreeError(String degreeError) {
-        this.degreeError = degreeError;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public boolean isDoctor() {
@@ -119,27 +88,16 @@ public class DoctorUpdateState {
         isDoctor = doctor;
     }
 
-    public String getNewUsername() {
-        return newUsername;
-    }
-
-    public void setNewUsername(String newUsername) {
-        this.newUsername = newUsername;
-    }
-
     @Override
     public String toString() {
         return "DoctorUpdateState{" +
                 "username='" + username + '\'' +
-                ", usernameError='" + usernameError + '\'' +
+                ", newUsername='" + newUsername + '\'' +
                 ", password='" + password + '\'' +
-                ", passwordError='" + passwordError + '\'' +
                 ", repeatPassword='" + repeatPassword + '\'' +
-                ", repeatPasswordError='" + repeatPasswordError + '\'' +
                 ", specialty='" + specialty + '\'' +
-                ", specialtyError='" + specialtyError + '\'' +
                 ", degree='" + degree + '\'' +
-                ", degreeError='" + degreeError + '\'' +
+                ", error='" + error + '\'' +
                 ", isDoctor=" + isDoctor +
                 '}';
     }

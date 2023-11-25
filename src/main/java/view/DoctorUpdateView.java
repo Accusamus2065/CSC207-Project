@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.signup.SignupState;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.update.doctor.DoctorUpdateController;
 import interface_adapter.update.doctor.DoctorUpdateState;
@@ -245,11 +246,14 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO raise errors for invalid inputs
+        DoctorUpdateState state = (DoctorUpdateState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }
