@@ -6,7 +6,6 @@ import entity.people.PatientUserFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class SignupInteractorTest {
     @Test
@@ -40,7 +39,7 @@ public class SignupInteractorTest {
         SignupOutputBoundary signupPresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
-                assertTrue(userDAO.existsByName(false, user.getUsername()));
+                assertTrue(userDAO.existsByName(true, user.getUsername()));
                 assertFalse(user.isUseCaseFailed());
             }
 

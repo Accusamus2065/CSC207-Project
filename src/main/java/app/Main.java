@@ -4,7 +4,6 @@ import com.mongodb.MongoException;
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.choosepatient.ChoosePatientState;
 import interface_adapter.choosepatient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -69,7 +68,7 @@ public class Main {
         views.add(listOfPatientsView, listOfPatientsView.viewName);
 
 
-        viewManagerModel.setActiveView(docUpdateView.viewName);
+        viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
