@@ -44,7 +44,11 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public boolean existsByName(boolean isDoctor, String identifier) {
-        return doctors.containsKey(identifier) || patients.containsKey(identifier);
+        if (isDoctor) {
+            return doctors.containsKey(identifier);
+        } else {
+            return patients.containsKey(identifier);
+        }
     }
 
     @Override
