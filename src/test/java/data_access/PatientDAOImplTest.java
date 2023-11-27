@@ -34,7 +34,7 @@ public class PatientDAOImplTest {
         assertTrue(patientDAO.existsByName(USERNAME));
 
         // Test patientDAO.existsByName works with patientDAO.update
-        IPatient updatedPatient = (IPatient) factory.create(UPDATE_USERNAME,
+        IPatient updatedPatient = factory.create(UPDATE_USERNAME,
                 UPDATE_PASSWORD,
                 "male",
                 "female",
@@ -102,7 +102,7 @@ public class PatientDAOImplTest {
 
         IPatient patient = new CommonPatient(USERNAME, PASSWORD);
         patientDAO.save(patient);
-        IPatient updatedPatient = (IPatient) factory.create(UPDATE_USERNAME,
+        IPatient updatedPatient =  factory.create(UPDATE_USERNAME,
                 UPDATE_PASSWORD,
                 "male",
                 "female",

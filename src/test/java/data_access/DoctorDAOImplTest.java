@@ -48,7 +48,7 @@ public class DoctorDAOImplTest {
 
     @Test
     public void saveTest() {
-        IDoctor doctor = (IDoctor) factory.create(USERNAME,
+        IDoctor doctor = factory.create(USERNAME,
                 PASSWORD,
                 "MD",
                 "orthopedics");
@@ -72,7 +72,7 @@ public class DoctorDAOImplTest {
     public void updateTest() {
         IDoctor doctor = new CommonDoctor(USERNAME, PASSWORD);
         doctorDAO.save(doctor);
-        IDoctor updatedDoctor = (IDoctor) factory.create(UPDATE_USERNAME,
+        IDoctor updatedDoctor = factory.create(UPDATE_USERNAME,
                 UPDATE_PASSWORD,
                 "MD",
                 "orthopedics");
