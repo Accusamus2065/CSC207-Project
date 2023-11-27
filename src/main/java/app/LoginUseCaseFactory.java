@@ -22,10 +22,6 @@ import use_case.swap_views.welcome.SwapToWelcomeInteractor;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
 import view.LoginView;
 
-
-import javax.swing.*;
-
-
 public class LoginUseCaseFactory {
 
     /** Prevent instantiation. */
@@ -38,22 +34,15 @@ public class LoginUseCaseFactory {
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
-
-        try {
-            LoginController loginController =
-                    createLoginUseCase(
-                            viewManagerModel,
-                            conversationViewModel,
-                            choosePatientViewModel,
-                            loginViewModel,
-                            userDataAccessObject);
-            SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
-            return new LoginView(loginViewModel, loginController, swaptoWelcomeController);
-        } catch (MongoException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
-        }
-
-        return null;
+        LoginController loginController =
+                createLoginUseCase(
+                        viewManagerModel,
+                        conversationViewModel,
+                        choosePatientViewModel,
+                        loginViewModel,
+                        userDataAccessObject);
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        return new LoginView(loginViewModel, loginController, swaptoWelcomeController);
     }
 
     private static LoginController createLoginUseCase(

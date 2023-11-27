@@ -17,8 +17,6 @@ import use_case.swap_views.welcome.SwapToWelcomeInteractor;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
 import view.SignupView;
 
-import javax.swing.*;
-
 public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {
     }
@@ -30,16 +28,11 @@ public class SignupUseCaseFactory {
             LoginViewModel loginViewModel,
             SignupUserDataAccessInterface userDataAccessObject
     ) {
-        try {
-            SignupController signupController = createUserSignupUseCase(
-                    viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
-            );
-            SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
-            return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
-        } catch (MongoException e) {
-            JOptionPane.showMessageDialog(null, "Could not read user data");
-        }
-        return null;
+        SignupController signupController = createUserSignupUseCase(
+                viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
+        );
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
     }
 
     public static SignupController createUserSignupUseCase(
