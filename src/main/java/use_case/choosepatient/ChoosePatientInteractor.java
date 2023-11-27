@@ -13,30 +13,6 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
         this.choosePatientPresenter = choosePatientOutputBoundary;
     }
 
-    public void executeLogOut(ChoosePatientInputData choosePatientInputData) {
-        String username = choosePatientInputData.getUsername();
-
-        try {
-            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("logout",false, username);
-            choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
-        } catch (Exception e) {
-            choosePatientPresenter.prepareFailView(e.getMessage());
-        }
-
-    }
-
-    public void executeUpdate(ChoosePatientInputData choosePatientInputData){
-    try {
-        String username = choosePatientInputData.getUsername();
-        ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData("modify",false, username);
-        choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
-    } catch (Exception e) {
-        choosePatientPresenter.prepareFailView(e.getMessage());
-    }
-
-}
-
-
     @Override
     public void execute(ChoosePatientInputData choosePatientInputData) {
         String username = choosePatientInputData.getUsername();
@@ -51,9 +27,6 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
             choosePatientPresenter.prepareFailView(e.getMessage());
         }
     }
-
-    public List<String> executeGetPatients() {
-        return userDataAccessObject.getPatientList();}
 
 }
 

@@ -15,12 +15,7 @@ public class ChoosePatientController {
 
     public void execute(String username, String patient) {
         ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username, patient);
-        choosePatientInteractor.executeChoose(choosePatientInputData);
-    }
-
-    public void executeUpdate(String username){
-        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username);
-        choosePatientInteractor.executeUpdate(choosePatientInputData);
+        choosePatientInteractor.execute(choosePatientInputData);
     }
 
 

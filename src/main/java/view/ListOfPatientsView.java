@@ -65,8 +65,7 @@ public class ListOfPatientsView extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         if(e.getSource().equals(modifyButton)){
                             ChoosePatientState currentState = choosePatientViewModel.getState();
-
-                            swapToDoctorUpdateController.execute();
+                            swapToDoctorUpdateController.execute(currentState.getUsername());
                         }
                     }});
         // USING WRONG BUTTON DIMENSINO RN
