@@ -19,10 +19,10 @@ public class ConversationPresenter implements ConversationOutputBoundary {
     @Override
     public void prepareSuccessView(ConversationOutputData messages) {
         ConversationState convoState = conversationViewModel.getState();
-        convoState.setConversation(messages.getConversation());
+        convoState.setMessages(messages.getMessages());
         this.conversationViewModel.setState(convoState);
         conversationViewModel.firePropertyChanged();
-        System.out.println(conversationViewModel.getState().getConversation());
+        System.out.println(conversationViewModel.getState().getMessages());
 
         viewManagerModel.setActiveView(conversationViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

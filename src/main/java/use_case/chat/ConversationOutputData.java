@@ -7,14 +7,12 @@ import interface_adapter.chat.ConversationState;
 import java.util.List;
 
 public class ConversationOutputData {
-    private List<Message> convo;
-    private boolean useCaseFailed;
-    public ConversationOutputData(List<Message> convo, boolean useCaseFailed) {
-        this.convo = convo;
-        this.useCaseFailed = useCaseFailed;
+    private List<Message> list;
+    public ConversationOutputData(List<Message> list) {
+        this.list = list;
     }
 
-    public List<Message> getConversation() {
-        return convo;
+    public List<Message> getMessages() {
+        return list;
     }
 }
