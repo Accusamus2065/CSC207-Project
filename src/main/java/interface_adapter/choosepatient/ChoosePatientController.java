@@ -13,23 +13,10 @@ public class ChoosePatientController {
     }
 
 
-    public void executeChoose(String username, String patient) {
+    public void execute(String username, String patient) {
         ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username, patient);
-        choosePatientInteractor.executeChoose(choosePatientInputData);
+        choosePatientInteractor.execute(choosePatientInputData);
     }
 
-    public void executeUpdate(String username){
-        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username);
-        choosePatientInteractor.executeUpdate(choosePatientInputData);
-    }
-
-    public void executeLogout(String username){
-        ChoosePatientInputData choosePatientInputData = new ChoosePatientInputData(username);
-        choosePatientInteractor.executeLogOut(choosePatientInputData);
-    }
-
-    public List<String> executeGetPatients(){
-        return choosePatientInteractor.executeGetPatients();
-    }
 
 }
