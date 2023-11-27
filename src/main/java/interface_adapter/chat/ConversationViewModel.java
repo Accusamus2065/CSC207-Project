@@ -7,15 +7,14 @@ import java.beans.PropertyChangeSupport;
 
 public class ConversationViewModel extends ViewModel {
 
-    public static final String TITLE_LABEL = "Sign Up View";
+    public static final String TITLE_LABEL = "Conversation";
 
-    public static final String CANCEL_BUTTON_LABEL = "Send";
     private ConversationState state = new ConversationState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 
     public ConversationViewModel() {
-        super("Conversation");
+        super("conversation view");
     }
 
     public void setState(ConversationState state) {
@@ -33,4 +32,6 @@ public class ConversationViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
+
 }
