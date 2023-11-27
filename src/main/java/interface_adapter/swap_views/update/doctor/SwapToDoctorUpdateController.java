@@ -9,7 +9,7 @@ public class SwapToDoctorUpdateController {
         this.swapToDoctorUpdateInteractor = swapToDoctorUpdateInteractor;
     }
 
-    public void execute() {
-        swapToDoctorUpdateInteractor.execute();
+    public void execute(String username) {
+        swapToDoctorUpdateInteractor.execute(username);
     }
 }

@@ -8,7 +8,7 @@ public class SwapToDoctorUpdateInteractor implements SwapToDoctorUpdateInputBoun
     }
 
     @Override
-    public void execute() {
-        swapToDoctorUpdatePresenter.execute();
+    public void execute(String username) {
+        swapToDoctorUpdatePresenter.execute(username);
     }
 }

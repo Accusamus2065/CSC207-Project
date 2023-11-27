@@ -1,6 +1,7 @@
 package interface_adapter.swap_views.update.patient;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.update.patient.PatientUpdateState;
 import interface_adapter.update.patient.PatientUpdateViewModel;
 import use_case.swap_views.update.patient.SwapToPatientUpdateOutputBoundary;
 
@@ -14,7 +15,12 @@ public class SwapToPatientUpdatePresenter implements SwapToPatientUpdateOutputBo
     }
 
     @Override
-    public void execute() {
+    public void execute(String username) {
+        PatientUpdateState state = patientUpdateViewModel.getState();
+        state.setUsername(username);
+        this.patientUpdateViewModel.setState(state);
+        patientUpdateViewModel.firePropertyChanged();
+
         viewManagerModel.setActiveView(patientUpdateViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
