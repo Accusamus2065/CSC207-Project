@@ -3,10 +3,6 @@ package entity.people;
 public interface IPatient extends User {
     void addConversation();
 
-    void setUsername(String username);
-
-    void setPassword(String password);
-
     String getSex();
 
     void setSex(String sex);
