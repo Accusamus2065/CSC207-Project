@@ -13,7 +13,6 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
         this.choosePatientPresenter = choosePatientOutputBoundary;
     }
 
-    @Override
     public void executeLogOut(ChoosePatientInputData choosePatientInputData) {
         String username = choosePatientInputData.getUsername();
 
@@ -39,7 +38,7 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
 
 
     @Override
-    public void executeChoose(ChoosePatientInputData choosePatientInputData) {
+    public void execute(ChoosePatientInputData choosePatientInputData) {
         String username = choosePatientInputData.getUsername();
         String patient = choosePatientInputData.getPatient();
 
@@ -53,7 +52,6 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
         }
     }
 
-    @Override
     public List<String> executeGetPatients() {
         return userDataAccessObject.getPatientList();}
 

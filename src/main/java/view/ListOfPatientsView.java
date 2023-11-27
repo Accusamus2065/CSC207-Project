@@ -1,9 +1,10 @@
 package view;
 
+import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.choosepatient.ChoosePatientViewModel;
-import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
 import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,11 @@ public class ListOfPatientsView extends JPanel {
     private final ChoosePatientController choosePatientController;
     private final ChoosePatientViewModel choosePatientViewModel;
 
-    public ListOfPatientsView(ChoosePatientController choosePatientController, ChoosePatientViewModel choosePatientViewModel) {
+    public ListOfPatientsView(ChoosePatientController choosePatientController,
+                              ChoosePatientViewModel choosePatientViewModel,
+                              SwapToWelcomeController swapController,
+                              LoadPatientsController loadPatientsController,
+                              SwapToDoctorUpdateController swapToDoctorUpdateController) {
         this.viewName = choosePatientViewModel.getViewName();
         this.choosePatientController = choosePatientController;
         this.choosePatientViewModel = choosePatientViewModel;
@@ -41,16 +46,7 @@ public class ListOfPatientsView extends JPanel {
         logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(e.getSource().equals(modifyButton)){
-                            ChoosePatientState currentState = choosePatientViewModel.getState();
-
-                            choosePatientController.executeLogout(currentState.getUsername());
-                        }
-                    }});
+        logOutButton.addActionListener(e -> swapController.execute());
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
@@ -70,7 +66,7 @@ public class ListOfPatientsView extends JPanel {
                         if(e.getSource().equals(modifyButton)){
                             ChoosePatientState currentState = choosePatientViewModel.getState();
 
-                            choosePatientController.executeUpdate(currentState.getUsername());
+                            swapToDoctorUpdateController.execute();
                         }
                     }});
         // USING WRONG BUTTON DIMENSINO RN
@@ -83,7 +79,7 @@ public class ListOfPatientsView extends JPanel {
         midPanel.setBackground(Color.lightGray);
 
         // get a list of patients
-        List<String> patients = choosePatientController.executeGetPatients();
+        List<String> patients = loadPatientsController.execute();
         // Add the buttons that will link doctor to the chat with the patients
         for(String p: patients) {
             JButton button = new JButton(p);
@@ -96,8 +92,7 @@ public class ListOfPatientsView extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if(e.getSource().equals(modifyButton)){
                         ChoosePatientState currentState = choosePatientViewModel.getState();
-
-                        choosePatientController.executeUpdate(currentState.getUsername());
+                        choosePatientController.execute(currentState.getUsername(), p);
                     }
                 }});
             midPanel.add(button);
