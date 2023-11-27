@@ -16,7 +16,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final ConversationViewModel conversationViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           ConversationViewModel conversationViewModel,
@@ -58,7 +58,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         LoginState loginState = loginViewModel.getState();
-        loginState.setUsernameError(error);
+        loginState.setError(error);
         loginViewModel.firePropertyChanged();
     }
 }

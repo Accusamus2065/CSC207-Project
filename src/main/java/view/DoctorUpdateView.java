@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.signup.SignupState;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.update.doctor.DoctorUpdateController;
 import interface_adapter.update.doctor.DoctorUpdateState;
@@ -16,13 +17,13 @@ import java.beans.PropertyChangeListener;
 
 public class DoctorUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
-    private JButton backButton;
-    private JTextField username;
-    private JPasswordField password;
-    private JTextField repeatPassword;
-    private JTextField specialty;
-    private JTextField degree;
-    private JButton saveButton;
+    private final JButton backButton;
+    private final JTextField username;
+    private final JPasswordField password;
+    private final JTextField repeatPassword;
+    private final JTextField specialty;
+    private final JTextField degree;
+    private final JButton saveButton;
 
     public DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
                             SwapToPatientListController swapController,
@@ -47,12 +48,7 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         backButton.setFocusable(false);
         backButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                swapController.execute();
-            }
-        });
+        backButton.addActionListener(e -> swapController.execute());
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
@@ -236,28 +232,28 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         saveButton.setFocusable(false);
         saveButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         lowerPanel.add(saveButton);
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DoctorUpdateState currentState = doctorUpdateViewModel.getState();
-                updateController.execute(
-                        currentState.getUsername(),
-                        currentState.getNewUsername(),
-                        currentState.getPassword(),
-                        currentState.getRepeatPassword(),
-                        currentState.getSpecialty(),
-                        currentState.getDegree());
-            }
+        saveButton.addActionListener(e -> {
+            DoctorUpdateState currentState = doctorUpdateViewModel.getState();
+            updateController.execute(
+                    currentState.getUsername(),
+                    currentState.getNewUsername(),
+                    currentState.getPassword(),
+                    currentState.getRepeatPassword(),
+                    currentState.getSpecialty(),
+                    currentState.getDegree());
         });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO raise errors for invalid inputs
+        DoctorUpdateState state = (DoctorUpdateState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }

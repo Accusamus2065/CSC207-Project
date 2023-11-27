@@ -32,7 +32,7 @@ public class DoctorUpdateUseCaseFactory {
     }
 
     private static DoctorUpdateController createDoctorUpdateUseCase(DAOFacade daoFacade) {
-        DoctorUpdateOutputBoundary doctorUpdatePresenter = new DoctorUpdatePresenter();
+        DoctorUpdateOutputBoundary doctorUpdatePresenter = new DoctorUpdatePresenter(new DoctorUpdateViewModel());
         DoctorUserFactory docFactory = new DoctorUserFactory();
         DoctorUpdateInputBoundary doctorInteractor = new DoctorUpdateInteractor(daoFacade, doctorUpdatePresenter, docFactory);
         return new DoctorUpdateController(doctorInteractor);

@@ -2,15 +2,15 @@ package use_case.update.doctor;
 
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
-import use_case.strategies.CredentialCheckerStrategy;
-import use_case.strategies.RegexCredentialChecker;
+import entity.checker.StringCredentialChecker;
+import entity.checker.RegexCredentialChecker;
 
 
 public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
     final DoctorUpdateUserDataAccessInterface userDataAccessObject;
     final DoctorUpdateOutputBoundary userPresenter;
     final DoctorUserFactory userFactory;
-    private final CredentialCheckerStrategy credentialChecker = new RegexCredentialChecker();
+    private final StringCredentialChecker credentialChecker = new RegexCredentialChecker();
 
     public DoctorUpdateInteractor(DoctorUpdateUserDataAccessInterface userDataAccessInterface,
                                   DoctorUpdateOutputBoundary userPresenter,
@@ -32,10 +32,12 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
             } else if (!credentialChecker.validPassword(doctorUpdateInputData.getPassword())) {
                 userPresenter.prepareFailView("Password requires a digit and a letter, be more than 5 characters, and cannot have any other characters.");
             } else {
-                IDoctor doctor = userFactory.create(doctorUpdateInputData.getNewUsername(),
+                IDoctor doctor = userFactory.create(
+                        doctorUpdateInputData.getNewUsername(),
                         doctorUpdateInputData.getPassword(),
-                        doctorUpdateInputData.getSpecialty(),
-                        doctorUpdateInputData.getDegree());
+                        doctorUpdateInputData.getDegree(),
+                        doctorUpdateInputData.getSpecialty()
+                );
                 userDataAccessObject.update(doctorUpdateInputData.getOldUsername(), doctor);
                 DoctorUpdateOutputData outputDate = new DoctorUpdateOutputData(doctor.getUsername(), false);
                 userPresenter.prepareSuccessView(outputDate);
@@ -45,4 +47,3 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
         }
     }
 }
-

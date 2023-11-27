@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SwaptoWelcomePresenterTest {
+public class SwapToWelcomePresenterTest {
     @Test
     public void swapSignupToWelcomeTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();

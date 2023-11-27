@@ -4,6 +4,7 @@ package view;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
+import interface_adapter.signup.SignupState;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 
 import javax.swing.*;
@@ -18,9 +19,7 @@ import java.beans.PropertyChangeListener;
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
     private final JTextField usernameInputField;
-    private JLabel usernameErrorField;
     private final JPasswordField passwordInputField;
-    private JLabel passwordErrorField;
     private final JButton logInButton;
     private final JButton cancelButton;
 
@@ -50,11 +49,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         usernameInputField = new JTextField(15);
         usernameInputField.setFont(LoginViewModel.INPUT_FIELD_FONT);
         usernameInputField.setToolTipText("Enter your username");
-        usernameInputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ///
-            }
+        usernameInputField.addActionListener(e -> {
+            ///
         });
         JLabel usernameLabel = new JLabel(LoginViewModel.USERNAME_FIELD_LABEL);
         usernameLabel.setFont(LoginViewModel.INPUT_FIELD_FONT);
@@ -71,11 +67,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         passwordInputField = new JPasswordField(15);
         passwordInputField.setFont(LoginViewModel.INPUT_FIELD_FONT);
         passwordInputField.setToolTipText("Enter your password");
-        passwordInputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ///
-            }
+        passwordInputField.addActionListener(e -> {
+            ///
         });
         JLabel passwordLabel = new JLabel(LoginViewModel.PASSWORD_FIELD_LABEL);
         passwordLabel.setFont(LoginViewModel.INPUT_FIELD_FONT);
@@ -93,18 +86,15 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logInButton = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         logInButton.setFont(LoginViewModel.BUTTON_FONT);
         logInButton.setFocusable(false);
-        logInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(logInButton)) {
-                    LoginState currentState = loginViewModel.getState();
+        logInButton.addActionListener(e -> {
+            if (e.getSource().equals(logInButton)) {
+                LoginState currentState = loginViewModel.getState();
 
-                    loginController.execute(
-                            currentState.getUsername(),
-                            currentState.getPassword(),
-                            currentState.isDoctor()
-                    );
-                }
+                loginController.execute(
+                        currentState.getUsername(),
+                        currentState.getPassword(),
+                        currentState.isDoctor()
+                );
             }
         });
         logInButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
@@ -162,21 +152,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         System.out.println("Click " + e.getActionCommand());
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-
-
     @Override
-    public void propertyChange(PropertyChangeEvent e) {
-        LoginState state = (LoginState) e.getNewValue();
-        setFields(state);
+    public void propertyChange(PropertyChangeEvent evt) {
+        LoginState state = (LoginState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
-
-    private void setFields(LoginState state) {
-        usernameInputField.setText(state.getUsername());
-    }
-
 }
 
 

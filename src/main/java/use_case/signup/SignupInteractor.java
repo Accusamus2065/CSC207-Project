@@ -1,15 +1,15 @@
 package use_case.signup;
 
 import entity.people.*;
-import use_case.strategies.CredentialCheckerStrategy;
-import use_case.strategies.RegexCredentialChecker;
+import entity.checker.StringCredentialChecker;
+import entity.checker.RegexCredentialChecker;
 
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary signupPresenter;
     final DoctorUserFactory doctorUserFactory;
     final PatientUserFactory patientUserFactory;
-    private final CredentialCheckerStrategy credentialChecker = new RegexCredentialChecker();
+    private final StringCredentialChecker credentialChecker = new RegexCredentialChecker();
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
