@@ -3,7 +3,6 @@ package use_case.signup;
 
 import entity.people.IDoctor;
 import entity.people.IPatient;
-import entity.people.User;
 
 public interface SignupUserDataAccessInterface {
     void save(IPatient user);

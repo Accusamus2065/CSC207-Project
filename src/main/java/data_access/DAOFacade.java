@@ -9,7 +9,6 @@ import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
 import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
 import java.util.List;
-import java.util.Map;
 
 public class DAOFacade implements
         SignupUserDataAccessInterface,
