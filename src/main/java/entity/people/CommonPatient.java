@@ -1,8 +1,8 @@
 package entity.people;
 
 public class CommonPatient implements IPatient {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private String sex;
     private String gender;
     private double height;
@@ -23,17 +23,9 @@ public class CommonPatient implements IPatient {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getSex() {

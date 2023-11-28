@@ -1,23 +1,37 @@
 package front_end.Views;
 
-import ViewModels.LoginViewModel;
+
+import front_end.ViewModels.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class LoginView {
+public class LoginView implements ActionListener, PropertyChangeListener {
     private final JFrame frame;
     private JPanel panel;
     private JTextField usernameInputField;
     private JLabel usernameErrorField;
     private JPasswordField passwordInputField;
     private JLabel passwordErrorField;
-    private JButton logInButton;
-    private JButton cancelButton;
+    private final JButton logInButton;
+    private final JButton cancelButton;
+    private final LoginViewModel loginViewModel;
+    private final LoginController loginController;
 
-    public LoginView() {
+
+    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+        this.loginController = controller;
+        this.loginViewModel = loginViewModel;
+
+        this.loginViewModel.addPropertyChangeListener(this);
         // Create and do settings for frame
         frame = new JFrame();
         frame.setTitle(LoginViewModel.TITLE_LABEL);
@@ -93,7 +107,17 @@ public class LoginView {
         logInButton.setFocusable(false);
         logInButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {}
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(logInButton)) {
+                    LoginState currentState = loginViewModel.getState();
+
+                    loginController.execute(
+                            currentState.getUsername(),
+                            currentState.getPassword(),
+                            currentState.isDoctor()
+                    );
+                }
+            }
         });
         logInButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
         buttonPanel.add(logInButton);
@@ -102,51 +126,71 @@ public class LoginView {
         cancelButton = new JButton(LoginViewModel.CANCEL_BUTTON_LABEL);
         cancelButton.setFont(LoginViewModel.BUTTON_FONT);
         cancelButton.setFocusable(false);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {}
-        });
-        cancelButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
+
         buttonPanel.add(cancelButton);
 
+        cancelButton.addActionListener(this);
 
 
-//        usernameInputField.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {}
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {}
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {}
-//        });
+        usernameInputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                LoginState currentState = loginViewModel.getState();
+                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
+                loginViewModel.setState(currentState);
+            }
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+
+        passwordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        LoginState currentState = loginViewModel.getState();
+                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        loginViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
     }
 
     public void show(){
         frame.setVisible(true);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        //        JOptionPane.showConfirmDialog(this, "Not implemented yet.");
-//    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Click " + e.getActionCommand());
+    }
 
-    //    /**
-//     * React to a button click that results in evt.
-//     */
-//    public void actionPerformed(ActionEvent evt) {
-//        System.out.println("Click " + evt.getActionCommand());
-//    }
-//
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//    }
-//
-//    private void setFields() {
-//    }
+        /**
+     * React to a button click that results in evt.
+     */
 
+
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        LoginState state = (LoginState) e.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(LoginState state) {
+        usernameInputField.setText(state.getUsername());
+    }
 
 }
 

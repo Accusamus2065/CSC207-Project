@@ -8,16 +8,14 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.swap_views.welcome.SwaptoWelcomeController;
-import interface_adapter.swap_views.welcome.SwaptoWelcomePresenter;
+import interface_adapter.swap_views.welcome.SwapToWelcomeController;
+import interface_adapter.swap_views.welcome.SwapToWelcomePresenter;
 import interface_adapter.welcome.WelcomeViewModel;
 import use_case.signup.*;
-import use_case.swap_views.SwaptoWelcomeInputBoundary;
-import use_case.swap_views.SwaptoWelcomeInteractor;
-import use_case.swap_views.SwaptoWelcomeOutputBoundary;
+import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
+import use_case.swap_views.welcome.SwapToWelcomeInteractor;
+import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
 import view.SignupView;
-
-import javax.swing.*;
 
 public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {
@@ -30,16 +28,11 @@ public class SignupUseCaseFactory {
             LoginViewModel loginViewModel,
             SignupUserDataAccessInterface userDataAccessObject
     ) {
-        try {
-            SignupController signupController = createUserSignupUseCase(
-                    viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
-            );
-            SwaptoWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
-            return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
-        } catch (MongoException e) {
-            JOptionPane.showMessageDialog(null, "Could not read user data");
-        }
-        return null;
+        SignupController signupController = createUserSignupUseCase(
+                viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
+        );
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
     }
 
     public static SignupController createUserSignupUseCase(
@@ -57,12 +50,12 @@ public class SignupUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
-    public static SwaptoWelcomeController createSwapViewsUseCase(
+    public static SwapToWelcomeController createSwapViewsUseCase(
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel
     ) {
-        SwaptoWelcomeOutputBoundary swaptoWelcomeOutputBoundary = new SwaptoWelcomePresenter(viewManagerModel, welcomeViewModel);
-        SwaptoWelcomeInputBoundary swaptoWelcomeInteractor = new SwaptoWelcomeInteractor(swaptoWelcomeOutputBoundary);
-        return new SwaptoWelcomeController(swaptoWelcomeInteractor);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
+        return new SwapToWelcomeController(swapToWelcomeInteractor);
     }
 }
