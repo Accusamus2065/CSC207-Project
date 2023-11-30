@@ -3,16 +3,14 @@ package use_case.choosepatient;
 public class ChoosePatientOutputData {
 
     private final String patient;
-    private final String usecase;
     private final boolean useCaseFailed;
     private final String username;
 
 
-    public ChoosePatientOutputData(String patient, String usecase, boolean useCaseFailed, String username) {
-        this.patient = patient;
-        this.usecase = usecase;
-        this.useCaseFailed = useCaseFailed;
+    public ChoosePatientOutputData(String username, String patient, boolean useCaseFailed) {
         this.username = username;
+        this.patient = patient;
+        this.useCaseFailed = useCaseFailed;
     }
 
     public String getPatient() {
