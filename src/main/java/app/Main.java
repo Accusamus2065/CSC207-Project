@@ -14,7 +14,7 @@ import view.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class Main {
+    public class Main {
     public static void main(String[] args) {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
@@ -64,7 +64,7 @@ public class Main {
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
-        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel);
+        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
 
 

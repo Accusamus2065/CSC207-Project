@@ -1,15 +1,10 @@
 package use_case.choosepatient;
 
 
-import java.util.List;
-
 public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
-    final ChoosePatientUserDataAccessInterface userDataAccessObject;
     final ChoosePatientOutputBoundary choosePatientPresenter;
 
-    public ChoosePatientInteractor(ChoosePatientUserDataAccessInterface userDataAccessInterface,
-                                   ChoosePatientOutputBoundary choosePatientOutputBoundary) {
-        this.userDataAccessObject = userDataAccessInterface;
+    public ChoosePatientInteractor(ChoosePatientOutputBoundary choosePatientOutputBoundary) {
         this.choosePatientPresenter = choosePatientOutputBoundary;
     }
 

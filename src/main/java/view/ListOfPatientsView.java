@@ -4,22 +4,16 @@ import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.choosepatient.ChoosePatientViewModel;
 import interface_adapter.choosepatient.ChoosePatientController;
 import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ListOfPatientsView extends JPanel {
     public String viewName;
-    private JButton logOutButton;
-    private JLabel listOfPatientsLabel;
-    private JButton modifyButton;
-
-    private final ChoosePatientController choosePatientController;
-    private final ChoosePatientViewModel choosePatientViewModel;
+    private final JButton modifyButton;
 
     public ListOfPatientsView(ChoosePatientController choosePatientController,
                               ChoosePatientViewModel choosePatientViewModel,
@@ -27,8 +21,6 @@ public class ListOfPatientsView extends JPanel {
                               LoadPatientsController loadPatientsController,
                               SwapToDoctorUpdateController swapToDoctorUpdateController) {
         this.viewName = choosePatientViewModel.getViewName();
-        this.choosePatientController = choosePatientController;
-        this.choosePatientViewModel = choosePatientViewModel;
 
         // Create and do settings for main panel
         this.setLayout(new BorderLayout());
@@ -43,7 +35,7 @@ public class ListOfPatientsView extends JPanel {
         this.add(upperPanel, BorderLayout.NORTH);
 
         // Create the button for logging out of the profile
-        logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
+        JButton logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
         logOutButton.addActionListener(e -> swapController.execute());
@@ -51,7 +43,7 @@ public class ListOfPatientsView extends JPanel {
         upperPanel.add(logOutButton);
 
         // Create and add label of List of Patients to the upper panel
-        listOfPatientsLabel = new JLabel(ChoosePatientViewModel.MAIN_LABEL);
+        JLabel listOfPatientsLabel = new JLabel(ChoosePatientViewModel.MAIN_LABEL);
         listOfPatientsLabel.setFont(ChoosePatientViewModel.MAIN_LABEL_FONT);
         upperPanel.add(listOfPatientsLabel);
 
@@ -60,14 +52,12 @@ public class ListOfPatientsView extends JPanel {
         modifyButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         modifyButton.setFocusable(false);
         modifyButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(e.getSource().equals(modifyButton)){
-                            ChoosePatientState currentState = choosePatientViewModel.getState();
-                            swapToDoctorUpdateController.execute(currentState.getUsername());
-                        }
-                    }});
+                e -> {
+                    if(e.getSource().equals(modifyButton)){
+                        ChoosePatientState currentState = choosePatientViewModel.getState();
+                        swapToDoctorUpdateController.execute(currentState.getUsername());
+                    }
+                });
         // USING WRONG BUTTON DIMENSINO RN
         modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
         upperPanel.add(modifyButton);
@@ -86,14 +76,12 @@ public class ListOfPatientsView extends JPanel {
             button.setBackground(Color.white);
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(e.getSource().equals(modifyButton)){
-                        ChoosePatientState currentState = choosePatientViewModel.getState();
-                        choosePatientController.execute(currentState.getUsername(), p);
-                    }
-                }});
+            button.addActionListener(e -> {
+                if(e.getSource().equals(modifyButton)){
+                    ChoosePatientState currentState = choosePatientViewModel.getState();
+                    choosePatientController.execute(currentState.getUsername(), p);
+                }
+            });
             midPanel.add(button);
         }
 
