@@ -10,13 +10,9 @@ import interface_adapter.update.doctor.DoctorUpdateState;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeState;
 import interface_adapter.welcome.WelcomeViewModel;
-import use_case.choosepatient.ChoosePatientInputBoundary;
 import use_case.choosepatient.ChoosePatientOutputBoundary;
 import use_case.choosepatient.ChoosePatientOutputData;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginOutputData;
 
-import java.util.List;
 
 
 public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
@@ -50,7 +46,7 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
             this.viewManagerModel.firePropertyChanged();
         } else if (response.getUsecase().equals("choosePatient")){
             ConversationState conversationState = conversationViewModel.getState();
-            conversationState.setConversation(null);
+            conversationState.setMessages(null);
             // conversationState.setUsername(response.getPatient()); // TODO CONVERSATION STATE NEEDS A SET USERNAME METHOD
             this.conversationViewModel.setState(conversationState); // Also need to add who I am talking to
             this.conversationViewModel.firePropertyChanged();

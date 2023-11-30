@@ -9,6 +9,7 @@ import entity.mongo.MongoFactory;
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.*;
@@ -72,6 +73,7 @@ public class DoctorDAOImpl {
             list.add(document.getString("username"));
         }
         return list;
+    }
 
     public void update(String oldUsername, IDoctor user) {
         accounts.remove(oldUsername);
