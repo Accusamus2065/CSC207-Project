@@ -61,7 +61,7 @@ import java.awt.*;
         views.add(welcomeView, welcomeView.viewName);
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, entityDataAccessObject);
         views.add(signupView, signupView.viewName);
-        DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel);
+        DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel, loginViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
