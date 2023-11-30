@@ -15,18 +15,9 @@ public class ChoosePatientOutputData {
         this.username = username;
     }
 
-    public ChoosePatientOutputData(String usecase, boolean useCaseFailed, String username){
-        this.username = username;
-        this.patient = "";
-        this.usecase = usecase;
-        this.useCaseFailed = useCaseFailed;
-    }
-
     public String getPatient() {
         return patient;
     }
-
-    public String getUsecase() {return usecase; }
 
     public String getUsername() {
         return username;

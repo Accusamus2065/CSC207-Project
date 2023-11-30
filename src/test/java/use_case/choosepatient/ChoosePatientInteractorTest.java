@@ -29,7 +29,6 @@ public class ChoosePatientInteractorTest {
             }
         };
 
-        // Act
         ChoosePatientInteractor choosePatientInteractor = new ChoosePatientInteractor(choosePatientPresenter);
         choosePatientInteractor.execute(input);
     }
