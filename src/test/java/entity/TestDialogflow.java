@@ -13,10 +13,10 @@ public class TestDialogflow {
         String[] arr = dao.detectIntent("I have joint pain").split(",");
         String intent = arr[0];
         String response = arr[1];
-        List<String> ids = dao.getDoctors(intent);
+//        List<String> ids = dao.getDoctors(intent);
         System.out.println(intent +":"+response);
-        for (String id: ids) {
-            System.out.println(id);
-        }
+//        for (String id: ids) {
+//            System.out.println(id);
+//        }
     }
 }

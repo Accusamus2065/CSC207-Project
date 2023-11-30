@@ -5,14 +5,12 @@ import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.dialogflow.v2.*;
 
-import entity.people.DoctorUserFactory;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -24,7 +22,7 @@ public class DialogflowDAOImpl {
     private final SessionsClient sessionsClient;
     private final ManagedChannel managedChannel;
 
-    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
+//    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
 
     public DialogflowDAOImpl() throws IOException {
         // load credentials
@@ -71,9 +69,9 @@ public class DialogflowDAOImpl {
         return queryResult.getIntent().getDisplayName() + ","+ queryResult.getFulfillmentText();
     }
 
-    public List<String> getDoctors(String intent) {
-        return dao.getBySpecialty(intent);
-    }
+//    public List<String> getDoctors(String intent) {
+//        return dao.getBySpecialty(intent);
+//    }
 
     public void close() {
         // Clean up resources
