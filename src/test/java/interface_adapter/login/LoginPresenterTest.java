@@ -64,6 +64,7 @@ public class LoginPresenterTest {
         ConversationState conversationState = conversationViewModel.getState();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+        viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
                 conversationViewModel,
@@ -71,7 +72,7 @@ public class LoginPresenterTest {
                 loginViewModel);
         loginPresenter.prepareFailView(ERROR);
 
-        assertEquals(loginViewModel.getViewName(), viewManagerModel.getActiveView());
+        assertEquals(choosePatientViewModel.getViewName(), viewManagerModel.getActiveView());
         assertEquals(ERROR, loginViewModel.getState().getError());
         assertEquals(conversationState, conversationViewModel.getState());
         assertEquals(choosePatientState, choosePatientViewModel.getState());
