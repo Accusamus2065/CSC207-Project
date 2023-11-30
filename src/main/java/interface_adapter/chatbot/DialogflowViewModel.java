@@ -1,27 +1,27 @@
-package interface_adapter.chat;
+package interface_adapter.chatbot;
 
 import interface_adapter.ViewModel;
+import interface_adapter.chat.ConversationState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ConversationViewModel extends ViewModel {
+public class DialogflowViewModel extends ViewModel {
+    public static final String TITLE_LABEL = "Dialogflow";
 
-    public static final String TITLE_LABEL = "Conversation";
-
-    private ConversationState state = new ConversationState();
+    private DialogflowState state = new DialogflowState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 
-    public ConversationViewModel() {
-        super("conversation view");
+    public DialogflowViewModel() {
+        super("dialogflow view");
     }
 
-    public void setState(ConversationState state) {
+    public void setState(DialogflowState state) {
         this.state = state;
     }
 
-    public ConversationState getState() {
+    public DialogflowState getState() {
         return state;
     }
 
@@ -32,6 +32,4 @@ public class ConversationViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
-
 }

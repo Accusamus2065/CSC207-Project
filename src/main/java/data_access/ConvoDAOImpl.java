@@ -2,7 +2,9 @@ package data_access;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.result.DeleteResult;
 import entity.chat.Conversation;
 import entity.chat.Message;
@@ -13,9 +15,14 @@ import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
 import io.github.cdimascio.dotenv.Dotenv;
 import use_case.chat.IConvoDAO;
+import view.ConversationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -52,15 +59,15 @@ public class ConvoDAOImpl implements IConvoDAO {
     public ConvoDAOImpl() throws MongoException {
         // Constructor logic
     }
+
     // TODO:interface method
-    public void save(Conversation convo) {
-        saveRemote(convo);
+    public void save(Message message) {
+        saveRemote(message);
     }
 
     // TODO:interface method
-    public Conversation query(String user1, String user2) {
-        Conversation convo = new Conversation(user1, user2, getMessagesForSinglePerson(user1, user2));
-        return convo;
+    public List<Message> query(String user1, String user2) {
+        return getMessagesForSinglePerson(user1, user2);
     }
 
     // TODO:interface method
@@ -75,44 +82,43 @@ public class ConvoDAOImpl implements IConvoDAO {
     }
 
 
-
     private List<Message> getMessagesForSinglePerson(String user1, String user2) {
         MongoDatabase database = connectToDatabase();
         MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);
         Bson filter = Filters.or(
                 Filters.and(Filters.eq("sender", user1), Filters.eq("receiver", user2)),
-                Filters.and(Filters.eq("sender", user2), Filters.eq("receiver", user1))
+                Filters.and(Filters.eq("receiver", user1), Filters.eq("sender", user2))
         );
         FindIterable<Message> messageIterable = messageCollection.find(filter);
         List<Message> list = new ArrayList<>();
         messageIterable.into(list);
         return list;
+
     }
 
     private List<Message> getMessagesFromCollection() {
         MongoDatabase database = connectToDatabase();
         MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);
         FindIterable<Message> messageIterable = messageCollection.find();
-        List<Message> list = new ArrayList<>();
+        List <Message> list = new ArrayList<>();
+        System.out.println(list.toString());
         messageIterable.into(list);
         return list;
     }
 
-    private void saveRemote(Conversation convo) {
+    private void saveRemote(Message msg) {
         MongoDatabase database = connectToDatabase();
         MongoCollection<Document> collection = database.getCollection("message");
-        List<Document> docs = new ArrayList<>();
+        Document doc = new Document();
+        doc.put("sender", msg.getSender());
+        doc.put("receiver", msg.getReceiver());
+        doc.put("content", msg.getContent());
+        doc.put("timestamp", msg.getTimestamp());
 
-        for (Message each : convo.getMessages()) {
-            docs.add(new Document("content", each.getContent())
-                    .append("sender", each.getSender())
-                    .append("receiver", each.getReceiver())
-                    .append("timestamp", each.getTimestamp()));
-        }
-
-        collection.insertMany(docs);
+        collection.insertOne(doc);
         System.out.println("Added messages in collection message");
     }
+
     private void deleteAllMessages() {
         MongoDatabase database = connectToDatabase();
         MongoCollection<Message> messageCollection = database.getCollection("message", Message.class);

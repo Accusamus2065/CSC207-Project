@@ -1,5 +1,7 @@
 package entity.people;
 
+import java.util.List;
+
 public interface IDoctor extends User{
 
     void setUsername(String username);

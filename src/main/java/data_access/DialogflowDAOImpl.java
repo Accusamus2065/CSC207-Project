@@ -44,7 +44,6 @@ public class DialogflowDAOImpl {
         // Create a SessionsClient using a managed channel
         managedChannel = ManagedChannelBuilder.forTarget("dialogflow.googleapis.com:443").build();
         sessionsClient = SessionsClient.create(sessionSettings);
-
     }
 
     public String detectIntent(String userInput) {
@@ -72,8 +71,8 @@ public class DialogflowDAOImpl {
         return queryResult.getIntent().getDisplayName() + ","+ queryResult.getFulfillmentText();
     }
 
-    private List<String> getDoctors(String intent) {
-        return null; //dao.get(intent);
+    public List<String> getDoctors(String intent) {
+        return dao.getBySpecialty(intent);
     }
 
     public void close() {

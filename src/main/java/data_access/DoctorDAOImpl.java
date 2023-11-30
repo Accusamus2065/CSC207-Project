@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import entity.chat.Message;
 import entity.mongo.MongoFactory;
 import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
@@ -12,9 +13,7 @@ import entity.people.User;
 import org.bson.Document;
 import use_case.signup.SignupUserDataAccessInterface;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DoctorDAOImpl {
     private final Map<String, User> accounts = new HashMap<>();
@@ -31,9 +30,7 @@ public class DoctorDAOImpl {
                             document.getString("specialty"),
                             document.getString("degree")));
         }
-        for (Map.Entry<String, User> entry : accounts.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-        }
+
     }
 
     public boolean existsByName(String identifier) {
@@ -62,7 +59,16 @@ public class DoctorDAOImpl {
         return (IDoctor) accounts.get(username);
     }
 
-    public List<String> getSpecialists(String intent) {
-        return null;
+
+    public List<String> getBySpecialty(String intent) {
+
+        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoCollection<Document> collection = database.getCollection("doctors");
+        FindIterable<Document> findIterable = collection.find(new Document("specialty", intent));
+        List list = new ArrayList();
+        for (Document document : findIterable) {
+            list.add(document.getString("username"));
+        }
+        return list;
     }
 }

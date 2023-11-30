@@ -7,9 +7,9 @@ import entity.chat.Message;
 import java.util.List;
 
 public interface IConvoDAO {
-    void save(Conversation convo);
+    void save(Message msg);
 
-    Conversation query(String user1, String user2);
+    List<Message> query(String user1, String user2);
 
     void deleteAll();
 

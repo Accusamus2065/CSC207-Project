@@ -29,13 +29,13 @@ public class DAOFacade implements
         doctorDAO.save(user);
     }
 
-    public void save(Conversation convo) {
-        convoDAO.save(convo);
+    public void save(Message msg) {
+        convoDAO.save(msg);
     }
 
     @Override
     public void update(String oldUsername, IDoctor user) {
-        doctorDAO.update(oldUsername, user);
+//        doctorDAO.update(oldUsername, user);
     }
 
     @Override
