@@ -1,25 +1,29 @@
 package interface_adapter.chat;
 
 import entity.chat.Conversation;
+import entity.chat.Message;
+
+import java.util.List;
 
 public class ConversationState {
 
-    private Conversation conv = null;
+    private List<Message> messages;
 
     public ConversationState(ConversationState copy) {
-        conv = copy.conv;
+        messages = copy.messages;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public ConversationState() {
     }
 
-    public Conversation getConversation() {
-        return conv;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setConversation(Conversation conv) {
-        this.conv = conv;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
+
 
 }

@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.chat.Conversation;
+import entity.chat.Message;
 import entity.people.*;
 import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
@@ -30,7 +31,7 @@ public class DAOFacade implements
         doctorDAO.save(user);
     }
 
-    public void save(Conversation convo) {
+    public void save(Message convo) {
         convoDAO.save(convo);
     }
 
