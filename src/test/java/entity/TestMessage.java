@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TestMessage {
     ConvoDAOImpl dao = new ConvoDAOImpl();
+
     @Test
     public void testStoreMessage() {
         String docId = "Harry";
@@ -18,6 +19,7 @@ public class TestMessage {
         Message message = new Message(docId, patId, "It's Marshal, nice to meet", null);
         dao.save(message);
     }
+
     @Test
     public void testRetrieveAllMessages() {
         List<Message> list = dao.query();

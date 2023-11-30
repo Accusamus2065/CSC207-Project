@@ -4,19 +4,19 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import entity.chat.Message;
+
 import entity.mongo.MongoFactory;
-import entity.people.CommonDoctor;
 import entity.people.DoctorUserFactory;
 import entity.people.IDoctor;
-import entity.people.User;
 import org.bson.Document;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.*;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class DoctorDAOImpl {
-    private final Map<String, User> accounts = new HashMap<>();
+    private final Map<String, IDoctor> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
     public DoctorDAOImpl(DoctorUserFactory doctorUserFactory) {
@@ -31,13 +31,16 @@ public class DoctorDAOImpl {
                             document.getString("degree")));
         }
 
+        for (Map.Entry<String, IDoctor> entry : accounts.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
     }
 
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
 
-    public void save(User user) {
+    public void save(IDoctor user) {
         accounts.put(user.getUsername(), user);
         save();
     }
@@ -45,18 +48,17 @@ public class DoctorDAOImpl {
     private void save() {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("doctors");
-        for (User user : accounts.values()) {
-            CommonDoctor commonDoctor = (CommonDoctor) user;
-            Document document = new Document("username", commonDoctor.getUsername())
-                    .append("password", commonDoctor.getPassword())
-                    .append("specialty", commonDoctor.getSpecialty())
-                    .append("degree", commonDoctor.getDegree());
+        for (IDoctor doctor : accounts.values()) {
+            Document document = new Document("username", doctor.getUsername())
+                    .append("password", doctor.getPassword())
+                    .append("specialty", doctor.getSpecialty())
+                    .append("degree", doctor.getDegree());
             patients.insertOne(document);
         }
     }
 
     public IDoctor get(String username) {
-        return (IDoctor) accounts.get(username);
+        return accounts.get(username);
     }
 
 
@@ -70,5 +72,26 @@ public class DoctorDAOImpl {
             list.add(document.getString("username"));
         }
         return list;
+
+    public void update(String oldUsername, IDoctor user) {
+        accounts.remove(oldUsername);
+        accounts.put(user.getUsername(), user);
+        updateDAO(oldUsername, user);
+    }
+
+    public void updateDAO(String oldUsername, IDoctor user) {
+        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoCollection<Document> doctors = database.getCollection("doctors");
+
+        // this should return a single document since we assume oldUsername exists in the database as a username,
+        // and usernames should be unique
+        Bson query = eq("username", oldUsername);
+
+        Document document = new Document("username", user.getUsername())
+                .append("password", user.getPassword())
+                .append("specialty", user.getSpecialty())
+                .append("degree", user.getDegree());
+
+        doctors.replaceOne(query, document);
     }
 }

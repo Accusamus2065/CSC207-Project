@@ -1,8 +1,8 @@
 package data_access;
 
 import entity.chat.Conversation;
-import entity.chat.Message;
 import entity.people.*;
+import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
@@ -14,7 +14,8 @@ public class DAOFacade implements
         SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         DoctorUpdateUserDataAccessInterface,
-        PatientUpdateUserDataAccessInterface {
+        PatientUpdateUserDataAccessInterface,
+        ChoosePatientUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
     ConvoDAOImpl convoDAO = new ConvoDAOImpl();
@@ -52,11 +53,6 @@ public class DAOFacade implements
     }
 
     @Override
-    public User get(String username) {
-        return null;
-    }
-
-    @Override
     public IDoctor getDoctor(String username) {
         return doctorDAO.get(username);
     }
@@ -64,5 +60,10 @@ public class DAOFacade implements
     @Override
     public IPatient getPatient(String username) {
         return patientDAO.get(username);
+    }
+
+    @Override
+    public List<String> getPatientList() {
+        return patientDAO.getPatientList();
     }
 }

@@ -2,20 +2,21 @@ package data_access;
 
 
 import com.mongodb.client.*;
-import com.mongodb.client.model.Updates;
 import entity.mongo.MongoFactory;
-import entity.people.CommonPatient;
 import entity.people.IPatient;
 import entity.people.PatientUserFactory;
-import entity.people.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class PatientDAOImpl {
-    private final Map<String, User> accounts = new HashMap<>();
+    private final Map<String, IPatient> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
     public PatientDAOImpl(PatientUserFactory patientUserFactory) {
@@ -41,7 +42,7 @@ public class PatientDAOImpl {
         }
 
         // Printing the data stored in the Map object
-        for (Map.Entry<String, User> entry : accounts.entrySet()) {
+        for (Map.Entry<String, IPatient> entry : accounts.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
         }
     }
@@ -50,7 +51,7 @@ public class PatientDAOImpl {
         return accounts.containsKey(identifier);
     }
 
-    public void save(User user) {
+    public void save(IPatient user) {
         accounts.put(user.getUsername(), user);
         save();
     }
@@ -58,8 +59,7 @@ public class PatientDAOImpl {
     private void save() {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
-        for (User user : accounts.values()) {
-            CommonPatient patient = (CommonPatient) user;
+        for (IPatient patient : accounts.values()) {
             Document document = new Document("username", patient.getUsername())
                     .append("password", patient.getPassword())
                     .append("sex", patient.getSex())
@@ -72,27 +72,39 @@ public class PatientDAOImpl {
     }
 
     public IPatient get(String username) {
-        return (IPatient) accounts.get(username);
+        return accounts.get(username);
     }
 
     public void update(String oldUsername, IPatient user) {
+        accounts.remove(oldUsername);
+        accounts.put(user.getUsername(), user);
+        updateDAO(oldUsername, user);
+    }
+
+    public void updateDAO(String oldUsername, IPatient user) {
         MongoDatabase database = mongoClient.getDatabase("entities");
         MongoCollection<Document> patients = database.getCollection("patients");
 
         // this should return a single document since we assume oldUsername exists in the database as a username,
         // and usernames should be unique
-        Document query = new Document("patients", oldUsername);
+        Bson query = eq("username", oldUsername);
 
-        Bson updates = Updates.combine(
-                Updates.set("username", user.getUsername()),
-                Updates.set("password", user.getPassword()),
-                Updates.set("sex", user.getSex()),
-                Updates.set("gender", user.getGender()),
-                Updates.set("height", user.getHeight()),
-                Updates.set("weight", user.getWeight()),
-                Updates.set("bloodtype", user.getBloodType())
-        );
+        Document document = new Document("username", user.getUsername())
+                .append("password", user.getPassword())
+                .append("sex", user.getSex())
+                .append("gender", user.getGender())
+                .append("height", user.getHeight())
+                .append("weight", user.getWeight())
+                .append("bloodtype", user.getBloodType());
 
-        patients.updateOne(query, updates);
+        patients.replaceOne(query, document);
+    }
+
+    public Map<String, IPatient> getAccounts() {
+        return accounts;
+    }
+
+    public List<String> getPatientList() {
+        return new ArrayList<>(accounts.keySet());
     }
 }
