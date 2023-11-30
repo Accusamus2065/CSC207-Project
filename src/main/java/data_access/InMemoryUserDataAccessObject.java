@@ -3,18 +3,22 @@ package data_access;
 
 import entity.people.IDoctor;
 import entity.people.IPatient;
+import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
 import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         DoctorUpdateUserDataAccessInterface,
-        PatientUpdateUserDataAccessInterface {
+        PatientUpdateUserDataAccessInterface,
+        ChoosePatientUserDataAccessInterface {
 
     private final Map<String, IDoctor> doctors = new HashMap<>();
     private final Map<String, IPatient> patients = new HashMap<>();
@@ -59,5 +63,10 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public IPatient getPatient(String username) {
         return patients.get(username);
+    }
+
+    @Override
+    public List<String> getPatientList() {
+        return new ArrayList<>(patients.keySet());
     }
 }
