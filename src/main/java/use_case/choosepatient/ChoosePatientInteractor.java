@@ -18,9 +18,8 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
                     "choosePatient",false, username);
             choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
 
-        } catch (Exception e) {
-            choosePatientPresenter.prepareFailView(e.getMessage());
         }
+        catch (Exception e) {choosePatientPresenter.prepareFailView(e.getMessage());}
     }
 
 }
