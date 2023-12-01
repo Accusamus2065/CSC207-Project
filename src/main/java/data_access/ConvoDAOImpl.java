@@ -6,7 +6,6 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.result.DeleteResult;
-import entity.chat.Conversation;
 import entity.chat.Message;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
