@@ -1,8 +1,6 @@
 
 package app;
 
-import data_access.DAOFacade;
-
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
@@ -39,12 +37,12 @@ public class ChoosePatientUseCaseFactory {
                                             WelcomeViewModel welcomeViewModel,
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
-                                            DAOFacade userDao) {
+                                            ChoosePatientUserDataAccessInterface userDao) {
         ChoosePatientController updateController = createChoosePatientUseCase(viewManagerModel,
-                conversationViewModel,
-                welcomeViewModel,
-                doctorUpdateViewModel,
-                choosePatientViewModel);
+                                                                              conversationViewModel,
+                                                                              welcomeViewModel,
+                                                                              doctorUpdateViewModel,
+                                                                              choosePatientViewModel);
 
         SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel);
         LoadPatientsController loadPatientsController = createLoadPatientsUseCase(userDao);
@@ -80,7 +78,7 @@ public class ChoosePatientUseCaseFactory {
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }
 
-    private static LoadPatientsController createLoadPatientsUseCase(DAOFacade userDao) {
+    private static LoadPatientsController createLoadPatientsUseCase(ChoosePatientUserDataAccessInterface userDao){
         LoadPatientInputBoundary loadPatientInteractor = new LoadPatientInteractor(userDao);
         return new LoadPatientsController(loadPatientInteractor);
     }
