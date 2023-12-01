@@ -104,6 +104,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         panel.add(messageFieldPanel, BorderLayout.SOUTH);
 
 
+
 // Create the text field
         messageField = new JTextField(20);
         messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
@@ -120,6 +121,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         messageFieldPanel.add(sendButton);
+
     }
 
     public void show() {
