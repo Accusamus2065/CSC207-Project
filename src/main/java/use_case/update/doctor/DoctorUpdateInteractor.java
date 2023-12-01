@@ -31,6 +31,10 @@ public class DoctorUpdateInteractor implements DoctorUpdateInputBoundary {
                 userPresenter.prepareFailView("Username is invalid.");
             } else if (!credentialChecker.validPassword(doctorUpdateInputData.getPassword())) {
                 userPresenter.prepareFailView("Password requires a digit and a letter, be more than 5 characters, and cannot have any other characters.");
+            } else if (!credentialChecker.validSpecialty(doctorUpdateInputData.getSpecialty())) {
+                userPresenter.prepareFailView("Specialty is Empty.");
+            } else if (!credentialChecker.validDegree(doctorUpdateInputData.getDegree())) {
+                userPresenter.prepareFailView("Degree is Empty.");
             } else {
                 IDoctor doctor = userFactory.create(
                         doctorUpdateInputData.getNewUsername(),

@@ -11,6 +11,7 @@ public class DoctorUpdateInteractorTest {
     private static final String USERNAME = "updateTestUsername";
     private static final String PASSWORD = "updateTestPassword";
     private final DoctorUserFactory docFactory = new DoctorUserFactory();
+
     @Test
     public void successfulUpdateTest() {
         InMemoryUserDataAccessObject userDAO = new InMemoryUserDataAccessObject();
@@ -193,6 +194,80 @@ public class DoctorUpdateInteractorTest {
                 "NewPassword123",
                 "TestSpecialty",
                 "TestDegree");
+
+        doctorUpdateInteractor.execute(inputData);
+    }
+
+    @Test
+    public void badSpecialityTest() {
+        InMemoryUserDataAccessObject userDAO = new InMemoryUserDataAccessObject();
+        userDAO.save(docFactory.create(USERNAME, PASSWORD));
+
+        DoctorUpdateOutputBoundary doctorUpdatePresenter = new DoctorUpdateOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DoctorUpdateOutputData user) {
+                fail("User case not expected to succeed.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                // check correct error has been raised
+                assertEquals("Specialty is Empty.", error);
+
+                assertFalse(userDAO.existsByName(true, "newTestUsername"));
+                assertTrue(userDAO.existsByName(true, USERNAME));
+
+                // check no details have been edited
+                assertEquals(PASSWORD, userDAO.getDoctor(USERNAME).getPassword());
+                assertNull(userDAO.getDoctor(USERNAME).getDegree());
+                assertNull(userDAO.getDoctor(USERNAME).getSpecialty());
+            }
+        };
+
+        DoctorUpdateInteractor doctorUpdateInteractor = new DoctorUpdateInteractor(userDAO, doctorUpdatePresenter, docFactory);
+        DoctorUpdateInputData inputData = new DoctorUpdateInputData(USERNAME,
+                "newTestUsername",
+                "newTestPassword123",
+                "newTestPassword123",
+                "",
+                "TestDegree");
+
+        doctorUpdateInteractor.execute(inputData);
+    }
+
+    @Test
+    public void badDegreeTest() {
+        InMemoryUserDataAccessObject userDAO = new InMemoryUserDataAccessObject();
+        userDAO.save(docFactory.create(USERNAME, PASSWORD));
+
+        DoctorUpdateOutputBoundary doctorUpdatePresenter = new DoctorUpdateOutputBoundary() {
+            @Override
+            public void prepareSuccessView(DoctorUpdateOutputData user) {
+                fail("User case not expected to succeed.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                // check correct error has been raised
+                assertEquals("Degree is Empty.", error);
+
+                assertFalse(userDAO.existsByName(true, "newTestUsername"));
+                assertTrue(userDAO.existsByName(true, USERNAME));
+
+                // check no details have been edited
+                assertEquals(PASSWORD, userDAO.getDoctor(USERNAME).getPassword());
+                assertNull(userDAO.getDoctor(USERNAME).getDegree());
+                assertNull(userDAO.getDoctor(USERNAME).getSpecialty());
+            }
+        };
+
+        DoctorUpdateInteractor doctorUpdateInteractor = new DoctorUpdateInteractor(userDAO, doctorUpdatePresenter, docFactory);
+        DoctorUpdateInputData inputData = new DoctorUpdateInputData(USERNAME,
+                "newTestUsername",
+                "newTestPassword123",
+                "newTestPassword123",
+                "TestSpecialty",
+                "");
 
         doctorUpdateInteractor.execute(inputData);
     }
