@@ -7,6 +7,7 @@ import java.util.List;
 public class DialogflowState {
 
     private String response;
+    private String username;
 
     public DialogflowState(DialogflowState copy) {
         response = copy.response;
@@ -23,5 +24,10 @@ public class DialogflowState {
     public void setResponse(String response) {
         this.response = response;
     }
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getUsername() {
+        return username;
+    }
 }

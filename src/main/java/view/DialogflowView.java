@@ -17,123 +17,133 @@ import java.io.IOException;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
-    private final JFrame frame;
-    private final JPanel panel;
-    private final JButton logOutButton;
-    private final JTextArea chatArea;
-    private final  JTextField messageField;
-    private final JButton sendButton;
-    private final String username;
-    private final DialogflowViewModel viewModel;
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("main");
-        CardLayout cardLayout = new CardLayout();
-        // The various View objects. Only one view is visible at a time.
-        JPanel views = new JPanel(cardLayout);
+    private JButton logOutButton;
+    private JTextArea chatArea;
+    private JTextField messageField;
+    private JButton sendButton;
+    private String username;
 
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
+//    public static void main(String[] args) throws IOException {
+//        System.out.println("main");
+//        CardLayout cardLayout = new CardLayout();
+//        // The various View objects. Only one view is visible at a time.
+//        JPanel views = new JPanel(cardLayout);
+//
+//        // This keeps track of and manages which view is currently showing.
+//        ViewManagerModel viewManagerModel = new ViewManagerModel();
+//        new ViewManager(views, cardLayout, viewManagerModel);
+//
+//        DialogflowView view = DialogflowUseCaseFactory.create(
+//                viewManagerModel,
+//                new DialogflowViewModel(),
+//                new DAOFacade()
+//        );
+//        System.out.println(view.viewName);
+//        views.add(view, view.viewName);
+//        viewManagerModel.setActiveView(view.viewName);
+//        viewManagerModel.firePropertyChanged();
+//    }
 
-        DialogflowView view = DialogflowUseCaseFactory.create(
-                viewManagerModel,
-                new DialogflowViewModel(),
-                new DAOFacade(),
-                "Marshal"
-        );
-        System.out.println(view.viewName);
-        views.add(view, view.viewName);
-        viewManagerModel.setActiveView(view.viewName);
-        viewManagerModel.firePropertyChanged();
-        view.show();
-    }
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, String username) {
-        this.username = username;
-        frame = new JFrame();
-        frame.setTitle("Chat Application");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600); // Set your desired width and height
-        frame.setLocationRelativeTo(null);
-        this.viewModel = viewModel;
+        this.username = viewModel.getState().getUsername();
         viewModel.addPropertyChangeListener(this);
 
+        // Main panel
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(new Dimension(800, 500));
 
-// Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Adjust the gap between components
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(new Dimension(800, 500)); // Set your desired width and height
-        frame.add(panel, BorderLayout.CENTER);
-
-// Create the upper sub-panel
+        // Upper sub-panel for logout button
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.SOUTH);
+        this.add(upperPanel, BorderLayout.SOUTH);
 
-// Create the button for logging out
+        // Button for logging out
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> {
-            // Your action for log out
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Your action for log out
+            }
         });
-        logOutButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
+        logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
 
-
-// Create the chat sub-panel
+        // Chat sub-panel
         JPanel chatPanel = new JPanel();
-        chatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 10));
+        chatPanel.setLayout(new BorderLayout());
         chatPanel.setBackground(Color.lightGray);
-        panel.add(chatPanel, BorderLayout.CENTER);
+        this.add(chatPanel, BorderLayout.CENTER);
 
-// Create the chat area where messages appear
+        // Chat area where messages appear
         chatArea = new JTextArea();
         chatArea.setEditable(false);
-        chatArea.setPreferredSize(new Dimension(600, 300)); // Set your desired width and height
         JScrollPane chatScrollPane = new JScrollPane(chatArea);
+        chatScrollPane.setPreferredSize(new Dimension(600, 300));
         chatPanel.add(chatScrollPane, BorderLayout.CENTER);
 
-// Create the text field sub-panel
-        JPanel messageFieldPanel = new JPanel();
-        messageFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        messageFieldPanel.setBackground(Color.lightGray);
-        panel.add(messageFieldPanel, BorderLayout.SOUTH);
+        // Text field sub-panel
+        JPanel messageAndButtonPanel = new JPanel();
+        messageAndButtonPanel.setLayout(new BorderLayout());
+        messageAndButtonPanel.setBackground(Color.lightGray);
+        this.add(messageAndButtonPanel, BorderLayout.SOUTH);
 
-
-
-// Create the text field
+        // Text field
         messageField = new JTextField(20);
         messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         messageField.setToolTipText("Enter your text");
-        messageFieldPanel.add(messageField);
+        messageAndButtonPanel.add(messageField, BorderLayout.CENTER);
 
-// Create the send button
+        // Send button
         sendButton = new JButton("Send");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
-        sendButton.addActionListener(e -> {
-            controller.execute(messageField.getText());
-            chatArea.append(messageField.getText() + "\n");
+        sendButton.setPreferredSize(new Dimension(100, 40));
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Your action for sending message
+                controller.execute(messageField.getText(), username);
+                chatArea.append(messageField.getText() + "\n");
+            }
         });
-        sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
-        messageFieldPanel.add(sendButton);
+        messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
-    }
+        // Sub-panel for two buttons in the scrollable
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-    public void show() {
-        frame.setVisible(true);
+        // Two buttons for the scrollable
+        JButton button1 = new JButton("Button 1");
+        JButton button2 = new JButton("Button 2");
+
+        // Add buttons to the panel
+        buttonPanel.add(button1);
+        buttonPanel.add(button2);
+
+        // Scrollable for the buttons
+        JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
+        buttonScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        buttonScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        // Add the scrollable to the chatPanel
+        chatPanel.add(buttonScrollPane, BorderLayout.EAST);
+
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("reached property change");
         DialogflowState state = (DialogflowState) evt.getNewValue();
+        username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
-        System.out.println(state.getResponse());
+        System.out.println(state.getUsername());
+
+
     }
 
     @Override

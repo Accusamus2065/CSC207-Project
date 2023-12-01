@@ -2,6 +2,7 @@ package data_access;
 
 import entity.chat.Message;
 import entity.people.*;
+import use_case.chat.ConversationUserDataAccessInterface;
 import use_case.chatbot.DialogflowUserDataAccessInterface;
 import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
@@ -18,11 +19,13 @@ public class DAOFacade implements
         DoctorUpdateUserDataAccessInterface,
         PatientUpdateUserDataAccessInterface,
         ChoosePatientUserDataAccessInterface,
-        DialogflowUserDataAccessInterface {
+        DialogflowUserDataAccessInterface,
+        ConversationUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
     ConvoDAOImpl convoDAO = new ConvoDAOImpl();
     DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
+    ConvoDAOImpl convoDAOImpl = new ConvoDAOImpl();
 
     public DAOFacade() throws IOException {
     }
@@ -39,6 +42,21 @@ public class DAOFacade implements
 
     public void save(Message msg) {
         convoDAO.save(msg);
+    }
+
+    @Override
+    public List<Message> query(String user1, String user2) {
+        return convoDAOImpl.query(user1, user2);
+    }
+
+    @Override
+    public void deleteAll() {
+        convoDAOImpl.deleteAll();
+    }
+
+    @Override
+    public List<Message> query() {
+        return convoDAOImpl.query();
     }
 
     @Override

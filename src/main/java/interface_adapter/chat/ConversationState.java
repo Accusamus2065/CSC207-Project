@@ -1,6 +1,5 @@
 package interface_adapter.chat;
 
-import entity.chat.Conversation;
 import entity.chat.Message;
 
 import java.util.List;

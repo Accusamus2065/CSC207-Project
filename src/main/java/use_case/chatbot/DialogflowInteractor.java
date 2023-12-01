@@ -13,7 +13,7 @@ public class DialogflowInteractor implements DialogflowInputBoundary {
 
     @Override
     public void execute(DialogflowInputData data) {
-        DialogflowOutputData outputData = new DialogflowOutputData(dao.detectIntent(data.getQuery()));
+        DialogflowOutputData outputData = new DialogflowOutputData(dao.detectIntent(data.getQuery()), data.getUsername());
         presenter.prepareSuccessView(outputData);
     }
 }

@@ -1,3 +1,4 @@
+
 package app;
 
 import interface_adapter.ViewManagerModel;
@@ -28,7 +29,8 @@ import view.ListOfPatientsView;
 public class ChoosePatientUseCaseFactory {
 
     /* Prevent instantiation. */
-    public ChoosePatientUseCaseFactory() { }
+    public ChoosePatientUseCaseFactory() {
+    }
 
     public static ListOfPatientsView create(ViewManagerModel viewManagerModel,
                                             ConversationViewModel conversationViewModel,
@@ -36,21 +38,21 @@ public class ChoosePatientUseCaseFactory {
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
                                             ChoosePatientUserDataAccessInterface userDao) {
-        ChoosePatientController updateController = createChoosePatientUseCase(  viewManagerModel,
-                                                                                conversationViewModel,
-                                                                                welcomeViewModel,
-                                                                                doctorUpdateViewModel,
-                                                                                choosePatientViewModel);
+        ChoosePatientController updateController = createChoosePatientUseCase(viewManagerModel,
+                                                                              conversationViewModel,
+                                                                              welcomeViewModel,
+                                                                              doctorUpdateViewModel,
+                                                                              choosePatientViewModel);
 
         SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel);
         LoadPatientsController loadPatientsController = createLoadPatientsUseCase(userDao);
         SwapToDoctorUpdateController swapToDoctorUpdateController = createSwapToDoctorUpdateController(viewManagerModel,
                 doctorUpdateViewModel);
         return new ListOfPatientsView(updateController,
-                                        choosePatientViewModel,
-                                        swapController,
-                                        loadPatientsController,
-                                        swapToDoctorUpdateController);
+                choosePatientViewModel,
+                swapController,
+                loadPatientsController,
+                swapToDoctorUpdateController);
     }
 
     private static ChoosePatientController createChoosePatientUseCase(ViewManagerModel viewManagerModel,
@@ -58,19 +60,19 @@ public class ChoosePatientUseCaseFactory {
                                                                       WelcomeViewModel welcomeViewModel,
                                                                       DoctorUpdateViewModel doctorUpdateViewModel,
                                                                       ChoosePatientViewModel choosePatientViewModel) {
-        ChoosePatientOutputBoundary choosepatientPresenter = new ChoosePatientPresenter(
-                                                                                        viewManagerModel,
-                                                                                        conversationViewModel,
-                                                                                        welcomeViewModel,
-                                                                                        doctorUpdateViewModel,
-                                                                                        choosePatientViewModel);
+        ChoosePatientOutputBoundary choosePatientPresenter = new ChoosePatientPresenter(
+                viewManagerModel,
+                conversationViewModel,
+                welcomeViewModel,
+                doctorUpdateViewModel,
+                choosePatientViewModel);
 
-        ChoosePatientInputBoundary choosepatientInteractor = new ChoosePatientInteractor(choosepatientPresenter);
-        return new ChoosePatientController(choosepatientInteractor);
+        ChoosePatientInputBoundary choosePatientInteractor = new ChoosePatientInteractor(choosePatientPresenter);
+        return new ChoosePatientController(choosePatientInteractor);
     }
 
     private static SwapToWelcomeController createSwapToWelcomeUseCase(ViewManagerModel viewManagerModel,
-                                                                          WelcomeViewModel welcomeViewModel) {
+                                                                      WelcomeViewModel welcomeViewModel) {
         SwapToWelcomeOutputBoundary welcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(welcomePresenter);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
@@ -82,9 +84,9 @@ public class ChoosePatientUseCaseFactory {
     }
 
     private static SwapToDoctorUpdateController createSwapToDoctorUpdateController(ViewManagerModel viewManagerModel,
-                                                                                   DoctorUpdateViewModel doctorUpdateViewModel){
+                                                                                   DoctorUpdateViewModel doctorUpdateViewModel) {
         SwapToDoctorUpdateOutputBoundary swapToDoctorUpdatePresenter = new SwapToDoctorUpdatePresenter(viewManagerModel, doctorUpdateViewModel);
-        SwapToDoctorUpdateInputBoundary swapToDoctorUpdateInteractor= new SwapToDoctorUpdateInteractor(swapToDoctorUpdatePresenter);
+        SwapToDoctorUpdateInputBoundary swapToDoctorUpdateInteractor = new SwapToDoctorUpdateInteractor(swapToDoctorUpdatePresenter);
         return new SwapToDoctorUpdateController(swapToDoctorUpdateInteractor);
     }
 }

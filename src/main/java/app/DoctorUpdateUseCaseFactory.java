@@ -21,7 +21,8 @@ import view.DoctorUpdateView;
 public class DoctorUpdateUseCaseFactory {
 
     /* Prevent instantiation. */
-    public DoctorUpdateUseCaseFactory() { }
+    public DoctorUpdateUseCaseFactory() {
+    }
 
     public static DoctorUpdateView create(DoctorUpdateUserDataAccessInterface dataAccessInterface,
                                           ViewManagerModel viewManagerModel,
