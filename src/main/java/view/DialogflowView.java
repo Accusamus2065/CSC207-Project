@@ -105,25 +105,11 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 
 
 
-// Create the text field
-        messageField = new JTextField(20);
-        messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
-        messageField.setToolTipText("Enter your text");
-        messageFieldPanel.add(messageField);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        bottomPanel.setBackground(Color.lightGray);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
 
-// Create the send button
-        sendButton = new JButton("Send");
-        sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
-        sendButton.setFocusable(false);
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.execute(messageField.getText());
-                chatArea.append(messageField.getText() + "\n");
-            }
-        });
-        sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
-        messageFieldPanel.add(sendButton);
     }
 
     public void show() {

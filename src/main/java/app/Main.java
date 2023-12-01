@@ -1,6 +1,7 @@
 package app;
 
 import com.mongodb.MongoException;
+import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choosepatient.ChoosePatientViewModel;
