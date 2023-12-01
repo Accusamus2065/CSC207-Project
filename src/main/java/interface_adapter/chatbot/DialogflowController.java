@@ -9,8 +9,8 @@ public class DialogflowController {
         this.dialogflowInputBoundary = dialogflowUseCaseInteractor;
     }
 
-    public void execute(String messageContent) {
-        DialogflowInputData data = new DialogflowInputData(messageContent);
+    public void execute(String messageContent, String username) {
+        DialogflowInputData data = new DialogflowInputData(messageContent, username);
         dialogflowInputBoundary.execute(data);
     }
 }
