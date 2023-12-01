@@ -3,6 +3,7 @@ package data_access;
 
 import entity.people.IDoctor;
 import entity.people.IPatient;
+import use_case.chatbot.DialogflowUserDataAccessInterface;
 import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -18,7 +19,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LoginUserDataAccessInterface,
         DoctorUpdateUserDataAccessInterface,
         PatientUpdateUserDataAccessInterface,
-        ChoosePatientUserDataAccessInterface {
+        ChoosePatientUserDataAccessInterface,
+        DialogflowUserDataAccessInterface {
 
     private final Map<String, IDoctor> doctors = new HashMap<>();
     private final Map<String, IPatient> patients = new HashMap<>();
@@ -68,5 +70,10 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public List<String> getPatientList() {
         return new ArrayList<>(patients.keySet());
+    }
+
+    @Override
+    public String detectIntent(String userInput) {
+        return "Hello, how can I help you?";
     }
 }

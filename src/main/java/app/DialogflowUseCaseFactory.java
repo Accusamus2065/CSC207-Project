@@ -13,35 +13,34 @@ import use_case.chat.ConversationOutputBoundary;
 import use_case.chatbot.DialogflowInputBoundary;
 import use_case.chatbot.DialogflowInteractor;
 import use_case.chatbot.DialogflowOutputBoundary;
+import use_case.chatbot.DialogflowUserDataAccessInterface;
 import view.DialogflowView;
 
 import javax.swing.*;
 import java.io.IOException;
 
 public class DialogflowUseCaseFactory {
-    /** Prevent instantiation. */
-    private DialogflowUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private DialogflowUseCaseFactory() {
+    }
 
 
     public static DialogflowView create(
             ViewManagerModel viewManagerModel,
             DialogflowViewModel viewModel,
-            DialogflowDAOImpl dao, String username) {
-
-        try {
-            DialogflowController controller = createDialogflowConroller(viewManagerModel, viewModel, dao);
-            return new DialogflowView(viewModel, controller, username);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
-        }
-
-        return null;
+            DialogflowUserDataAccessInterface userDataAccessObject,
+            String username) {
+        DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
+        return new DialogflowView(viewModel, controller, username);
     }
 
-    public static DialogflowController createDialogflowConroller(ViewManagerModel viewManagerModel, DialogflowViewModel dialogflowViewModel, DialogflowDAOImpl dao) throws IOException {
+    public static DialogflowController createDialogflowController(ViewManagerModel viewManagerModel,
+                                                                  DialogflowViewModel dialogflowViewModel,
+                                                                  DialogflowUserDataAccessInterface userDataAccessObject) {
         DialogflowOutputBoundary outputBoundary = new DialogflowPresenter(viewManagerModel, dialogflowViewModel);
-        DialogflowInputBoundary inputInteractor = new DialogflowInteractor(
-                dao, outputBoundary);
+        DialogflowInputBoundary inputInteractor = new DialogflowInteractor(userDataAccessObject, outputBoundary);
 
         return new DialogflowController(inputInteractor);
     }

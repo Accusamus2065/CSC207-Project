@@ -66,7 +66,7 @@ public class DialogflowDAOImpl {
 
         // Get the response text from the result
         QueryResult queryResult = response.getQueryResult();
-        return queryResult.getIntent().getDisplayName() + ","+ queryResult.getFulfillmentText();
+        return queryResult.getIntent().getDisplayName() + "," + queryResult.getFulfillmentText();
     }
 
 //    public List<String> getDoctors(String intent) {
