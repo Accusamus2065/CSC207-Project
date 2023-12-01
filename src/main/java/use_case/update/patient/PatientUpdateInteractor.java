@@ -36,13 +36,13 @@ public class PatientUpdateInteractor implements PatientUpdateInputBoundary {
             } else if (!credentialChecker.validSex(patientUpdateInputData.getSex())) {
                 userPresenter.prepareFailView("Sex must be either 'M', 'F' or 'O'.");
             } else if (!credentialChecker.validGender(patientUpdateInputData.getGender())) {
-                userPresenter.prepareFailView("Gender is Empty");
+                userPresenter.prepareFailView("Gender is Empty.");
             } else if (!credentialChecker.validWeight(patientUpdateInputData.getWeight())) {
-                userPresenter.prepareFailView("Weight is invalid");
+                userPresenter.prepareFailView("Weight is invalid.");
             } else if (!credentialChecker.validHeight(patientUpdateInputData.getHeight())) {
-                userPresenter.prepareFailView("Height is invalid");
+                userPresenter.prepareFailView("Height is invalid.");
             } else if (!credentialChecker.validBloodType(patientUpdateInputData.getBloodType())) {
-                userPresenter.prepareFailView("Blood Type must be (A, B, AB, O with + or -)");
+                userPresenter.prepareFailView("Blood Type must be (A, B, AB, O with + or -).");
             } else {
                 IPatient patient = userFactory.create(patientUpdateInputData.getNewUsername(),
                         patientUpdateInputData.getPassword(),

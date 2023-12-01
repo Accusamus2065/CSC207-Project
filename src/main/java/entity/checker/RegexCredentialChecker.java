@@ -17,6 +17,16 @@ public class RegexCredentialChecker implements StringCredentialChecker {
         return Pattern.matches(regex, password);
     }
 
+    @Override
+    public boolean validSpecialty(String specialty) {
+        return specialty != null && !specialty.trim().isEmpty();
+    }
+
+    @Override
+    public boolean validDegree(String degree) {
+        return degree != null && !degree.trim().isEmpty();
+    }
+
     // Validate Sex (assuming 'M', 'F', 'O' as valid inputs)
     public boolean validSex(String sex) {
         String regex = "^[MFO]$";

@@ -1,6 +1,6 @@
 package use_case.load_patient;
 
-import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
+import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 
 import java.util.List;
 

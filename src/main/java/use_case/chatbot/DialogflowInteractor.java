@@ -1,17 +1,12 @@
 package use_case.chatbot;
 
-import data_access.ConvoDAOImpl;
-import data_access.DialogflowDAOImpl;
-import entity.chat.Message;
-
-import java.util.List;
 
 public class DialogflowInteractor implements DialogflowInputBoundary {
     final DialogflowOutputBoundary presenter;
-    final DialogflowDAOImpl dao;
+    final DialogflowUserDataAccessInterface dao;
 
-    public DialogflowInteractor(DialogflowDAOImpl convDao,
-                                  DialogflowOutputBoundary presenter) {
+    public DialogflowInteractor(DialogflowUserDataAccessInterface convDao,
+                                DialogflowOutputBoundary presenter) {
         this.dao = convDao;
         this.presenter = presenter;
     }

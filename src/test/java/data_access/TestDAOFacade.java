@@ -4,8 +4,13 @@ import entity.people.CommonPatient;
 import entity.people.IPatient;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class TestDAOFacade {
     DAOFacade daoFacade = new DAOFacade();
+
+    public TestDAOFacade() throws IOException {
+    }
 
     @Test
     public void testSavePatient() {

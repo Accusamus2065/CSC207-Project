@@ -12,6 +12,8 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static com.mongodb.client.model.Filters.eq;
 import static org.junit.Assert.*;
 
@@ -26,6 +28,9 @@ public class DAOFacadeTest {
     private static final String PASSWORD = "password";
     private static final String UPDATE_USERNAME = "testUpdatedUsername";
     private static final String UPDATE_PASSWORD = "testPassword";
+
+    public DAOFacadeTest() throws IOException {
+    }
 
     @Test
     public void testPatientExistsByNameTrue() {
