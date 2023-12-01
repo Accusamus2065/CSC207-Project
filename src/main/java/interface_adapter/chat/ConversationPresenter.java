@@ -1,15 +1,13 @@
 package interface_adapter.chat;
 
-import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import use_case.chat.ConversationOutputBoundary;
 import use_case.chat.ConversationOutputData;
-import use_case.signup.SignupOutputData;
 
 public class ConversationPresenter implements ConversationOutputBoundary {
 
     private final ConversationViewModel conversationViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public ConversationPresenter(ViewManagerModel viewManagerModel, ConversationViewModel conversationViewModel) {
         this.viewManagerModel = viewManagerModel;

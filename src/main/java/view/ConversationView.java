@@ -2,6 +2,7 @@ package view;
 
 import app.ConvoUseCaseFactory;
 import data_access.ConvoDAOImpl;
+import data_access.DAOFacade;
 import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationController;
@@ -39,7 +40,8 @@ public class ConversationView extends JPanel implements ActionListener, Property
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
+        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationViewModel(), new DAOFacade(), "Marshal", "Harry");
+        assert view != null;
         System.out.println(view.viewName);
         views.add(view, view.viewName);
         viewManagerModel.setActiveView(view.viewName);

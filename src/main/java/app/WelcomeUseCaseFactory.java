@@ -18,8 +18,11 @@ import view.WelcomeView;
 
 public class WelcomeUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private WelcomeUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private WelcomeUseCaseFactory() {
+    }
 
     public static WelcomeView create(WelcomeViewModel welcomeViewModel,
                                      SignupViewModel signupViewModel,
@@ -27,7 +30,7 @@ public class WelcomeUseCaseFactory {
                                      ViewManagerModel viewManagerModel) {
         WelcomeSignupController signupController = createSignupUseCase(signupViewModel, viewManagerModel);
         WelcomeLoginController loginController = createLoginUseCase(loginViewModel, viewManagerModel);
-         return new WelcomeView(welcomeViewModel, signupController, loginController);
+        return new WelcomeView(welcomeViewModel, signupController, loginController);
     }
 
     private static WelcomeSignupController createSignupUseCase(SignupViewModel signupViewModel,

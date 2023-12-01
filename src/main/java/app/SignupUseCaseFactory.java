@@ -1,6 +1,7 @@
 package app;
 
 import com.mongodb.MongoException;
+import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import entity.people.PatientUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -11,7 +12,9 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import interface_adapter.swap_views.welcome.SwapToWelcomePresenter;
 import interface_adapter.welcome.WelcomeViewModel;
-import use_case.signup.*;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
 import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
 import use_case.swap_views.welcome.SwapToWelcomeInteractor;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
@@ -26,7 +29,7 @@ public class SignupUseCaseFactory {
             WelcomeViewModel welcomeViewModel,
             SignupViewModel signupViewModel,
             LoginViewModel loginViewModel,
-            SignupUserDataAccessInterface userDataAccessObject
+            DAOFacade userDataAccessObject
     ) {
         SignupController signupController = createUserSignupUseCase(
                 viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
@@ -39,7 +42,7 @@ public class SignupUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SignupViewModel signupViewModel,
             LoginViewModel loginViewModel,
-            SignupUserDataAccessInterface userDataAccessObject
+            DAOFacade userDataAccessObject
     ) throws MongoException {
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
         DoctorUserFactory doctorUserFactory = new DoctorUserFactory();
