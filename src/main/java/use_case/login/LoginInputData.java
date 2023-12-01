@@ -13,15 +13,15 @@ public class LoginInputData {
         this.isDoctor = isDoctor;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    Boolean getIsDoctor() {
+    public Boolean isDoctor() {
         return isDoctor;
     }
 
