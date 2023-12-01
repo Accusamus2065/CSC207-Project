@@ -4,6 +4,7 @@ import com.mongodb.MongoException;
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -57,6 +58,7 @@ public class Main {
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
         ConversationViewModel conversationViewModel = new ConversationViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
 
 
 
@@ -66,10 +68,12 @@ public class Main {
         views.add(signupView, signupView.viewName);
         DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel, loginViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, dialogflowViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
         ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
+        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, dialogflowViewModel, entityDataAccessObject);
+        views.add(dialogflowView, dialogflowView.viewName);
 
 
         viewManagerModel.setActiveView(welcomeView.viewName);

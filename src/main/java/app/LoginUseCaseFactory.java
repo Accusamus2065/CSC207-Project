@@ -4,7 +4,7 @@ import com.mongodb.MongoException;
 
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -33,13 +33,13 @@ public class LoginUseCaseFactory {
     public static LoginView create(
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel,
-            ConversationViewModel conversationViewModel,
+            DialogflowViewModel dialogflowViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             DAOFacade userDataAccessObject) {
         LoginController loginController = createLoginUseCase(
                 viewManagerModel,
-                conversationViewModel,
+                dialogflowViewModel,
                 choosePatientViewModel,
                 loginViewModel,
                 userDataAccessObject
@@ -50,12 +50,12 @@ public class LoginUseCaseFactory {
 
     private static LoginController createLoginUseCase(
             ViewManagerModel viewManagerModel,
-            ConversationViewModel conversationViewModel,
+            DialogflowViewModel dialogflowViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             DAOFacade userDataAccessObject) throws MongoException {
         LoginOutputBoundary loginOutputBoundary =
-                new LoginPresenter(viewManagerModel, conversationViewModel, choosePatientViewModel, loginViewModel);
+                new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
         LoginInputBoundary userLoginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
         return new LoginController(userLoginInteractor);
