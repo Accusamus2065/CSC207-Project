@@ -2,7 +2,6 @@ package interface_adapter.update.doctor;
 
 import org.junit.Test;
 import use_case.update.doctor.DoctorUpdateInputBoundary;
-import use_case.update.doctor.DoctorUpdateInputData;
 
 import static org.junit.Assert.*;
 
