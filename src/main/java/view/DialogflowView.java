@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.swap_views.conversation.SwapToConversationController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     private JTextField messageField;
     private JButton sendButton;
     private String username;
+    private JPanel buttonPanel;
+    private SwapToConversationController controller;
+
+
 
     public static void main(String[] args) throws IOException {
         System.out.println("main");
@@ -48,9 +53,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         viewManagerModel.firePropertyChanged();
     }
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, String username) {
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
 
-        this.username = username;
+        this.username = viewModel.getState().getUsername();
+        this.controller = controller;
         viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
@@ -125,7 +131,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
         // Sub-panel for two buttons in the scrollable
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
         // Two buttons for the scrollable
@@ -153,6 +159,19 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());
+
+        for (String docName :state.getDocNames()) {
+            JButton jButton = new JButton(docName);
+            jButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Your action for sending message
+                    controller.execute();
+                    chatArea.append(messageField.getText() + "\n");
+                }
+            });
+            buttonPanel.add(new JButton(docName));
+        }
 
 
     }

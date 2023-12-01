@@ -12,7 +12,7 @@ public interface IConvoDAO {
 
     List<Message> query(String user1, String user2);
 
-    void deleteAll();
+    void deleteAll(); // TODO: deleteAll()
 
     List<Message> query();
 }
