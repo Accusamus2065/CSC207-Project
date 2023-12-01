@@ -1,15 +1,14 @@
 package use_case.chat;
 
-import data_access.ConvoDAOImpl;
 import entity.chat.Message;
 
 import java.util.List;
 
 public class ConversationInteractor implements ConversationInputBoundary {
     final ConversationOutputBoundary presenter;
-    final ConvoDAOImpl dao;
+    final ConversationUserDataAccessInterface dao;
 
-    public ConversationInteractor(ConvoDAOImpl convDao,
+    public ConversationInteractor(ConversationUserDataAccessInterface convDao,
                                   ConversationOutputBoundary presenter) {
         this.dao = convDao;
         this.presenter = presenter;
