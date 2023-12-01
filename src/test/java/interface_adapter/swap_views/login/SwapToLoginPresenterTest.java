@@ -4,8 +4,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.update.doctor.DoctorUpdateViewModel;
-import interface_adapter.update.patient.PatientUpdateViewModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
