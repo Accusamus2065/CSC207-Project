@@ -1,18 +1,14 @@
 package use_case.chat;
 
-import data_access.ConvoDAOImpl;
 import entity.chat.Message;
-import interface_adapter.chat.ConversationController;
-import view.ConversationView;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class ConversationInteractor implements ConversationInputBoundary {
     final ConversationOutputBoundary presenter;
-    final ConvoDAOImpl dao;
+    final ConversationUserDataAccessInterface dao;
 
-    public ConversationInteractor(ConvoDAOImpl convDao,
+    public ConversationInteractor(ConversationUserDataAccessInterface convDao,
                                   ConversationOutputBoundary presenter) {
         this.dao = convDao;
         this.presenter = presenter;
@@ -20,7 +16,7 @@ public class ConversationInteractor implements ConversationInputBoundary {
 
     @Override
     public void executeSave(ConversationInputData data) {
-        dao.save(data.getMessage());    // no output TODO: no output for save message
+        dao.save(data.getMessage());
     }
 
     @Override

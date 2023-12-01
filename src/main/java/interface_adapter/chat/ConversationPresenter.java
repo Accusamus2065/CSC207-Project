@@ -6,23 +6,23 @@ import use_case.chat.ConversationOutputData;
 
 public class ConversationPresenter implements ConversationOutputBoundary {
 
-    private final DialogFlowViewModel dialogFlowViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ConversationViewModel conversationViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public ConversationPresenter(ViewManagerModel viewManagerModel, DialogFlowViewModel dialogFlowViewModel) {
+    public ConversationPresenter(ViewManagerModel viewManagerModel, ConversationViewModel conversationViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.dialogFlowViewModel = dialogFlowViewModel;
+        this.conversationViewModel = conversationViewModel;
     }
 
     @Override
     public void prepareSuccessView(ConversationOutputData messages) {
-        ConversationState convoState = dialogFlowViewModel.getState();
+        ConversationState convoState = conversationViewModel.getState();
         convoState.setMessages(messages.getMessages());
-        this.dialogFlowViewModel.setState(convoState);
-        dialogFlowViewModel.firePropertyChanged();
-        System.out.println(dialogFlowViewModel.getState().getMessages());
+        this.conversationViewModel.setState(convoState);
+        conversationViewModel.firePropertyChanged();
+        System.out.println(conversationViewModel.getState().getMessages());
 
-        viewManagerModel.setActiveView(dialogFlowViewModel.getViewName());
+        viewManagerModel.setActiveView(conversationViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
