@@ -1,7 +1,6 @@
 package use_case.chat;
 
 
-import entity.chat.Conversation;
 import entity.chat.Message;
 
 import java.util.List;
