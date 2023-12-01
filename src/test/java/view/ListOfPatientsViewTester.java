@@ -1,14 +1,14 @@
 package view;
 
-import interface_adapter.choosepatient.ChoosePatientController;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientController;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.choosepatient.ChoosePatientInputBoundary;
-import use_case.choosepatient.ChoosePatientInputData;
+import use_case.choose_patient.ChoosePatientInputBoundary;
+import use_case.choose_patient.ChoosePatientInputData;
 import use_case.load_patient.LoadPatientInputBoundary;
 import use_case.swap_views.update.doctor.SwapToDoctorUpdateInputBoundary;
 import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
@@ -88,6 +88,7 @@ public class ListOfPatientsViewTester {
 
     }
 
+    @Test
     public void testMiddlePanel(){
         // Verify midPanel within scrollPane
         JScrollPane scrollPane = (JScrollPane) listOfPatientsView.getComponent(1);
@@ -106,5 +107,8 @@ public class ListOfPatientsViewTester {
         }
 
         patient1Button.doClick(); // just need to check that it does not raise an error
+        // TODO I think fixing the fake input boundary (fake interactor)
+        // and adding some sort of assert statement there would be good
+        // for both doclick()
     }
 }
