@@ -9,7 +9,7 @@ import use_case.chatbot.DialogflowOutputData;
 public class DialogflowPresenter implements DialogflowOutputBoundary {
 
     private final DialogflowViewModel dialogflowViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public DialogflowPresenter(ViewManagerModel viewManagerModel, DialogflowViewModel dialogflowViewModel) {
         this.viewManagerModel = viewManagerModel;
