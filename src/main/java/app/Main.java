@@ -3,7 +3,7 @@ package app;
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -55,7 +55,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        DialogFlowViewModel dialogFlowViewModel = new DialogFlowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
 
@@ -66,11 +66,11 @@ public class Main {
         views.add(signupView, signupView.viewName);
         DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel, loginViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, conversationViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, dialogFlowViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
-        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, entityDataAccessObject);
+        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, dialogFlowViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
-
+        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, dialogFlowViewModel, entityDataAccessObject);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();

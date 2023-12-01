@@ -1,30 +1,28 @@
 package interface_adapter.chat;
 
-import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import use_case.chat.ConversationOutputBoundary;
 import use_case.chat.ConversationOutputData;
-import use_case.signup.SignupOutputData;
 
 public class ConversationPresenter implements ConversationOutputBoundary {
 
-    private final ConversationViewModel conversationViewModel;
+    private final DialogFlowViewModel dialogFlowViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public ConversationPresenter(ViewManagerModel viewManagerModel, ConversationViewModel conversationViewModel) {
+    public ConversationPresenter(ViewManagerModel viewManagerModel, DialogFlowViewModel dialogFlowViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.conversationViewModel = conversationViewModel;
+        this.dialogFlowViewModel = dialogFlowViewModel;
     }
 
     @Override
     public void prepareSuccessView(ConversationOutputData messages) {
-        ConversationState convoState = conversationViewModel.getState();
+        ConversationState convoState = dialogFlowViewModel.getState();
         convoState.setMessages(messages.getMessages());
-        this.conversationViewModel.setState(convoState);
-        conversationViewModel.firePropertyChanged();
-        System.out.println(conversationViewModel.getState().getMessages());
+        this.dialogFlowViewModel.setState(convoState);
+        dialogFlowViewModel.firePropertyChanged();
+        System.out.println(dialogFlowViewModel.getState().getMessages());
 
-        viewManagerModel.setActiveView(conversationViewModel.getViewName());
+        viewManagerModel.setActiveView(dialogFlowViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

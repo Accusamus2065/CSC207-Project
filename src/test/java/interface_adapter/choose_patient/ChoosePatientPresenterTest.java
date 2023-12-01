@@ -1,7 +1,7 @@
 package interface_adapter.choose_patient;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import org.junit.Test;
 import use_case.choose_patient.ChoosePatientOutputData;
@@ -15,12 +15,12 @@ public class ChoosePatientPresenterTest {
     public void successChoosePatientTest() {
         // Arrange
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        DialogFlowViewModel dialogFlowViewModel = new DialogFlowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 
         ChoosePatientPresenter choosePatientPresenter = new ChoosePatientPresenter(
-                viewManagerModel, conversationViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
+                viewManagerModel, dialogFlowViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
 
         // Act
         ChoosePatientOutputData outputData = new ChoosePatientOutputData(USERNAME, "TestPatient", false);
@@ -37,12 +37,12 @@ public class ChoosePatientPresenterTest {
     public void failChoosePatientTest() {
         // Arrange
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        DialogFlowViewModel dialogFlowViewModel = new DialogFlowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 
         ChoosePatientPresenter choosePatientPresenter = new ChoosePatientPresenter(
-                viewManagerModel, conversationViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
+                viewManagerModel, dialogFlowViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
 
         // Act
         choosePatientPresenter.prepareFailView(ERROR);

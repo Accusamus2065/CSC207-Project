@@ -6,9 +6,7 @@ import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationController;
 import interface_adapter.chat.ConversationState;
-import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.login.LoginState;
-import org.bson.Document;
+import interface_adapter.chat.DialogFlowViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
 
 public class ConversationView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -39,7 +36,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
+        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new DialogFlowViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
         System.out.println(view.viewName);
         views.add(view, view.viewName);
         viewManagerModel.setActiveView(view.viewName);
@@ -47,7 +44,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         view.show();
     }
 
-    public ConversationView(ConversationViewModel viewModel, ConversationController controller, String selfUsername, String otherUsername) {
+    public ConversationView(DialogFlowViewModel viewModel, ConversationController controller, String selfUsername, String otherUsername) {
         this.selfUsername = selfUsername;
         frame = new JFrame();
         frame.setTitle("Chat Application");

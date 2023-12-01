@@ -3,7 +3,7 @@ package app;
 import com.mongodb.MongoException;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -30,14 +30,14 @@ public class LoginUseCaseFactory {
     public static LoginView create(
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel,
-            ConversationViewModel conversationViewModel,
+            DialogFlowViewModel dialogFlowViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
         LoginController loginController =
                 createLoginUseCase(
                         viewManagerModel,
-                        conversationViewModel,
+                        dialogFlowViewModel,
                         choosePatientViewModel,
                         loginViewModel,
                         userDataAccessObject);
@@ -47,12 +47,12 @@ public class LoginUseCaseFactory {
 
     private static LoginController createLoginUseCase(
             ViewManagerModel viewManagerModel,
-            ConversationViewModel conversationViewModel,
+            DialogFlowViewModel dialogFlowViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
             LoginOutputBoundary loginOutputBoundary =
-                    new LoginPresenter(viewManagerModel, conversationViewModel, choosePatientViewModel, loginViewModel);
+                    new LoginPresenter(viewManagerModel, dialogFlowViewModel, choosePatientViewModel, loginViewModel);
             LoginInputBoundary userLoginInteractor = new LoginInteractor(
                     userDataAccessObject, loginOutputBoundary);
             return new LoginController(userLoginInteractor);

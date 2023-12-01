@@ -5,7 +5,7 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ConversationViewModel extends ViewModel {
+public class DialogFlowViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Conversation";
 
@@ -13,7 +13,7 @@ public class ConversationViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 
-    public ConversationViewModel() {
+    public DialogFlowViewModel() {
         super("conversation view");
     }
 

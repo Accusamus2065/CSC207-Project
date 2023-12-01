@@ -1,7 +1,7 @@
 package interface_adapter.login;
 
 import interface_adapter.chat.ConversationState;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 
 import interface_adapter.ViewManagerModel;
 
@@ -14,16 +14,15 @@ import use_case.login.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final ConversationViewModel conversationViewModel;
+    private final DialogFlowViewModel dialogFlowViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
     private final ViewManagerModel viewManagerModel;
-
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          ConversationViewModel conversationViewModel,
+                          DialogFlowViewModel dialogFlowViewModel,
                           ChoosePatientViewModel choosePatientViewModel,
                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.conversationViewModel = conversationViewModel;
+        this.dialogFlowViewModel = dialogFlowViewModel;
         this.loginViewModel = loginViewModel;
         this.choosePatientViewModel = choosePatientViewModel;
     }
@@ -44,13 +43,13 @@ public class LoginPresenter implements LoginOutputBoundary {
             viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
         } else {
-            ConversationState conversationState = conversationViewModel.getState();
+            ConversationState conversationState = dialogFlowViewModel.getState();
             // conversationState.setUsername(response.getUsername());  // Conversation state needs method setUsername
             // conversationState.setConversation(null);  // TODO: Change this to actual conversation
-            conversationViewModel.setState(conversationState);
-            conversationViewModel.firePropertyChanged();
+            dialogFlowViewModel.setState(conversationState);
+            dialogFlowViewModel.firePropertyChanged();
 
-            viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            viewManagerModel.setActiveView(dialogFlowViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
         }
     }

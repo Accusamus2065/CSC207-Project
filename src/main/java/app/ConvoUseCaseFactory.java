@@ -4,15 +4,11 @@ import data_access.ConvoDAOImpl;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationController;
 import interface_adapter.chat.ConversationPresenter;
-import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 import use_case.chat.ConversationInputBoundary;
 import use_case.chat.ConversationInteractor;
 import use_case.chat.ConversationOutputBoundary;
-import use_case.login.LoginUserDataAccessInterface;
 import view.ConversationView;
-import view.LoginView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -25,7 +21,7 @@ public class ConvoUseCaseFactory {
 
     public static ConversationView create(
             ViewManagerModel viewManagerModel,
-            ConversationViewModel viewModel,
+            DialogFlowViewModel viewModel,
             ConvoDAOImpl dao, String selfUsername, String otherUsername) {
 
         try {
@@ -38,7 +34,7 @@ public class ConvoUseCaseFactory {
         return null;
     }
 
-    public static ConversationController createConversationConroller(ViewManagerModel viewManagerModel, ConversationViewModel clearViewModel, ConvoDAOImpl dao) throws IOException {
+    public static ConversationController createConversationConroller(ViewManagerModel viewManagerModel, DialogFlowViewModel clearViewModel, ConvoDAOImpl dao) throws IOException {
         ConversationOutputBoundary outputBoundary = new ConversationPresenter(viewManagerModel, clearViewModel);
         ConversationInputBoundary inputInteractor = new ConversationInteractor(
                 dao, outputBoundary);

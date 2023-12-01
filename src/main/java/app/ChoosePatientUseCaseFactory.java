@@ -3,7 +3,7 @@ package app;
 import data_access.DAOFacade;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.DialogFlowViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientPresenter;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
@@ -33,13 +33,13 @@ public class ChoosePatientUseCaseFactory {
     public ChoosePatientUseCaseFactory() { }
 
     public static ListOfPatientsView create(ViewManagerModel viewManagerModel,
-                                            ConversationViewModel conversationViewModel,
+                                            DialogFlowViewModel dialogFlowViewModel,
                                             WelcomeViewModel welcomeViewModel,
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
                                             DAOFacade userDao) {
         ChoosePatientController updateController = createChoosePatientUseCase(  viewManagerModel,
-                                                                                conversationViewModel,
+                dialogFlowViewModel,
                                                                                 welcomeViewModel,
                                                                                 doctorUpdateViewModel,
                                                                                 choosePatientViewModel);
@@ -56,13 +56,13 @@ public class ChoosePatientUseCaseFactory {
     }
 
     private static ChoosePatientController createChoosePatientUseCase(ViewManagerModel viewManagerModel,
-                                                                      ConversationViewModel conversationViewModel,
+                                                                      DialogFlowViewModel dialogFlowViewModel,
                                                                       WelcomeViewModel welcomeViewModel,
                                                                       DoctorUpdateViewModel doctorUpdateViewModel,
                                                                       ChoosePatientViewModel choosePatientViewModel) {
         ChoosePatientOutputBoundary choosepatientPresenter = new ChoosePatientPresenter(
                                                                                         viewManagerModel,
-                                                                                        conversationViewModel,
+                dialogFlowViewModel,
                                                                                         welcomeViewModel,
                                                                                         doctorUpdateViewModel,
                                                                                         choosePatientViewModel);
