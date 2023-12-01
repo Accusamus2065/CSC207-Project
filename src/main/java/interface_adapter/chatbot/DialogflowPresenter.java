@@ -1,6 +1,5 @@
 package interface_adapter.chatbot;
 
-import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.ViewManagerModel;
 import use_case.chatbot.DialogflowOutputBoundary;
 import use_case.chatbot.DialogflowOutputData;

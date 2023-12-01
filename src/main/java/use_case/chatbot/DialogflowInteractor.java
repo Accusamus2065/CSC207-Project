@@ -1,6 +1,5 @@
 package use_case.chatbot;
 
-import data_access.DialogflowDAOImpl;
 
 public class DialogflowInteractor implements DialogflowInputBoundary {
     final DialogflowOutputBoundary presenter;
