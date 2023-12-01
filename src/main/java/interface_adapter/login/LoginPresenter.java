@@ -5,8 +5,8 @@ import interface_adapter.chat.ConversationViewModel;
 
 import interface_adapter.ViewManagerModel;
 
-import interface_adapter.choosepatient.ChoosePatientState;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientState;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 

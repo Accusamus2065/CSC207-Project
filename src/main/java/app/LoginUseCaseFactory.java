@@ -4,7 +4,7 @@ import com.mongodb.MongoException;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;

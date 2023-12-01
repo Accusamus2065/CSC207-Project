@@ -3,7 +3,7 @@ package data_access;
 
 import entity.people.IDoctor;
 import entity.people.IPatient;
-import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
+import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;

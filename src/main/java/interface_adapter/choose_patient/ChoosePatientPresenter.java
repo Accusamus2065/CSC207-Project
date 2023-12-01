@@ -1,17 +1,14 @@
-package interface_adapter.choosepatient;//package interface_adapter.login;
+package interface_adapter.choose_patient;//package interface_adapter.login;
 
 
 
 import interface_adapter.ViewManagerModel;
 
-import interface_adapter.chat.ConversationState;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.update.doctor.DoctorUpdateState;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
-import interface_adapter.welcome.WelcomeState;
 import interface_adapter.welcome.WelcomeViewModel;
-import use_case.choosepatient.ChoosePatientOutputBoundary;
-import use_case.choosepatient.ChoosePatientOutputData;
+import use_case.choose_patient.ChoosePatientOutputBoundary;
+import use_case.choose_patient.ChoosePatientOutputData;
 
 
 

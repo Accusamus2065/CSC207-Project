@@ -3,8 +3,8 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationState;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.choosepatient.ChoosePatientState;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientState;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import org.junit.Test;
 import use_case.login.LoginOutputData;
 

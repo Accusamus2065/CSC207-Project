@@ -1,9 +1,8 @@
 package data_access;
 
-import entity.chat.Conversation;
 import entity.chat.Message;
 import entity.people.*;
-import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
+import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;

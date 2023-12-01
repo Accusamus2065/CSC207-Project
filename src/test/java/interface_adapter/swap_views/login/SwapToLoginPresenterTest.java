@@ -1,7 +1,7 @@
 package interface_adapter.swap_views.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.update.patient.PatientUpdateViewModel;
