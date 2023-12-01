@@ -2,8 +2,6 @@ package interface_adapter.login;
 
 import org.junit.Test;
 import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInputData;
-
 import static org.junit.Assert.*;
 
 public class LoginControllerTest {

@@ -2,7 +2,6 @@ package interface_adapter.choose_patient;
 
 import org.junit.Test;
 import use_case.choose_patient.ChoosePatientInputBoundary;
-import use_case.choose_patient.ChoosePatientInputData;
 
 import static org.junit.Assert.*;
 
