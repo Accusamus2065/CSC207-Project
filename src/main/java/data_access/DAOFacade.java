@@ -37,7 +37,7 @@ public class DAOFacade implements
 
     @Override
     public void update(String oldUsername, IDoctor user) {
-//        doctorDAO.update(oldUsername, user);
+        doctorDAO.update(oldUsername, user);
     }
 
     @Override
