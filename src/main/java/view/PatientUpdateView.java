@@ -1,6 +1,6 @@
 package view;
 
-import interface_adapter.swap_views.login.SwapToLoginController;
+import interface_adapter.swap_views.chatbot.SwapToChatbotController;
 import interface_adapter.update.patient.PatientUpdateController;
 import interface_adapter.update.patient.PatientUpdateState;
 import interface_adapter.update.patient.PatientUpdateViewModel;
@@ -29,7 +29,7 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
 
     // Create and do settings for frame
     PatientUpdateView(PatientUpdateViewModel patientUpdateViewModel,
-                      SwapToLoginController swapController,
+                      SwapToChatbotController swapController,
                       PatientUpdateController updateController) {
         this.viewName = patientUpdateViewModel.getViewName();
         patientUpdateViewModel.addPropertyChangeListener(this);
