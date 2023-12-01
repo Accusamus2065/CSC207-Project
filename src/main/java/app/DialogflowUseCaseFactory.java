@@ -21,10 +21,9 @@ public class DialogflowUseCaseFactory {
     public static DialogflowView create(
             ViewManagerModel viewManagerModel,
             DialogflowViewModel viewModel,
-            DAOFacade userDataAccessObject,
-            String username) {
+            DAOFacade userDataAccessObject) {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
-        return new DialogflowView(viewModel, controller, username);
+        return new DialogflowView(viewModel, controller);
     }
 
     public static DialogflowController createDialogflowController(ViewManagerModel viewManagerModel,

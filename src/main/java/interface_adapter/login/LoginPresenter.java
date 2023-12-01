@@ -44,8 +44,7 @@ public class LoginPresenter implements LoginOutputBoundary {
             viewManagerModel.firePropertyChanged();
         } else {
             DialogflowState dialogflowState = dialogflowViewModel.getState();
-            // dialogflowState.setUsername(response.getUsername());  // Conversation state needs method setUsername
-            // conversationState.setConversation(null);  // TODO: Change this to actual conversation
+            dialogflowState.setUsername(response.getUsername());  // Conversation state needs method setUsername
             dialogflowViewModel.setState(dialogflowState);
             dialogflowViewModel.firePropertyChanged();
 

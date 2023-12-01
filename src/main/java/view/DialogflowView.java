@@ -18,58 +18,48 @@ import java.io.IOException;
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
 
-    private JFrame frame;
-    private JPanel panel;
     private JButton logOutButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
     private String username;
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("main");
-        CardLayout cardLayout = new CardLayout();
-        // The various View objects. Only one view is visible at a time.
-        JPanel views = new JPanel(cardLayout);
+//    public static void main(String[] args) throws IOException {
+//        System.out.println("main");
+//        CardLayout cardLayout = new CardLayout();
+//        // The various View objects. Only one view is visible at a time.
+//        JPanel views = new JPanel(cardLayout);
+//
+//        // This keeps track of and manages which view is currently showing.
+//        ViewManagerModel viewManagerModel = new ViewManagerModel();
+//        new ViewManager(views, cardLayout, viewManagerModel);
+//
+//        DialogflowView view = DialogflowUseCaseFactory.create(
+//                viewManagerModel,
+//                new DialogflowViewModel(),
+//                new DAOFacade()
+//        );
+//        System.out.println(view.viewName);
+//        views.add(view, view.viewName);
+//        viewManagerModel.setActiveView(view.viewName);
+//        viewManagerModel.firePropertyChanged();
+//    }
 
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
 
-        DialogflowView view = DialogflowUseCaseFactory.create(
-                viewManagerModel,
-                new DialogflowViewModel(),
-                new DAOFacade(),
-                "Marshal"
-        );
-        System.out.println(view.viewName);
-        views.add(view, view.viewName);
-        viewManagerModel.setActiveView(view.viewName);
-        viewManagerModel.firePropertyChanged();
-    }
-
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, String username) {
-
-        this.username = username;
+        this.username = viewModel.getState().getUsername();
         viewModel.addPropertyChangeListener(this);
-        frame = new JFrame();
-        frame.setTitle("Chat Application");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
 
         // Main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(new Dimension(800, 500));
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(new Dimension(800, 500));
 
         // Upper sub-panel for logout button
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.SOUTH);
+        this.add(upperPanel, BorderLayout.SOUTH);
 
         // Button for logging out
         logOutButton = new JButton("Logout");
@@ -88,7 +78,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         JPanel chatPanel = new JPanel();
         chatPanel.setLayout(new BorderLayout());
         chatPanel.setBackground(Color.lightGray);
-        panel.add(chatPanel, BorderLayout.CENTER);
+        this.add(chatPanel, BorderLayout.CENTER);
 
         // Chat area where messages appear
         chatArea = new JTextArea();
@@ -101,7 +91,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         JPanel messageAndButtonPanel = new JPanel();
         messageAndButtonPanel.setLayout(new BorderLayout());
         messageAndButtonPanel.setBackground(Color.lightGray);
-        panel.add(messageAndButtonPanel, BorderLayout.SOUTH);
+        this.add(messageAndButtonPanel, BorderLayout.SOUTH);
 
         // Text field
         messageField = new JTextField(20);
@@ -144,7 +134,6 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         // Add the scrollable to the chatPanel
         chatPanel.add(buttonScrollPane, BorderLayout.EAST);
 
-        frame.setVisible(true);
     }
 
     @Override
