@@ -121,9 +121,9 @@ public class LoginInteractorTest {
     @Test
     public void wrongPasswordPatientTest() {
         LoginInputData inputData = new LoginInputData(
-                USERNAME, PASSWORD, true);
+                USERNAME, PASSWORD, false);
         InMemoryUserDataAccessObject userDAO = new InMemoryUserDataAccessObject();
-        userDAO.save(docFactory.create(USERNAME, "TestDifferentPassword123"));
+        userDAO.save(patFactory.create(USERNAME, "TestDifferentPassword123"));
         LoginOutputBoundary loginPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
