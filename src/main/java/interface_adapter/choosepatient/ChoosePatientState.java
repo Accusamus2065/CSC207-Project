@@ -5,7 +5,7 @@ import java.util.List;
 public class ChoosePatientState {
 
     private List<String> patients;
-    private String error;
+    private String error = null;
     private String username = "";
 
 

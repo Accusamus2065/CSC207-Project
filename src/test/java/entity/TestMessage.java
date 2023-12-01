@@ -14,12 +14,10 @@ public class TestMessage {
 
     @Test
     public void testStoreMessage() {
-        String docId = "2222222222";
-        String patId = "fdljfsdkljfs";
-        Message message = new Message(docId, patId, "It's yaboimg again");
-        Message[] arr = {message};
-        Conversation convo = new Conversation(docId, patId, Arrays.asList(arr));
-        dao.save(convo);
+        String docId = "Harry";
+        String patId = "Marshal";
+        Message message = new Message(docId, patId, "It's Marshal, nice to meet");
+        dao.save(message);
     }
 
     @Test
@@ -30,6 +28,12 @@ public class TestMessage {
         }
     }
 
+    @Test
+    public void testRetrieveMessagesBySender() {
+        List<Message> list = dao.query("Harry", "Marshal");
+        for (Message m : list) {
+            System.out.println(m.getSender() + " " + m.getContent());
+          
     @Test
     public void testMessagesForPatient() {
         String me = "fdljfsdkljfs";
