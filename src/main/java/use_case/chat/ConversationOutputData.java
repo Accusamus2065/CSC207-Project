@@ -1,6 +1,5 @@
 package use_case.chat;
 
-import entity.chat.Conversation;
 import entity.chat.Message;
 import interface_adapter.chat.ConversationState;
 
