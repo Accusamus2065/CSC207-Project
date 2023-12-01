@@ -1,6 +1,7 @@
 package interface_adapter.swap_views.login;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
@@ -24,24 +25,11 @@ public class SwapToLoginPresenterTest {
     }
 
     @Test
-    public void swapPatientUpdateToLoginTest() {
+    public void swapDialogflowToLoginTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        PatientUpdateViewModel patientupdateViewModel = new PatientUpdateViewModel();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        viewManagerModel.setActiveView(patientupdateViewModel.getViewName());
-
-        SwapToLoginPresenter swapToLoginPresenter = new SwapToLoginPresenter(viewManagerModel, loginViewModel);
-        swapToLoginPresenter.execute();
-
-        assertEquals(viewManagerModel.getActiveView(), loginViewModel.getViewName());
-    }
-
-    @Test
-    public void swapDoctorUpdateToLoginTest() {
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        DoctorUpdateViewModel doctorupdateViewModel = new DoctorUpdateViewModel();
-        LoginViewModel loginViewModel = new LoginViewModel();
-        viewManagerModel.setActiveView(doctorupdateViewModel.getViewName());
+        viewManagerModel.setActiveView(dialogflowViewModel.getViewName());
 
         SwapToLoginPresenter swapToLoginPresenter = new SwapToLoginPresenter(viewManagerModel, loginViewModel);
         swapToLoginPresenter.execute();
