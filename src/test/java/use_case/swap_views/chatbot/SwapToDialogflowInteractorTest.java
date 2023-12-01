@@ -2,14 +2,14 @@ package use_case.swap_views.chatbot;
 
 import org.junit.Test;
 
-public class SwapToChatbotInteractorTest {
+public class SwapToDialogflowInteractorTest {
     @Test
     public void presenterCalledTest() {
-        SwapToChatbotOutputBoundary swapPresenter = () -> {
+        SwapToDialogflowOutputBoundary swapPresenter = () -> {
             assert true; // Presenter has been called
         };
 
-        SwapToChatbotInputBoundary interactor = new SwapToChatbotInteractor(swapPresenter);
+        SwapToDialogflowInputBoundary interactor = new SwapToDialogflowInteractor(swapPresenter);
         interactor.execute();
     }
 }

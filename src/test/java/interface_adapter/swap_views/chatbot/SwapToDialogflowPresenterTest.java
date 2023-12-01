@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class SwapToChatbotPresenterTest {
+public class SwapToDialogflowPresenterTest {
     @Test
     public void swapPatientUpdateToDialogflowTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
@@ -15,7 +15,7 @@ public class SwapToChatbotPresenterTest {
         PatientUpdateViewModel patientUpdateViewModel = new PatientUpdateViewModel();
         viewManagerModel.setActiveView(patientUpdateViewModel.getViewName());
 
-        SwapToChatbotPresenter swap = new SwapToChatbotPresenter(viewManagerModel, dialogflowViewModel);
+        SwapToDialogflowPresenter swap = new SwapToDialogflowPresenter(viewManagerModel, dialogflowViewModel);
         swap.swapViews();
 
         assertEquals(dialogflowViewModel.getViewName(), viewManagerModel.getActiveView());

@@ -1,5 +1,5 @@
 package use_case.swap_views.chatbot;
 
-public interface SwapToChatbotInputBoundary {
+public interface SwapToDialogflowInputBoundary {
     void execute();
 }
