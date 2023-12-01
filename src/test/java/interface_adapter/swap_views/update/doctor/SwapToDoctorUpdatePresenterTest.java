@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class SwapToDoctorUpdatePresenterTest {
 
     @Test
-    public void swapFromChoosePatientViewTest() {
+    public void swapChoosePatientToDoctorUpdateTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
