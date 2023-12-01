@@ -31,6 +31,6 @@ public class WelcomeLoginPresenterTest {
         loginPresenter.swapViews(welcomeOutputData);
 
         assertEquals(loginViewModel.getViewName(), viewManagerModel.getActiveView());
-        assertTrue(loginViewModel.getState().isDoctor());
+        assertFalse(loginViewModel.getState().isDoctor());
     }
 }

@@ -31,6 +31,7 @@ public class DoctorUpdatePresenterTest {
         LoginViewModel loginViewModel = new LoginViewModel();
         LoginState loginState = loginViewModel.getState();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
+        viewManagerModel.setActiveView(doctorUpdateViewModel.getViewName());
 
         DoctorUpdatePresenter updatePresenter = new DoctorUpdatePresenter(doctorUpdateViewModel, loginViewModel, viewManagerModel);
         updatePresenter.prepareFailView(ERROR);

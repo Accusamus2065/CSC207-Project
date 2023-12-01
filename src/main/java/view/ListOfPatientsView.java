@@ -1,9 +1,9 @@
 package view;
 
 import interface_adapter.swap_views.load_patients.LoadPatientsController;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
-import interface_adapter.choosepatient.ChoosePatientController;
-import interface_adapter.choosepatient.ChoosePatientState;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientController;
+import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 

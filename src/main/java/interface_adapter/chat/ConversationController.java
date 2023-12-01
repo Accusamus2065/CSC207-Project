@@ -3,6 +3,7 @@ package interface_adapter.chat;
 import entity.people.User;
 import use_case.chat.ConversationInputBoundary;
 import use_case.chat.ConversationInputData;
+import view.ConversationView;
 
 public class ConversationController {
 
@@ -11,8 +12,13 @@ public class ConversationController {
         this.conversationUseCaseInteractor = conversationUseCaseInteractor;
     }
 
-    public void execute(String user1, String user2, String messageContent) {
-        ConversationInputData data = new ConversationInputData(user1, user2, messageContent);
-        conversationUseCaseInteractor.execute(data);
+    public void executeSave(String sender, String receiver, String messageContent) {
+        ConversationInputData data = new ConversationInputData(sender, receiver, messageContent);
+        conversationUseCaseInteractor.executeSave(data);
+    }
+
+    public void executeRefresh(String sender, String receiver) {
+        ConversationInputData data = new ConversationInputData(sender, receiver, null);
+        conversationUseCaseInteractor.executeRefresh(data);
     }
 }

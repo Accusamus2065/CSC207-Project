@@ -1,17 +1,18 @@
 package use_case.chat;
 
 import entity.chat.Conversation;
+import entity.chat.Message;
 import interface_adapter.chat.ConversationState;
 
+import java.util.List;
+
 public class ConversationOutputData {
-    private Conversation convo;
-    private boolean useCaseFailed;
-    public ConversationOutputData(Conversation convo, boolean useCaseFailed) {
-        this.convo = convo;
-        this.useCaseFailed = useCaseFailed;
+    private List<Message> list;
+    public ConversationOutputData(List<Message> list) {
+        this.list = list;
     }
 
-    public Conversation getConversation() {
-        return convo;
+    public List<Message> getMessages() {
+        return list;
     }
 }

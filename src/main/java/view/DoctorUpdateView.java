@@ -1,6 +1,5 @@
 package view;
 
-import interface_adapter.signup.SignupState;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.update.doctor.DoctorUpdateController;
 import interface_adapter.update.doctor.DoctorUpdateState;

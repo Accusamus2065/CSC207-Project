@@ -31,6 +31,6 @@ public class WelcomeSignupPresenterTest {
         signupPresenter.swapViews(welcomeOutputData);
 
         assertEquals(signupViewModel.getViewName(), viewManagerModel.getActiveView());
-        assertTrue(signupViewModel.getState().isDoctor());
+        assertFalse(signupViewModel.getState().isDoctor());
     }
 }

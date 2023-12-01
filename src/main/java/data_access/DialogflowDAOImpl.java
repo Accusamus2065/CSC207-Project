@@ -22,6 +22,8 @@ public class DialogflowDAOImpl {
     private final SessionsClient sessionsClient;
     private final ManagedChannel managedChannel;
 
+//    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
+
     public DialogflowDAOImpl() throws IOException {
         // load credentials
         Dotenv dotenv = Dotenv.configure().load();
@@ -40,7 +42,6 @@ public class DialogflowDAOImpl {
         // Create a SessionsClient using a managed channel
         managedChannel = ManagedChannelBuilder.forTarget("dialogflow.googleapis.com:443").build();
         sessionsClient = SessionsClient.create(sessionSettings);
-
     }
 
     public String detectIntent(String userInput) {
@@ -65,8 +66,12 @@ public class DialogflowDAOImpl {
 
         // Get the response text from the result
         QueryResult queryResult = response.getQueryResult();
-        return queryResult.getFulfillmentText();
+        return queryResult.getIntent().getDisplayName() + "," + queryResult.getFulfillmentText();
     }
+
+//    public List<String> getDoctors(String intent) {
+//        return dao.getBySpecialty(intent);
+//    }
 
     public void close() {
         // Clean up resources

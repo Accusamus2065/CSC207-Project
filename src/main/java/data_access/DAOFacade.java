@@ -1,13 +1,15 @@
 package data_access;
 
-import entity.chat.Conversation;
+import entity.chat.Message;
 import entity.people.*;
-import use_case.choosepatient.ChoosePatientUserDataAccessInterface;
+import use_case.chatbot.DialogflowUserDataAccessInterface;
+import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
 import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
+import java.io.IOException;
 import java.util.List;
 
 public class DAOFacade implements
@@ -15,10 +17,15 @@ public class DAOFacade implements
         LoginUserDataAccessInterface,
         DoctorUpdateUserDataAccessInterface,
         PatientUpdateUserDataAccessInterface,
-        ChoosePatientUserDataAccessInterface {
+        ChoosePatientUserDataAccessInterface,
+        DialogflowUserDataAccessInterface {
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
     ConvoDAOImpl convoDAO = new ConvoDAOImpl();
+    DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
+
+    public DAOFacade() throws IOException {
+    }
 
     @Override
     public void save(IPatient user) {
@@ -30,8 +37,8 @@ public class DAOFacade implements
         doctorDAO.save(user);
     }
 
-    public void save(Conversation convo) {
-        convoDAO.save(convo);
+    public void save(Message msg) {
+        convoDAO.save(msg);
     }
 
     @Override
@@ -65,5 +72,10 @@ public class DAOFacade implements
     @Override
     public List<String> getPatientList() {
         return patientDAO.getPatientList();
+    }
+
+    @Override
+    public String detectIntent(String userInput) {
+        return dialogflowDAO.detectIntent(userInput);
     }
 }
