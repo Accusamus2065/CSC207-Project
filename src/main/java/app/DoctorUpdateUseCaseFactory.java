@@ -1,6 +1,5 @@
 package app;
 
-import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
