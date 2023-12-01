@@ -4,7 +4,7 @@ import com.mongodb.MongoException;
 import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
@@ -13,8 +13,9 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
-    public class Main {
+public class Main {
     public static void main(String[] args) {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
@@ -40,6 +41,8 @@ import java.awt.*;
             System.out.println("Connected to MongoDB database");
         } catch (MongoException e) {
             System.out.println("Couldn't connect to MongoDB database, aborting application...");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

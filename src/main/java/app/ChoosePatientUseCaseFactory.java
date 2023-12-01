@@ -4,9 +4,9 @@ import data_access.DAOFacade;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.choosepatient.ChoosePatientController;
-import interface_adapter.choosepatient.ChoosePatientPresenter;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientController;
+import interface_adapter.choose_patient.ChoosePatientPresenter;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 
 import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
@@ -15,7 +15,7 @@ import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import interface_adapter.swap_views.welcome.SwapToWelcomePresenter;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
-import use_case.choosepatient.*;
+import use_case.choose_patient.*;
 import use_case.load_patient.LoadPatientInputBoundary;
 import use_case.load_patient.LoadPatientInteractor;
 

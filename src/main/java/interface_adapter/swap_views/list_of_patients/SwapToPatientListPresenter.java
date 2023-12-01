@@ -1,7 +1,7 @@
 package interface_adapter.swap_views.list_of_patients;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import use_case.swap_views.list_of_patients.SwapToPatientListOutputBoundary;
 
 public class SwapToPatientListPresenter implements SwapToPatientListOutputBoundary {

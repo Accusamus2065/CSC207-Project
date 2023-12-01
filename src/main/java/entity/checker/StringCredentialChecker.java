@@ -5,6 +5,10 @@ public interface StringCredentialChecker {
 
     boolean validPassword(String password);
 
+    boolean validSpecialty(String specialty);
+
+    boolean validDegree(String degree);
+
     boolean validSex(String sex);
 
     boolean validGender(String gender);

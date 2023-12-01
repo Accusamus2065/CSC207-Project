@@ -25,6 +25,16 @@ public class CredentialCheckerFacade implements CredentialChecker {
     }
 
     @Override
+    public boolean validSpecialty(String specialty) {
+        return stringChecker.validSpecialty(specialty);
+    }
+
+    @Override
+    public boolean validDegree(String degree) {
+        return stringChecker.validDegree(degree);
+    }
+
+    @Override
     public boolean validSex(String sex) {
         return stringChecker.validSex(sex);
     }

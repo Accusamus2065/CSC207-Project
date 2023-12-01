@@ -1,4 +1,4 @@
-package use_case.choosepatient;
+package use_case.choose_patient;
 
 public interface ChoosePatientOutputBoundary {
     void prepareSuccessView(ChoosePatientOutputData user);

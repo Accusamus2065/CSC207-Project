@@ -1,11 +1,9 @@
-package use_case.choosepatient;
+package use_case.choose_patient;
 
 import entity.people.IDoctor;
 import entity.people.IPatient;
-import entity.people.User;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ChoosePatientUserDataAccessInterface {
     boolean existsByName(boolean isDoctor, String identifier);
