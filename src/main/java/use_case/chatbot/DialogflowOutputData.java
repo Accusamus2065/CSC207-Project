@@ -4,7 +4,7 @@ public class DialogflowOutputData {
     private String response;
     private String username;
 
-    public DialogflowOutputData(String response) {
+    public DialogflowOutputData(String response, String username) {
         this.response = response;
         this.username = username;
     }

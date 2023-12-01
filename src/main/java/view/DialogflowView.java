@@ -18,14 +18,13 @@ import java.io.IOException;
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
 
-    private final JFrame frame;
-    private final JPanel panel;
-    private final JButton logOutButton;
-    private final JTextArea chatArea;
-    private final  JTextField messageField;
-    private final JButton sendButton;
-    private final String username;
-    private final DialogflowViewModel viewModel;
+    private JFrame frame;
+    private JPanel panel;
+    private JButton logOutButton;
+    private JTextArea chatArea;
+    private JTextField messageField;
+    private JButton sendButton;
+    private String username;
 
     public static void main(String[] args) throws IOException {
         System.out.println("main");
@@ -52,13 +51,12 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, String username) {
 
         this.username = username;
+        viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
-        this.viewModel = viewModel;
-        viewModel.addPropertyChangeListener(this);
 
         // Main panel
         panel = new JPanel();
@@ -77,12 +75,16 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> {
-            // Your action for log out
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Your action for log out
+            }
         });
         logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
 
+        // Chat sub-panel
         JPanel chatPanel = new JPanel();
         chatPanel.setLayout(new BorderLayout());
         chatPanel.setBackground(Color.lightGray);
@@ -116,36 +118,15 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Your action for sending message
-                controller.execute(messageField.getText());
+                controller.execute(messageField.getText(), username);
                 chatArea.append(messageField.getText() + "\n");
             }
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
-        JPanel messageFieldPanel = new JPanel();
-        messageFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        messageFieldPanel.setBackground(Color.lightGray);
-        panel.add(messageFieldPanel, BorderLayout.SOUTH); // Add the sub-panel to the main panel (BorderLayout.SOUTH by default)
-
         // Sub-panel for two buttons in the scrollable
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-// Create the text field
-        messageField = new JTextField(20);
-        messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
-        messageField.setToolTipText("Enter your text");
-        messageFieldPanel.add(messageField);
-
-// Create the send button
-        sendButton = new JButton("Send");
-        sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
-        sendButton.setFocusable(false);
-        sendButton.addActionListener(e -> {
-            controller.execute(messageField.getText());
-            chatArea.append(messageField.getText() + "\n");
-        });
-        sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
-        messageFieldPanel.add(sendButton);
 
         // Two buttons for the scrollable
         JButton button1 = new JButton("Button 1");
@@ -171,7 +152,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         DialogflowState state = (DialogflowState) evt.getNewValue();
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
-        System.out.println(state.getResponse());
+        System.out.println(state.getUsername());
 
 
     }
