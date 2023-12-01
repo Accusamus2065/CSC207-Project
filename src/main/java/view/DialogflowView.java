@@ -1,14 +1,12 @@
 package view;
 
-import app.ConvoUseCaseFactory;
-import data_access.ConvoDAOImpl;
-import entity.chat.Message;
+import app.DialogflowUseCaseFactory;
+import data_access.DialogflowDAOImpl;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationController;
-import interface_adapter.chat.ConversationState;
-import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.login.LoginState;
-import org.bson.Document;
+import interface_adapter.chatbot.DialogflowController;
+import interface_adapter.chatbot.DialogflowState;
+import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.signup.SignupState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,20 +15,20 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.*;
-import java.util.List;
 
-public class ConversationView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "conversation view";
+public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName = "dialogflow view";
     private JFrame frame;
     private JPanel panel;
     private JButton logOutButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
-    private String selfUsername;
+    private String username;
+    private DialogflowViewModel viewModel;
 
     public static void main(String[] args) throws IOException {
+        System.out.println("main");
         CardLayout cardLayout = new CardLayout();
         // The various View objects. Only one view is visible at a time.
         JPanel views = new JPanel(cardLayout);
@@ -39,7 +37,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
+        DialogflowView view = DialogflowUseCaseFactory.create(viewManagerModel, new DialogflowViewModel(), new DialogflowDAOImpl(), "Marshal");
         System.out.println(view.viewName);
         views.add(view, view.viewName);
         viewManagerModel.setActiveView(view.viewName);
@@ -47,13 +45,16 @@ public class ConversationView extends JPanel implements ActionListener, Property
         view.show();
     }
 
-    public ConversationView(ConversationViewModel viewModel, ConversationController controller, String selfUsername, String otherUsername) {
-        this.selfUsername = selfUsername;
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, String username) {
+        this.username = username;
         frame = new JFrame();
         frame.setTitle("Chat Application");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600); // Set your desired width and height
         frame.setLocationRelativeTo(null);
+        this.viewModel = viewModel;
+        viewModel.addPropertyChangeListener(this);
+
 
 // Create and do settings for main panel
         panel = new JPanel();
@@ -117,31 +118,8 @@ public class ConversationView extends JPanel implements ActionListener, Property
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.executeSave(selfUsername, otherUsername, messageField.getText());
-            }
-        });
-        sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
-        messageFieldPanel.add(sendButton);
-
-
-        sendButton = new JButton("Refresh");
-        sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
-        sendButton.setFocusable(false);
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chatArea.setText("");
-                controller.executeRefresh(selfUsername, otherUsername);
-                ConversationState state = viewModel.getState();
-                List<Message> list = state.getMessages();
-                for (Message message : list) {
-                    if (message.getSender().equals( selfUsername)){
-                        chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
-                    } else {
-                        chatArea.append("\t\t\t\t\t" + message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
-                    }
-                }
-
+                controller.execute(messageField.getText());
+                chatArea.append(messageField.getText() + "\n");
             }
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
@@ -154,10 +132,14 @@ public class ConversationView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("reached property change");
+        DialogflowState state = (DialogflowState) evt.getNewValue();
+        chatArea.append(state.getResponse() + "\n");
+        System.out.println(state.getResponse());
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 }

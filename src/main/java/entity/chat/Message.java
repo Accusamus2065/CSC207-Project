@@ -17,11 +17,15 @@ public class Message {
 
     public Message () {}
 
-    public Message(String sender, String receiver, String content) {
+    public Message(String sender, String receiver, String content, Date timestamp) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
-        this.timestamp = new Date(); // Automatically set the timestamp to the current date and time
+        if (timestamp != null) {
+            this.timestamp = timestamp;
+        } else {
+            this.timestamp = new Date(); // Automatically set the timestamp to the current date and time
+        }
     }
 
     public void setSender(String sender) {

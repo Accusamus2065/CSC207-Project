@@ -1,7 +1,6 @@
 package app;
 
 import com.mongodb.MongoException;
-import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.choosepatient.ChoosePatientViewModel;
@@ -54,6 +53,7 @@ import java.awt.*;
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
         ConversationViewModel conversationViewModel = new ConversationViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
+
 
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);

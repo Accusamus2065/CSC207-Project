@@ -31,8 +31,8 @@ public class DAOFacade implements
         doctorDAO.save(user);
     }
 
-    public void save(Message convo) {
-        convoDAO.save(convo);
+    public void save(Message msg) {
+        convoDAO.save(msg);
     }
 
     @Override
