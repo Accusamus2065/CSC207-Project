@@ -1,9 +1,7 @@
-package interface_adapter.choosepatient;
+package interface_adapter.choose_patient;
 
-import use_case.choosepatient.ChoosePatientInputBoundary;
-import use_case.choosepatient.ChoosePatientInputData;
-
-import java.util.List;
+import use_case.choose_patient.ChoosePatientInputBoundary;
+import use_case.choose_patient.ChoosePatientInputData;
 
 public class ChoosePatientController {
 

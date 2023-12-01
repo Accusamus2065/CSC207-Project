@@ -3,7 +3,7 @@ package app;
 import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.choosepatient.ChoosePatientViewModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.swap_views.list_of_patients.SwapToPatientListPresenter;

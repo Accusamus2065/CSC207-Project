@@ -1,4 +1,4 @@
-package interface_adapter.choosepatient;
+package interface_adapter.choose_patient;
 
 import interface_adapter.ViewModel;
 

@@ -1,10 +1,10 @@
-package interface_adapter.choosepatient;
+package interface_adapter.choose_patient;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import org.junit.Test;
-import use_case.choosepatient.ChoosePatientOutputData;
+import use_case.choose_patient.ChoosePatientOutputData;
 
 public class ChoosePatientPresenterTest {
 

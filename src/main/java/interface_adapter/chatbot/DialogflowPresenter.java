@@ -1,6 +1,5 @@
 package interface_adapter.chatbot;
 
-import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.ViewManagerModel;
 import use_case.chatbot.DialogflowOutputBoundary;
 import use_case.chatbot.DialogflowOutputData;
@@ -9,7 +8,7 @@ import use_case.chatbot.DialogflowOutputData;
 public class DialogflowPresenter implements DialogflowOutputBoundary {
 
     private final DialogflowViewModel dialogflowViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public DialogflowPresenter(ViewManagerModel viewManagerModel, DialogflowViewModel dialogflowViewModel) {
         this.viewManagerModel = viewManagerModel;

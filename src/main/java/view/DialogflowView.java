@@ -1,12 +1,11 @@
 package view;
 
 import app.DialogflowUseCaseFactory;
-import data_access.DialogflowDAOImpl;
+import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
-import interface_adapter.signup.SignupState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,14 +17,14 @@ import java.io.IOException;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
-    private JFrame frame;
-    private JPanel panel;
-    private JButton logOutButton;
-    private JTextArea chatArea;
-    private JTextField messageField;
-    private JButton sendButton;
-    private String username;
-    private DialogflowViewModel viewModel;
+    private final JFrame frame;
+    private final JPanel panel;
+    private final JButton logOutButton;
+    private final JTextArea chatArea;
+    private final  JTextField messageField;
+    private final JButton sendButton;
+    private final String username;
+    private final DialogflowViewModel viewModel;
 
     public static void main(String[] args) throws IOException {
         System.out.println("main");
@@ -37,7 +36,12 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        DialogflowView view = DialogflowUseCaseFactory.create(viewManagerModel, new DialogflowViewModel(), new DialogflowDAOImpl(), "Marshal");
+        DialogflowView view = DialogflowUseCaseFactory.create(
+                viewManagerModel,
+                new DialogflowViewModel(),
+                new DAOFacade(),
+                "Marshal"
+        );
         System.out.println(view.viewName);
         views.add(view, view.viewName);
         viewManagerModel.setActiveView(view.viewName);
@@ -73,15 +77,11 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for log out
-            }
+        logOutButton.addActionListener(e -> {
+            // Your action for log out
         });
         logOutButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         upperPanel.add(logOutButton);
-
 
 
 // Create the chat sub-panel
@@ -104,7 +104,6 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         panel.add(messageFieldPanel, BorderLayout.SOUTH);
 
 
-
 // Create the text field
         messageField = new JTextField(20);
         messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
@@ -115,12 +114,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         sendButton = new JButton("Send");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.execute(messageField.getText());
-                chatArea.append(messageField.getText() + "\n");
-            }
+        sendButton.addActionListener(e -> {
+            controller.execute(messageField.getText());
+            chatArea.append(messageField.getText() + "\n");
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         messageFieldPanel.add(sendButton);
