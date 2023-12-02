@@ -4,9 +4,10 @@ import app.ConvoUseCaseFactory;
 import data_access.ConvoDAOImpl;
 import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationController;
-import interface_adapter.chat.ConversationState;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshController;
+import interface_adapter.chat.refresh.ConversationRefreshState;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
+import interface_adapter.chat.save.ConversationSaveController;
 import interface_adapter.login.LoginState;
 import org.bson.Document;
 
@@ -39,7 +40,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
+        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationRefreshViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
         System.out.println(view.viewName);
         views.add(view, view.viewName);
         viewManagerModel.setActiveView(view.viewName);
@@ -47,7 +48,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         view.show();
     }
 
-    public ConversationView(ConversationViewModel viewModel, ConversationController controller, String selfUsername, String otherUsername) {
+    public ConversationView(ConversationRefreshViewModel viewModel, ConversationRefreshController refreshController, ConversationSaveController saveController, String selfUsername, String otherUsername) {
         this.selfUsername = selfUsername;
         frame = new JFrame();
         frame.setTitle("Chat Application");
@@ -117,7 +118,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.executeSave(selfUsername, otherUsername, messageField.getText());
+                saveController.executeSave(selfUsername, otherUsername, messageField.getText());
             }
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
@@ -131,8 +132,8 @@ public class ConversationView extends JPanel implements ActionListener, Property
             @Override
             public void actionPerformed(ActionEvent e) {
                 chatArea.setText("");
-                controller.executeRefresh(selfUsername, otherUsername);
-                ConversationState state = viewModel.getState();
+                refreshController.executeRefresh(selfUsername, otherUsername);
+                ConversationRefreshState state = viewModel.getState();
                 List<Message> list = state.getMessages();
                 for (Message message : list) {
                     if (message.getSender().equals( selfUsername)){
