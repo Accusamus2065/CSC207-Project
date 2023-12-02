@@ -2,7 +2,7 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientPresenter;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
@@ -33,7 +33,7 @@ public class ChoosePatientUseCaseFactory {
     }
 
     public static ListOfPatientsView create(ViewManagerModel viewManagerModel,
-                                            ConversationViewModel conversationViewModel,
+                                            ConversationRefreshViewModel conversationViewModel,
                                             WelcomeViewModel welcomeViewModel,
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
@@ -56,7 +56,7 @@ public class ChoosePatientUseCaseFactory {
     }
 
     private static ChoosePatientController createChoosePatientUseCase(ViewManagerModel viewManagerModel,
-                                                                      ConversationViewModel conversationViewModel,
+                                                                      ConversationRefreshViewModel conversationViewModel,
                                                                       WelcomeViewModel welcomeViewModel,
                                                                       DoctorUpdateViewModel doctorUpdateViewModel,
                                                                       ChoosePatientViewModel choosePatientViewModel) {
