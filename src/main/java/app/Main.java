@@ -76,7 +76,7 @@ public class Main {
         views.add(dialogflowView, dialogflowView.viewName);
 
 
-        viewManagerModel.setActiveView(welcomeView.viewName);
+        viewManagerModel.setActiveView(dialogflowView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

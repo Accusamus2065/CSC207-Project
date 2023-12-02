@@ -7,8 +7,6 @@ import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.swap_views.conversation.SwapToConversationController;
-import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,38 +26,11 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     private  JFrame frame;
     private String username;
     private JPanel buttonPanel;
-    private SwapToConversationController swapToConvoController;
     private DialogflowController dialogflowController;
 
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("main");
-        CardLayout cardLayout = new CardLayout();
-        // The various View objects. Only one view is visible at a time.
-        JPanel views = new JPanel(cardLayout);
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController) {
 
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-
-        DialogflowView view = DialogflowUseCaseFactory.create(
-                viewManagerModel,
-                new LoginViewModel(),
-                new DialogflowViewModel(),
-                new DAOFacade(),
-                "Marshal"
-        );
-        System.out.println(view.viewName);
-        views.add(view, view.viewName);
-        viewManagerModel.setActiveView(view.viewName);
-        viewManagerModel.firePropertyChanged();
-    }
-
-
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController, SwapToLoginController loginController) {
-
-        this.swapToConvoController = swapToConvoController;
-        this.swapToConvoController = swapToConvoController;
         this.username = viewModel.getState().getUsername();
         this.dialogflowController = dialogflowController;
         viewModel.addPropertyChangeListener(this);

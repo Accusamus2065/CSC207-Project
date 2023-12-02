@@ -7,7 +7,6 @@ import interface_adapter.chatbot.DialogflowPresenter;
 import interface_adapter.chatbot.DialogflowViewModel;
 
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.swap_views.conversation.SwapToConversationController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.login.SwapToLoginPresenter;
 
@@ -33,9 +32,7 @@ public class DialogflowUseCaseFactory {
             String username) {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
 
-        SwapToLoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel);
-//        SwapToConversationController  swapToConvoController = new SwapToConversationController(viewManagerModel, viewModel, loginViewModel, username);
-        return new DialogflowView(viewModel,controller , loginController);
+        return new DialogflowView(viewModel,controller);
     }
 
     private static SwapToLoginController createLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
