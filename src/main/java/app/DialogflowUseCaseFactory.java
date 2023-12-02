@@ -26,8 +26,8 @@ public class DialogflowUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
             DialogflowViewModel viewModel,
-
-            DAOFacade userDataAccessObject) {
+            DAOFacade userDataAccessObject
+    ) {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
         SwapToLoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel);
         return new DialogflowView(viewModel, loginController, controller);
