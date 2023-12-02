@@ -3,7 +3,7 @@ package app;
 import com.mongodb.MongoException;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -30,7 +30,7 @@ public class LoginUseCaseFactory {
     public static LoginView create(
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel,
-            ConversationViewModel conversationViewModel,
+            ConversationRefreshViewModel conversationViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
@@ -47,7 +47,7 @@ public class LoginUseCaseFactory {
 
     private static LoginController createLoginUseCase(
             ViewManagerModel viewManagerModel,
-            ConversationViewModel conversationViewModel,
+            ConversationRefreshViewModel conversationViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
