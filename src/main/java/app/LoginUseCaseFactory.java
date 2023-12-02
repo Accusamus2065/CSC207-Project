@@ -50,17 +50,17 @@ public class LoginUseCaseFactory {
     }
 
     private static LoginController createLoginUseCase(
-            ViewManagerModel viewManagerModel,
-            DialogflowViewModel dialogflowViewModel,
-            ChoosePatientViewModel choosePatientViewModel,
-            LoginViewModel loginViewModel,
-            LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
-            LoginOutputBoundary loginOutputBoundary =
-                    new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
-            LoginInputBoundary userLoginInteractor = new LoginInteractor(
-                    userDataAccessObject, loginOutputBoundary);
-            return new LoginController(userLoginInteractor);
-        }
+        ViewManagerModel viewManagerModel,
+        DialogflowViewModel dialogflowViewModel,
+        ChoosePatientViewModel choosePatientViewModel,
+        LoginViewModel loginViewModel,
+        LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
+        LoginOutputBoundary loginOutputBoundary =
+            new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
+        LoginInputBoundary userLoginInteractor = new LoginInteractor(
+            userDataAccessObject, loginOutputBoundary);
+        return new LoginController(userLoginInteractor);
+    }
 
 
     public static SwapToWelcomeController createSwapViewsUseCase(
