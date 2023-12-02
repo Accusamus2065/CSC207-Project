@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.ConversationViewModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import use_case.swap_views.chatbot.SwapToDialogflowOutputBoundary;
+import use_case.swap_views.conversation.SwapToConversationOutputBoundary;
 
 public class SwapToConversationPresenter implements SwapToConversationOutputBoundary {
     public final ViewManagerModel viewManagerModel;

@@ -1,6 +1,7 @@
 package interface_adapter.swap_views.conversation;
 
 import use_case.swap_views.chatbot.SwapToDialogflowInputBoundary;
+import use_case.swap_views.conversation.SwapToConversationInputBoundary;
 
 public class SwapToConversationController {
     private final SwapToConversationInputBoundary swapToConvoInteractor;

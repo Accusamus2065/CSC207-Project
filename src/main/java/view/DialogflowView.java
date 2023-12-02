@@ -27,8 +27,8 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     private JButton sendButton;
     private String username;
     private JPanel buttonPanel;
-    private SwapToConversationController controller;
-
+    private SwapToConversationController swapToConvoController;
+    private DialogflowController dialogflowController;
 
 
     public static void main(String[] args) throws IOException {
@@ -53,10 +53,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         viewManagerModel.firePropertyChanged();
     }
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController) {
 
         this.username = viewModel.getState().getUsername();
-        this.controller = controller;
+        this.dialogflowController = dialogflowController;
         viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
@@ -124,7 +124,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Your action for sending message
-                controller.execute(messageField.getText(), username);
+                dialogflowController.execute(messageField.getText(), username);
                 chatArea.append(messageField.getText() + "\n");
             }
         });
@@ -133,14 +133,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         // Sub-panel for two buttons in the scrollable
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-        // Two buttons for the scrollable
-        JButton button1 = new JButton("Button 1");
-        JButton button2 = new JButton("Button 2");
-
-        // Add buttons to the panel
-        buttonPanel.add(button1);
-        buttonPanel.add(button2);
+        buttonPanel.setPreferredSize(new Dimension(100, 200));
 
         // Scrollable for the buttons
         JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
@@ -159,21 +152,23 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());
-
+        System.out.println("property changed dialogflowview");
+        buttonPanel.removeAll();
         for (String docName :state.getDocNames()) {
+            System.out.println(docName);
             JButton jButton = new JButton(docName);
             jButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Your action for sending message
-                    controller.execute();
+                    swapToConvoController.execute();
                     chatArea.append(messageField.getText() + "\n");
                 }
             });
-            buttonPanel.add(new JButton(docName));
+            buttonPanel.add(jButton);
         }
-
-
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 
     @Override

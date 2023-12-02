@@ -1,6 +1,8 @@
 package use_case.chatbot;
 
 
+import java.util.List;
+
 public interface DialogflowUserDataAccessInterface {
-    String detectIntent(String userInput);
+    List<Object> detectIntent(String userInput);
 }

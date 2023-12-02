@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowPresenter;
 import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.swap_views.conversation.SwapToConversationController;
 import use_case.chatbot.DialogflowInputBoundary;
 import use_case.chatbot.DialogflowInteractor;
 import use_case.chatbot.DialogflowOutputBoundary;
@@ -24,7 +25,8 @@ public class DialogflowUseCaseFactory {
             DialogflowUserDataAccessInterface userDataAccessObject,
             String username) {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
-        return new DialogflowView(viewModel, controller, username);
+
+        return new DialogflowView(viewModel, controller);
     }
 
     public static DialogflowController createDialogflowController(ViewManagerModel viewManagerModel,
