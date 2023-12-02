@@ -1,11 +1,9 @@
 package view;
 
-import app.DialogflowUseCaseFactory;
-import data_access.DAOFacade;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,39 +11,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
 
-    private JButton logOutButton;
-    private JTextArea chatArea;
-    private JTextField messageField;
-    private JButton sendButton;
+    private final JButton logOutButton;
+    private final JTextArea chatArea;
+    private final JTextField messageField;
+    private final JButton sendButton;
     private String username;
 
-//    public static void main(String[] args) throws IOException {
-//        System.out.println("main");
-//        CardLayout cardLayout = new CardLayout();
-//        // The various View objects. Only one view is visible at a time.
-//        JPanel views = new JPanel(cardLayout);
-//
-//        // This keeps track of and manages which view is currently showing.
-//        ViewManagerModel viewManagerModel = new ViewManagerModel();
-//        new ViewManager(views, cardLayout, viewManagerModel);
-//
-//        DialogflowView view = DialogflowUseCaseFactory.create(
-//                viewManagerModel,
-//                new DialogflowViewModel(),
-//                new DAOFacade()
-//        );
-//        System.out.println(view.viewName);
-//        views.add(view, view.viewName);
-//        viewManagerModel.setActiveView(view.viewName);
-//        viewManagerModel.firePropertyChanged();
-//    }
-
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
+    public DialogflowView(DialogflowViewModel viewModel,
+                          SwapToLoginController loginController,
+                          DialogflowController controller) {
 
         this.username = viewModel.getState().getUsername();
         viewModel.addPropertyChangeListener(this);
@@ -68,7 +46,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Your action for log out
+                loginController.execute();
             }
         });
         logOutButton.setPreferredSize(new Dimension(100, 40));
