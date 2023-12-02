@@ -4,7 +4,7 @@ package interface_adapter.choose_patient;//package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import use_case.choose_patient.ChoosePatientOutputBoundary;
@@ -15,13 +15,13 @@ import use_case.choose_patient.ChoosePatientOutputData;
 public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
-    private final ConversationViewModel conversationViewModel;
+    private final ConversationRefreshViewModel conversationViewModel;
     private final WelcomeViewModel welcomeViewModel;
     private final DoctorUpdateViewModel doctorUpdateViewModel;
     private ChoosePatientViewModel choosePatientViewModel;
 
     public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
-                                  ConversationViewModel conversationViewModel,
+                                  ConversationRefreshViewModel conversationViewModel,
                                   WelcomeViewModel welcomeViewModel,
                                   DoctorUpdateViewModel doctorUpdateViewModel,
                                   ChoosePatientViewModel choosePatientViewModel) {
