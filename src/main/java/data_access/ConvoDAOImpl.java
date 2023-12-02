@@ -2,9 +2,7 @@ package data_access;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.result.DeleteResult;
 import entity.chat.Message;
 import org.bson.Document;
@@ -13,20 +11,15 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
 import io.github.cdimascio.dotenv.Dotenv;
-import use_case.chat.IConvoDAO;
-import view.ConversationView;
+import use_case.chat.ConversationUserDataAccessInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class ConvoDAOImpl implements IConvoDAO {
+public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
 
     @NotNull
     private static MongoClientSettings getMongoClientSettings() {

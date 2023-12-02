@@ -1,8 +1,8 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.refresh.ConversationRefreshState;
-import interface_adapter.chat.refresh.ConversationRefreshViewModel;
+import interface_adapter.chatbot.DialogflowState;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import org.junit.Test;
@@ -20,11 +20,11 @@ public class LoginPresenterTest {
         LoginState loginState = new LoginState();
         loginState.setDoctor(true);
         loginViewModel.setState(loginState);
-        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
-                conversationViewModel,
+                dialogflowViewModel,
                 choosePatientViewModel,
                 loginViewModel);
         LoginOutputData outputData = new LoginOutputData(USERNAME, false);
@@ -42,17 +42,17 @@ public class LoginPresenterTest {
         LoginState loginState = new LoginState();
         loginState.setDoctor(false);
         loginViewModel.setState(loginState);
-        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
-                conversationViewModel,
+                dialogflowViewModel,
                 choosePatientViewModel,
                 loginViewModel);
         LoginOutputData outputData = new LoginOutputData(USERNAME, false);
         loginPresenter.prepareSuccessView(outputData);
 
-        assertEquals(conversationViewModel.getViewName(), viewManagerModel.getActiveView());
+        assertEquals(dialogflowViewModel.getViewName(), viewManagerModel.getActiveView());
         assertNull(loginViewModel.getState().getError());
     }
 
@@ -60,21 +60,21 @@ public class LoginPresenterTest {
     public void failLoginTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
-        ConversationRefreshState conversationState = conversationViewModel.getState();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
+        DialogflowState dialogflowState = dialogflowViewModel.getState();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
         viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
-                conversationViewModel,
+                dialogflowViewModel,
                 choosePatientViewModel,
                 loginViewModel);
         loginPresenter.prepareFailView(ERROR);
 
         assertEquals(choosePatientViewModel.getViewName(), viewManagerModel.getActiveView());
         assertEquals(ERROR, loginViewModel.getState().getError());
-        assertEquals(conversationState, conversationViewModel.getState());
+        assertEquals(dialogflowState, dialogflowViewModel.getState());
         assertEquals(choosePatientState, choosePatientViewModel.getState());
     }
 }

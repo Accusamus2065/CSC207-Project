@@ -1,6 +1,6 @@
 package app;
 
-import data_access.ConvoDAOImpl;
+import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshPresenter;
@@ -15,21 +15,22 @@ import use_case.chat.save.ConversationSaveInputBoundary;
 import use_case.chat.save.ConversationSaveInteractor;
 import use_case.login.LoginUserDataAccessInterface;
 import view.ConversationView;
-import view.LoginView;
 
 import javax.swing.*;
 import java.io.IOException;
 
 public class ConvoUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private ConvoUseCaseFactory() {}
-
+    /**
+     * Prevent instantiation.
+     */
+    private ConvoUseCaseFactory() {
+    }
 
     public static ConversationView create(
             ViewManagerModel viewManagerModel,
             ConversationRefreshViewModel refreshViewModel,
-            ConvoDAOImpl dao, // TODO: why concrete class and not an interface?
+            DAOFacade dao, // TODO: why concrete class and not an interface?
             String selfUsername,
             String otherUsername) {
 
@@ -40,7 +41,6 @@ public class ConvoUseCaseFactory {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
-
         return null;
     }
 

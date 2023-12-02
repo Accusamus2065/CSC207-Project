@@ -2,6 +2,7 @@ package view;
 
 import app.ConvoUseCaseFactory;
 import data_access.ConvoDAOImpl;
+import data_access.DAOFacade;
 import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.refresh.ConversationRefreshController;

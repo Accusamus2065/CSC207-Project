@@ -2,8 +2,8 @@ package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
-import interface_adapter.chat.refresh.ConversationRefreshState;
-import interface_adapter.chat.refresh.ConversationRefreshViewModel;
+import interface_adapter.chatbot.DialogflowState;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import use_case.login.LoginOutputBoundary;
@@ -13,16 +13,16 @@ import use_case.login.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final ConversationRefreshViewModel conversationViewModel;
+    private final DialogflowViewModel dialogflowViewModel;
     private final ChoosePatientViewModel choosePatientViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          ConversationRefreshViewModel conversationViewModel,
+                          DialogflowViewModel dialogflowViewModel,
                           ChoosePatientViewModel choosePatientViewModel,
                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.conversationViewModel = conversationViewModel;
+        this.dialogflowViewModel = dialogflowViewModel;
         this.loginViewModel = loginViewModel;
         this.choosePatientViewModel = choosePatientViewModel;
     }
@@ -43,13 +43,12 @@ public class LoginPresenter implements LoginOutputBoundary {
             viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
         } else {
-            ConversationRefreshState conversationState = conversationViewModel.getState();
-            // conversationRefreshState.setUsername(response.getUsername());  // Conversation state needs method setUsername
-            // conversationRefreshState.setConversation(null);  // TODO: Change this to actual conversation
-            conversationViewModel.setState(conversationState);
-            conversationViewModel.firePropertyChanged();
+            DialogflowState dialogflowState = dialogflowViewModel.getState();
+            dialogflowState.setUsername(response.getUsername());  // Conversation state needs method setUsername
+            dialogflowViewModel.setState(dialogflowState);
+            dialogflowViewModel.firePropertyChanged();
 
-            viewManagerModel.setActiveView(conversationViewModel.getViewName());
+            viewManagerModel.setActiveView(dialogflowViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
         }
     }

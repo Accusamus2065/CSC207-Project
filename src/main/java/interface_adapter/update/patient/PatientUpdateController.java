@@ -28,5 +28,6 @@ public class PatientUpdateController {
                 height,
                 weight,
                 bloodType);
+        useCase.execute(inputData);
     }
 }

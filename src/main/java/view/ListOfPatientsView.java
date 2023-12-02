@@ -77,7 +77,7 @@ public class ListOfPatientsView extends JPanel {
             button.setFocusable(false);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.addActionListener(e -> {
-                if(e.getSource().equals(modifyButton)){
+                if(e.getSource().equals(button)){
                     ChoosePatientState currentState = choosePatientViewModel.getState();
                     choosePatientController.execute(currentState.getUsername(), p);
                 }
