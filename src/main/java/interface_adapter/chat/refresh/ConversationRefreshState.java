@@ -5,6 +5,8 @@ import entity.chat.Message;
 import java.util.List;
 
 public class ConversationRefreshState {
+    private String sender;
+    private String receiver;
     private List<Message> messages;
 
     public ConversationRefreshState(ConversationRefreshState copy) {
@@ -23,4 +25,19 @@ public class ConversationRefreshState {
         this.messages = messages;
     }
 
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
 }

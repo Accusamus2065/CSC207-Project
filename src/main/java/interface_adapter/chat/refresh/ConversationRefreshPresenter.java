@@ -27,4 +27,5 @@ public class ConversationRefreshPresenter implements ConversationRefreshOutputBo
 
     @Override
     public void prepareFailView(String error) {
-}}
+    }
+}
