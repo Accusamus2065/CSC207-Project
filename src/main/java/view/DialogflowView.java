@@ -53,10 +53,18 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         viewManagerModel.firePropertyChanged();
     }
 
+<<<<<<< Updated upstream
     public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController) {
+=======
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, SwapToConversationController swap2convoController) {
+>>>>>>> Stashed changes
 
+        this.controller = swap2convoController;
         this.username = viewModel.getState().getUsername();
+<<<<<<< Updated upstream
         this.dialogflowController = dialogflowController;
+=======
+>>>>>>> Stashed changes
         viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
@@ -161,7 +169,11 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Your action for sending message
+<<<<<<< Updated upstream
                     swapToConvoController.execute();
+=======
+                    controller.execute(username, docName);
+>>>>>>> Stashed changes
                     chatArea.append(messageField.getText() + "\n");
                 }
             });

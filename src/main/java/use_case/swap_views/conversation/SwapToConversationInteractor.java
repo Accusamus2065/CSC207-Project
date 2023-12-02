@@ -8,7 +8,7 @@ public class SwapToConversationInteractor implements SwapToConversationInputBoun
     }
 
     @Override
-    public void execute() {
-        swapToChatbotPresenter.swapViews();
+    public void execute(String sender, String receiver) {
+        swapToChatbotPresenter.swapViews(sender, receiver);
     }
 }

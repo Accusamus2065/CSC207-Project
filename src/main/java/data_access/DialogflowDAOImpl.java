@@ -13,6 +13,7 @@ import io.grpc.ManagedChannelBuilder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.HashMap;
 
 
 public class DialogflowDAOImpl {
@@ -48,7 +49,14 @@ public class DialogflowDAOImpl {
         intentsClient = IntentsClient.create(IntentsSettings.newBuilder().setCredentialsProvider(provider).build());
     }
 
+<<<<<<< Updated upstream
     public List<Object> detectIntent(String userInput) {
+=======
+    public Map<String, List<String>> detectIntent(String userInput) {
+        /**
+         * @Return A map with only one element. The key is the response text and the value is a list of doctor names.
+         */
+>>>>>>> Stashed changes
         // Build the session name
         String sessionId = UUID.randomUUID().toString();
         SessionName session = SessionName.of(PROJECT_ID, sessionId);
@@ -70,6 +78,7 @@ public class DialogflowDAOImpl {
 
         // Get the response text from the result
         QueryResult queryResult = response.getQueryResult();
+<<<<<<< Updated upstream
         List<Object> tuple = new ArrayList<>();
         tuple.add(queryResult.getFulfillmentText());
         tuple.add(getDocNames(queryResult.getIntent().getDisplayName()));
@@ -80,6 +89,13 @@ public class DialogflowDAOImpl {
         return dao.getBySpecialty(intent);
     }
 
+=======
+        Map<String, List<String>> result = new HashMap<>();
+        result.put(queryResult.getFulfillmentText(),getDocNames(queryResult.getIntent().getDisplayName()));
+        return result;
+    }
+
+>>>>>>> Stashed changes
     public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages, Map<String, List<String>> entities) {
         EntityType entityType = EntityType.newBuilder()
                 .setDisplayName("Allergy")
@@ -123,9 +139,10 @@ public class DialogflowDAOImpl {
 
         // Create the intent
         intentsClient.createIntent(createIntentRequest);
+    }
 
-
-
+    private List<String> getDocNames(String intent) {
+        return dao.getBySpecialty(intent);
     }
 
     public void close() {

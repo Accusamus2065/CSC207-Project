@@ -16,7 +16,9 @@ public class SwapToConversationPresenter implements SwapToConversationOutputBoun
     }
 
     @Override
-    public void swapViews() {
+    public void swapViews(String sender, String receiver) {
+        convoViewModel.getState().setSender(sender);
+        convoViewModel.getState().setReceiver(receiver);
         viewManagerModel.setActiveView(convoViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

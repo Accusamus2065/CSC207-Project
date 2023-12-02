@@ -10,7 +10,7 @@ public class SwapToConversationController {
         this.swapToConvoInteractor = swapToConvoInteractor;
     }
 
-    public void execute() {
-        swapToConvoInteractor.execute();
+    public void execute(String sender, String receiver) {
+        swapToConvoInteractor.execute(sender, receiver);
     }
 }
