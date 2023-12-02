@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +46,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 //        viewManagerModel.firePropertyChanged();
 //    }
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
+    public DialogflowView(DialogflowViewModel viewModel,
+                          SwapToLoginController loginController,
+                          DialogflowController controller) {
 
         this.username = viewModel.getState().getUsername();
         viewModel.addPropertyChangeListener(this);
@@ -68,7 +71,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Your action for log out
+                loginController.execute();
             }
         });
         logOutButton.setPreferredSize(new Dimension(100, 40));
