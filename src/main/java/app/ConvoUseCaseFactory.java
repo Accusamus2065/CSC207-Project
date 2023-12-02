@@ -1,13 +1,16 @@
 package app;
 
-import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationController;
-import interface_adapter.chat.ConversationPresenter;
-import interface_adapter.chat.ConversationViewModel;
-import use_case.chat.ConversationInputBoundary;
-import use_case.chat.ConversationInteractor;
-import use_case.chat.ConversationOutputBoundary;
+import interface_adapter.chat.refresh.ConversationRefreshController;
+import interface_adapter.chat.refresh.ConversationRefreshPresenter;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
+import interface_adapter.chat.save.ConversationSaveController;
+import use_case.chat.ConversationUserDataAccessInterface;
+import use_case.chat.refresh.ConversationRefreshInputBoundary;
+import use_case.chat.refresh.ConversationRefreshInteractor;
+import use_case.chat.refresh.ConversationRefreshOutputBoundary;
+import use_case.chat.save.ConversationSaveInputBoundary;
+import use_case.chat.save.ConversationSaveInteractor;
 import view.ConversationView;
 
 import javax.swing.*;
@@ -23,29 +26,38 @@ public class ConvoUseCaseFactory {
 
     public static ConversationView create(
             ViewManagerModel viewManagerModel,
-            ConversationViewModel viewModel,
-            DAOFacade dao,
+            ConversationRefreshViewModel refreshViewModel,
+            ConversationUserDataAccessInterface dao,
             String selfUsername,
             String otherUsername) {
 
         try {
-            ConversationController controller = createConversationController(viewManagerModel, viewModel, dao);
-            return new ConversationView(viewModel, controller, selfUsername, otherUsername);
+            ConversationRefreshController refreshController = createConversationRefreshConroller(viewManagerModel, refreshViewModel, dao);
+            ConversationSaveController saveController = createConversationSaveController(dao);
+            return new ConversationView(refreshViewModel, refreshController, saveController, selfUsername, otherUsername);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-    public static ConversationController createConversationController(
+    private static ConversationRefreshController createConversationRefreshConroller (
             ViewManagerModel viewManagerModel,
-            ConversationViewModel clearViewModel,
-            DAOFacade dao
+            ConversationRefreshViewModel refreshViewModel,
+            ConversationUserDataAccessInterface dao
     ) throws IOException {
-        ConversationOutputBoundary outputBoundary = new ConversationPresenter(viewManagerModel, clearViewModel);
-        ConversationInputBoundary inputInteractor = new ConversationInteractor(
-                dao, outputBoundary);
+        ConversationRefreshOutputBoundary refreshOutputBoundary = new ConversationRefreshPresenter(viewManagerModel,
+                refreshViewModel);
+        ConversationRefreshInputBoundary refreshInteractor = new ConversationRefreshInteractor(
+                dao, refreshOutputBoundary);
 
-        return new ConversationController(inputInteractor);
+        return new ConversationRefreshController(refreshInteractor);
+    }
+
+    private static ConversationSaveController createConversationSaveController (
+            ConversationUserDataAccessInterface dao
+    ) throws IOException {
+        ConversationSaveInputBoundary saveInteractor = new ConversationSaveInteractor(dao);
+        return new ConversationSaveController(saveInteractor);
     }
 }

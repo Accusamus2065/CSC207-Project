@@ -1,8 +1,6 @@
 package interface_adapter.chatbot;
 
 import interface_adapter.ViewModel;
-import interface_adapter.chat.ConversationState;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

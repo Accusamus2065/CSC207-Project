@@ -1,12 +1,8 @@
 package entity;
 
 import data_access.ConvoDAOImpl;
-import entity.chat.Conversation;
 import entity.chat.Message;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class TestMessage {

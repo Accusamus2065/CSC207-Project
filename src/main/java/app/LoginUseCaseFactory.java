@@ -2,6 +2,7 @@ package app;
 
 import com.mongodb.MongoException;
 
+import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
@@ -49,15 +50,15 @@ public class LoginUseCaseFactory {
     }
 
     private static LoginController createLoginUseCase(
-            ViewManagerModel viewManagerModel,
-            DialogflowViewModel dialogflowViewModel,
-            ChoosePatientViewModel choosePatientViewModel,
-            LoginViewModel loginViewModel,
-            LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
+        ViewManagerModel viewManagerModel,
+        DialogflowViewModel dialogflowViewModel,
+        ChoosePatientViewModel choosePatientViewModel,
+        LoginViewModel loginViewModel,
+        LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
         LoginOutputBoundary loginOutputBoundary =
-                new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
+            new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
         LoginInputBoundary userLoginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+            userDataAccessObject, loginOutputBoundary);
         return new LoginController(userLoginInteractor);
     }
 
