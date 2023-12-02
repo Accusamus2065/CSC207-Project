@@ -1,8 +1,6 @@
 package use_case.chat.save;
 
 import data_access.ConvoDAOImpl;
-import use_case.chat.ConversationInputData;
-import use_case.chat.ConversationOutputBoundary;
 
 public class ConversationSaveInteractor implements ConversationSaveInputBoundary{
     final ConvoDAOImpl dao;
