@@ -2,7 +2,7 @@ package app;
 
 import data_access.InMemoryUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
@@ -16,7 +16,7 @@ public class LoginUseCaseFactoryTest {
     public void createUseCaseTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         InMemoryUserDataAccessObject dataAccessObject = new InMemoryUserDataAccessObject();
@@ -24,7 +24,7 @@ public class LoginUseCaseFactoryTest {
         LoginView loginView = LoginUseCaseFactory.create(
                 viewManagerModel,
                 welcomeViewModel,
-                conversationViewModel,
+                dialogflowViewModel,
                 choosePatientViewModel,
                 loginViewModel,
                 dataAccessObject

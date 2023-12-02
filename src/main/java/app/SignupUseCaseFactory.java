@@ -15,6 +15,7 @@ import interface_adapter.welcome.WelcomeViewModel;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupUserDataAccessInterface;
 import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
 import use_case.swap_views.welcome.SwapToWelcomeInteractor;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
@@ -29,7 +30,7 @@ public class SignupUseCaseFactory {
             WelcomeViewModel welcomeViewModel,
             SignupViewModel signupViewModel,
             LoginViewModel loginViewModel,
-            DAOFacade userDataAccessObject
+            SignupUserDataAccessInterface userDataAccessObject
     ) {
         SignupController signupController = createUserSignupUseCase(
                 viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
@@ -42,8 +43,8 @@ public class SignupUseCaseFactory {
             ViewManagerModel viewManagerModel,
             SignupViewModel signupViewModel,
             LoginViewModel loginViewModel,
-            DAOFacade userDataAccessObject
-    ) throws MongoException {
+            SignupUserDataAccessInterface userDataAccessObject
+    ) {
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
         DoctorUserFactory doctorUserFactory = new DoctorUserFactory();
         PatientUserFactory patientUserFactory = new PatientUserFactory();
