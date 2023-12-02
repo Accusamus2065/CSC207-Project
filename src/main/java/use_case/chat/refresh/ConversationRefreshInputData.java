@@ -9,8 +9,8 @@ import java.util.Date;
 
 public class ConversationRefreshInputData {
     final private Message message;
-    public ConversationRefreshInputData(String sender, String receiver, String messageContent) {
-        this.message = new Message(sender, receiver, messageContent, new Date());
+    public ConversationRefreshInputData(String sender, String receiver) {
+        this.message = new Message(sender, receiver, null, null);
     }
     public Message getMessage() {
         return message;
