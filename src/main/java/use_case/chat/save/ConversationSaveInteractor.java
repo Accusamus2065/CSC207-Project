@@ -1,11 +1,12 @@
 package use_case.chat.save;
 
 import data_access.ConvoDAOImpl;
+import use_case.chat.ConversationUserDataAccessInterface;
 
 public class ConversationSaveInteractor implements ConversationSaveInputBoundary{
-    final ConvoDAOImpl dao;
+    final ConversationUserDataAccessInterface dao;
 
-    public ConversationSaveInteractor(ConvoDAOImpl convDao){
+    public ConversationSaveInteractor(ConversationUserDataAccessInterface convDao){
        this.dao = convDao;
     }
     @Override

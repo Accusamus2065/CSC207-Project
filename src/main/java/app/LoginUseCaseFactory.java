@@ -56,7 +56,7 @@ public class LoginUseCaseFactory {
             LoginViewModel loginViewModel,
             LoginUserDataAccessInterface userDataAccessObject) throws MongoException {
             LoginOutputBoundary loginOutputBoundary =
-                    new LoginPresenter(viewManagerModel, conversationViewModel, choosePatientViewModel, loginViewModel);
+                    new LoginPresenter(viewManagerModel, dialogflowViewModel, choosePatientViewModel, loginViewModel);
             LoginInputBoundary userLoginInteractor = new LoginInteractor(
                     userDataAccessObject, loginOutputBoundary);
             return new LoginController(userLoginInteractor);

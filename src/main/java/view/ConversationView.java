@@ -2,15 +2,12 @@ package view;
 
 import app.ConvoUseCaseFactory;
 import data_access.ConvoDAOImpl;
-import data_access.DAOFacade;
 import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshState;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.chat.save.ConversationSaveController;
-import interface_adapter.login.LoginState;
-import org.bson.Document;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
 
 public class ConversationView extends JPanel implements ActionListener, PropertyChangeListener {

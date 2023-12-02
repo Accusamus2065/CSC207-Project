@@ -2,14 +2,16 @@ package use_case.chat.refresh;
 
 import data_access.ConvoDAOImpl;
 import entity.chat.Message;
+import use_case.chat.ConversationUserDataAccessInterface;
+import use_case.chat.save.ConversationSaveInteractor;
 
 import java.util.List;
 
 public class ConversationRefreshInteractor implements ConversationRefreshInputBoundary {
     final ConversationRefreshOutputBoundary presenter;
-    final ConvoDAOImpl dao;
+    final ConversationUserDataAccessInterface dao;
 
-    public ConversationRefreshInteractor(ConvoDAOImpl convDao,
+    public ConversationRefreshInteractor(ConversationUserDataAccessInterface convDao,
                                          ConversationRefreshOutputBoundary presenter) {
         this.dao = convDao;
         this.presenter = presenter;

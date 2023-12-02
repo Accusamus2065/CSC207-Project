@@ -12,7 +12,7 @@ public class DialogflowPresenterTest {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
         viewManagerModel.setActiveView(dialogflowViewModel.getViewName());
-        DialogflowOutputData outputData = new DialogflowOutputData("DialogflowPresenterTestResponse");
+        DialogflowOutputData outputData = new DialogflowOutputData("DialogflowPresenterTestResponse", "abc");
 
         DialogflowPresenter dialogflowPresenter = new DialogflowPresenter(viewManagerModel, dialogflowViewModel);
         dialogflowPresenter.prepareSuccessView(outputData);
