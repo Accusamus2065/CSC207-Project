@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.choose_patient.ChoosePatientController;
+import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
@@ -20,9 +21,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ListOfPatientsViewTester {
+public class ListOfPatientsViewTest {
 
     private ListOfPatientsView listOfPatientsView;
+
+    private String username;
 
     @Before
     public void setUp() {
@@ -30,16 +33,19 @@ public class ListOfPatientsViewTester {
         ChoosePatientController choosePatientController = new ChoosePatientController(new ChoosePatientInputBoundary() {
             @Override
             public void execute(ChoosePatientInputData choosePatientInputData) {
-                // empty body
+                assertEquals("Patient1", choosePatientInputData.getPatient());
             }
         });
 
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
+        ChoosePatientState state = choosePatientViewModel.getState();
+        state.setUsername("TestUsername");
+        username = choosePatientViewModel.getState().getUsername();
 
         SwapToWelcomeController swapToWelcomeController = new SwapToWelcomeController(new SwapToWelcomeInputBoundary() {
             @Override
             public void execute() {
-                // empty body
+                assert true;
             }
         });
 
@@ -55,7 +61,7 @@ public class ListOfPatientsViewTester {
         SwapToDoctorUpdateController swapToDoctorUpdateController = new SwapToDoctorUpdateController(new SwapToDoctorUpdateInputBoundary() {
             @Override
             public void execute(String name) {
-                // empty body
+                assertEquals(name, username);
             }
         });
 
@@ -65,6 +71,8 @@ public class ListOfPatientsViewTester {
                 swapToWelcomeController,
                 loadPatientsController,
                 swapToDoctorUpdateController);
+
+
     }
 
     @Test
@@ -84,9 +92,12 @@ public class ListOfPatientsViewTester {
         }
         assertNotNull(modifyButton);
 
+        // Testing if the controlled receives the correct data
         modifyButton.doClick();
 
-    }
+        }
+
+
 
     @Test
     public void testMiddlePanel(){
@@ -95,6 +106,8 @@ public class ListOfPatientsViewTester {
         JPanel midPanel = (JPanel) scrollPane.getViewport().getView();
 
         assertNotNull(midPanel); // midpanel exists
+
+        // Testing if the loadpatients execute method worked correctly
         assertEquals(2, midPanel.getComponentCount()); // Two buttons as defined in your mock patients list
 
         // Checking if buttons exist
@@ -106,9 +119,7 @@ public class ListOfPatientsViewTester {
             }
         }
 
-        patient1Button.doClick(); // just need to check that it does not raise an error
-        // TODO I think fixing the fake input boundary (fake interactor)
-        // and adding some sort of assert statement there would be good
-        // for both doclick()
+        patient1Button.doClick();
+
     }
 }
