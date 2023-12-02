@@ -1,19 +1,18 @@
-package interface_adapter.chat;
+package interface_adapter.chat.refresh;
 
 import entity.chat.Message;
 
 import java.util.List;
 
-public class ConversationState {
-
+public class ConversationRefreshState {
     private List<Message> messages;
 
-    public ConversationState(ConversationState copy) {
+    public ConversationRefreshState(ConversationRefreshState copy) {
         messages = copy.messages;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
-    public ConversationState() {
+    public ConversationRefreshState() {
     }
 
     public List<Message> getMessages() {
@@ -23,6 +22,5 @@ public class ConversationState {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
-
 
 }

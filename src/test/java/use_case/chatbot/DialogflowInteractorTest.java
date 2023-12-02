@@ -22,7 +22,8 @@ public class DialogflowInteractorTest {
         };
         DialogflowInteractor dialogflowInteractor = new DialogflowInteractor(userDAO, dialogflowPresenter);
 
-        DialogflowInputData inputData = new DialogflowInputData("Hello", "TestUser");
+        DialogflowInputData inputData = new DialogflowInputData("Hello", "Marshal");
+
         dialogflowInteractor.execute(inputData);
     }
 }

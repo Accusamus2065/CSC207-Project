@@ -13,4 +13,6 @@ public interface ConversationUserDataAccessInterface {
     void deleteAll();
 
     List<Message> query();
+
 }
+
