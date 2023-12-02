@@ -1,8 +1,8 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationState;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshState;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class LoginPresenterTest {
         LoginState loginState = new LoginState();
         loginState.setDoctor(true);
         loginViewModel.setState(loginState);
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
@@ -42,7 +42,7 @@ public class LoginPresenterTest {
         LoginState loginState = new LoginState();
         loginState.setDoctor(false);
         loginViewModel.setState(loginState);
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
         LoginPresenter loginPresenter = new LoginPresenter(viewManagerModel,
@@ -60,8 +60,8 @@ public class LoginPresenterTest {
     public void failLoginTest() {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
-        ConversationState conversationState = conversationViewModel.getState();
+        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
+        ConversationRefreshState conversationState = conversationViewModel.getState();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         ChoosePatientState choosePatientState = choosePatientViewModel.getState();
         viewManagerModel.setActiveView(choosePatientViewModel.getViewName());
