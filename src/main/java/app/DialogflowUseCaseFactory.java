@@ -5,7 +5,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowPresenter;
 import interface_adapter.chatbot.DialogflowViewModel;
-import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.login.SwapToLoginPresenter;
