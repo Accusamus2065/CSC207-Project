@@ -85,7 +85,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     }
 
-    @Override
     public List<Message> query(String user1, String user2) {
         return null;
     }
@@ -99,5 +98,4 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public List<Message> query() {
         return null;
     }
-
 }

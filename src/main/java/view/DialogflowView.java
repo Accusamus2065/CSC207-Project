@@ -1,12 +1,11 @@
 package view;
 
-import app.DialogflowUseCaseFactory;
-import data_access.DAOFacade;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
-import interface_adapter.login.LoginViewModel;
+
+import interface_adapter.swap_views.login.SwapToLoginController;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
@@ -23,22 +21,19 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     private  JTextArea chatArea;
     private  JTextField messageField;
     private  JButton sendButton;
-    private  JFrame frame;
+
     private String username;
     private JPanel buttonPanel;
     private DialogflowController dialogflowController;
 
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController) {
+    public DialogflowView(DialogflowViewModel viewModel,
+                          SwapToLoginController loginController,
+                          DialogflowController dialogflowController) {
 
         this.username = viewModel.getState().getUsername();
-        this.dialogflowController = dialogflowController;
+
         viewModel.addPropertyChangeListener(this);
-        frame = new JFrame();
-        frame.setTitle("Chat Application");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
 
         this.dialogflowController = dialogflowController;
 
@@ -64,7 +59,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                loginController.execute();
             }
         });
         logOutButton.setPreferredSize(new Dimension(100, 40));
@@ -123,7 +118,6 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         // Add the scrollable to the chatPanel
         chatPanel.add(buttonScrollPane, BorderLayout.EAST);
 
-        frame.setVisible(true);
     }
 
     @Override
