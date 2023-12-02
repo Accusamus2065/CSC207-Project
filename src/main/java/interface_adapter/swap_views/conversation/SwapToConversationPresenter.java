@@ -1,16 +1,13 @@
 package interface_adapter.swap_views.conversation;
-
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
-import interface_adapter.chatbot.DialogflowViewModel;
-import use_case.swap_views.chatbot.SwapToDialogflowOutputBoundary;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import use_case.swap_views.conversation.SwapToConversationOutputBoundary;
 
 public class SwapToConversationPresenter implements SwapToConversationOutputBoundary {
     public final ViewManagerModel viewManagerModel;
-    public final ConversationViewModel convoViewModel;
+    public final ConversationRefreshViewModel convoViewModel;
 
-    public SwapToConversationPresenter(ViewManagerModel viewManagerModel, ConversationViewModel convoViewModel) {
+    public SwapToConversationPresenter(ViewManagerModel viewManagerModel, ConversationRefreshViewModel convoViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.convoViewModel = convoViewModel;
     }

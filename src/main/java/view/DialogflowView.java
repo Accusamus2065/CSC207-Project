@@ -6,7 +6,9 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.swap_views.conversation.SwapToConversationController;
+import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +21,11 @@ import java.io.IOException;
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
 
-    private JFrame frame;
-    private JPanel panel;
-    private JButton logOutButton;
-    private JTextArea chatArea;
-    private JTextField messageField;
-    private JButton sendButton;
+    private  JButton logOutButton;
+    private  JTextArea chatArea;
+    private  JTextField messageField;
+    private  JButton sendButton;
+    private  JFrame frame;
     private String username;
     private JPanel buttonPanel;
     private SwapToConversationController swapToConvoController;
@@ -43,6 +44,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 
         DialogflowView view = DialogflowUseCaseFactory.create(
                 viewManagerModel,
+                new LoginViewModel(),
                 new DialogflowViewModel(),
                 new DAOFacade(),
                 "Marshal"
@@ -53,18 +55,13 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         viewManagerModel.firePropertyChanged();
     }
 
-<<<<<<< Updated upstream
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController) {
-=======
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller, SwapToConversationController swap2convoController) {
->>>>>>> Stashed changes
 
-        this.controller = swap2convoController;
+    public DialogflowView(DialogflowViewModel viewModel, DialogflowController dialogflowController, SwapToLoginController loginController) {
+
+        this.swapToConvoController = swapToConvoController;
+        this.swapToConvoController = swapToConvoController;
         this.username = viewModel.getState().getUsername();
-<<<<<<< Updated upstream
         this.dialogflowController = dialogflowController;
-=======
->>>>>>> Stashed changes
         viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
@@ -72,18 +69,22 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
 
+        this.dialogflowController = dialogflowController;
+
+        this.username = viewModel.getState().getUsername();
+
+        viewModel.addPropertyChangeListener(this);
+
         // Main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(new Dimension(800, 500));
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(new Dimension(800, 500));
 
         // Upper sub-panel for logout button
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.SOUTH);
+        this.add(upperPanel, BorderLayout.SOUTH);
 
         // Button for logging out
         logOutButton = new JButton("Logout");
@@ -92,7 +93,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Your action for log out
+
             }
         });
         logOutButton.setPreferredSize(new Dimension(100, 40));
@@ -102,7 +103,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         JPanel chatPanel = new JPanel();
         chatPanel.setLayout(new BorderLayout());
         chatPanel.setBackground(Color.lightGray);
-        panel.add(chatPanel, BorderLayout.CENTER);
+        this.add(chatPanel, BorderLayout.CENTER);
 
         // Chat area where messages appear
         chatArea = new JTextArea();
@@ -115,7 +116,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         JPanel messageAndButtonPanel = new JPanel();
         messageAndButtonPanel.setLayout(new BorderLayout());
         messageAndButtonPanel.setBackground(Color.lightGray);
-        panel.add(messageAndButtonPanel, BorderLayout.SOUTH);
+        this.add(messageAndButtonPanel, BorderLayout.SOUTH);
 
         // Text field
         messageField = new JTextField(20);
@@ -169,11 +170,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Your action for sending message
-<<<<<<< Updated upstream
-                    swapToConvoController.execute();
-=======
-                    controller.execute(username, docName);
->>>>>>> Stashed changes
+//                    controller.execute(username, docName);
                     chatArea.append(messageField.getText() + "\n");
                 }
             });

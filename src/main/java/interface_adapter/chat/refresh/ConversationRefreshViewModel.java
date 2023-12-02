@@ -1,36 +1,29 @@
-package interface_adapter.chat;
+package interface_adapter.chat.refresh;
 
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ConversationViewModel extends ViewModel {
+public class ConversationRefreshViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Conversation";
 
-    private ConversationState state = new ConversationState();
+    private ConversationRefreshState state = new ConversationRefreshState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-
-    public ConversationViewModel() {
+    public ConversationRefreshViewModel() {
         super("conversation view");
     }
-
-    public void setState(ConversationState state) {
+    public void setState(ConversationRefreshState state) {
         this.state = state;
     }
-
-    public ConversationState getState() {
+    public ConversationRefreshState getState() {
         return state;
     }
-
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
-
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 }
-

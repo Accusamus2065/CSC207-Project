@@ -1,8 +1,10 @@
 package data_access;
 
 
+import entity.chat.Message;
 import entity.people.IDoctor;
 import entity.people.IPatient;
+import use_case.chat.ConversationUserDataAccessInterface;
 import use_case.chatbot.DialogflowUserDataAccessInterface;
 import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
@@ -20,7 +22,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         DoctorUpdateUserDataAccessInterface,
         PatientUpdateUserDataAccessInterface,
         ChoosePatientUserDataAccessInterface,
-        DialogflowUserDataAccessInterface {
+        DialogflowUserDataAccessInterface,
+        ConversationUserDataAccessInterface {
 
     private final Map<String, IDoctor> doctors = new HashMap<>();
     private final Map<String, IPatient> patients = new HashMap<>();
@@ -76,4 +79,25 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public List<Object> detectIntent(String userInput) {
         return null;
     }   // TODO: needs to be changed
+
+    @Override
+    public void save(Message msg) {
+
+    }
+
+    @Override
+    public List<Message> query(String user1, String user2) {
+        return null;
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public List<Message> query() {
+        return null;
+    }
+
 }

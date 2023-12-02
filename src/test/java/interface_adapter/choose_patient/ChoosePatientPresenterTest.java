@@ -1,7 +1,7 @@
 package interface_adapter.choose_patient;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.chat.ConversationViewModel;
+import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import org.junit.Test;
 import use_case.choose_patient.ChoosePatientOutputData;
@@ -15,7 +15,7 @@ public class ChoosePatientPresenterTest {
     public void successChoosePatientTest() {
         // Arrange
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 
@@ -37,7 +37,7 @@ public class ChoosePatientPresenterTest {
     public void failChoosePatientTest() {
         // Arrange
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ConversationViewModel conversationViewModel = new ConversationViewModel();
+        ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 

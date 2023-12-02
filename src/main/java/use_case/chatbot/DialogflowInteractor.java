@@ -2,10 +2,7 @@ package use_case.chatbot;
 
 
 import java.util.List;
-<<<<<<< Updated upstream
-=======
-import java.util.Map;
->>>>>>> Stashed changes
+
 
 public class DialogflowInteractor implements DialogflowInputBoundary {
     final DialogflowOutputBoundary presenter;
@@ -19,7 +16,6 @@ public class DialogflowInteractor implements DialogflowInputBoundary {
 
     @Override
     public void execute(DialogflowInputData data) {
-<<<<<<< Updated upstream
         List<Object> tuple = dao.detectIntent(data.getQuery());
         String response = (String) tuple.get(0);
         System.out.println(response);
@@ -29,12 +25,7 @@ public class DialogflowInteractor implements DialogflowInputBoundary {
         DialogflowOutputData outputData = new DialogflowOutputData(
                 response, username, docNames
         );
-=======
-        Map<String, List<String>> result = dao.detectIntent(data.getQuery());
-        String response = result.keySet().iterator().next();
-        List<String> docNames = result.get(response);
-        DialogflowOutputData outputData = new DialogflowOutputData(response,data.getUsername(), docNames);
->>>>>>> Stashed changes
+
         presenter.prepareSuccessView(outputData);
     }
 }

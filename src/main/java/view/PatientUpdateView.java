@@ -28,9 +28,9 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
     private final JButton saveButton;
 
     // Create and do settings for frame
-    PatientUpdateView(PatientUpdateViewModel patientUpdateViewModel,
-                      SwapToDialogflowController swapController,
-                      PatientUpdateController updateController) {
+    public PatientUpdateView(PatientUpdateViewModel patientUpdateViewModel,
+                             SwapToDialogflowController swapController,
+                             PatientUpdateController updateController) {
         this.viewName = patientUpdateViewModel.getViewName();
         patientUpdateViewModel.addPropertyChangeListener(this);
 

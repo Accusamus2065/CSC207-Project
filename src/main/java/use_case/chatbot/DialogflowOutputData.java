@@ -17,10 +17,7 @@ public class DialogflowOutputData {
         return response;
     }
     public String getUsername() { return username;}
-<<<<<<< Updated upstream
 
     public List<String> getDocNames() { return docNames; }
-=======
-    public List<String> getDocNames() { return docNames;}
->>>>>>> Stashed changes
+
 }

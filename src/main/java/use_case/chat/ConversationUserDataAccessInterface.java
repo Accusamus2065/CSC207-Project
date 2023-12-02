@@ -1,12 +1,10 @@
 package use_case.chat;
 
-
-import entity.chat.Conversation;
 import entity.chat.Message;
 
 import java.util.List;
 
-public interface IConvoDAO {
+public interface ConversationUserDataAccessInterface {
 
     void save(Message msg);
 
@@ -15,4 +13,6 @@ public interface IConvoDAO {
     void deleteAll(); // TODO: deleteAll()
 
     List<Message> query();
+
 }
+
