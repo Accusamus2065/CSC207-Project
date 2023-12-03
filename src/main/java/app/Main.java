@@ -11,6 +11,7 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.train.TrainingViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
+import interface_adapter.update.patient.PatientUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import view.*;
 
@@ -57,11 +58,12 @@ public class Main {
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
+        PatientUpdateViewModel patientUpdateViewModel = new PatientUpdateViewModel();
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
         ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
-        TrainingViewModel  trainingViewModel = new TrainingViewModel();
+        TrainingViewModel trainingViewModel = new TrainingViewModel();
 
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
@@ -74,7 +76,7 @@ public class Main {
         views.add(loginView, loginView.viewName);
         ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, docUpdateViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
-        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, entityDataAccessObject);
+        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, patientUpdateViewModel, entityDataAccessObject);
         views.add(dialogflowView, dialogflowView.viewName);
         ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, entityDataAccessObject);
         views.add(conversationView, conversationView.viewName);

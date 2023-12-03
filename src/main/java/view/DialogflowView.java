@@ -40,10 +40,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     /**
      * Constructor for DialogflowView.
      *
-     * @param viewModel          The view model providing the state for the view.
-     * @param loginController    The controller for swapping to the login view.
+     * @param viewModel            The view model providing the state for the view.
+     * @param loginController      The controller for swapping to the login view.
      * @param dialogflowController The controller for interacting with Dialogflow.
-     * @param swapController     The controller for swapping to the conversation view.
+     * @param swapController       The controller for swapping to the conversation view.
      */
     public DialogflowView(DialogflowViewModel viewModel,
                           SwapToLoginController loginController,
@@ -53,7 +53,8 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 
         this.viewName = viewModel.getViewName();
 
-        this.username = viewModel.getState().getUsername();
+        DialogflowState state = viewModel.getState();
+        this.username = state.getUsername();
 
         this.dialogflowController = dialogflowController;
 
@@ -84,7 +85,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         modifyButton = new JButton("Modify Profile");
         modifyButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         modifyButton.setFocusable(false);
-        //modifyButton.addActionListener(e -> loginController.execute());
+        modifyButton.addActionListener(e -> {
+            updateController.execute(state.getUsername());
+        });
         modifyButton.setPreferredSize(new Dimension(150, 40));
         upperPanel.add(modifyButton);
 
