@@ -21,7 +21,7 @@ public class ConversationRefreshPresenterTest {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ConversationRefreshPresenter presenter = new ConversationRefreshPresenter(viewManagerModel, conversationViewModel);
-        List<Message> messageList = new ArrayList<Message>();
+        List<Message> messageList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Message message = new Message(
                     SENDER + i,
