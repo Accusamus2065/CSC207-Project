@@ -2,7 +2,6 @@ package app;
 
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
-import data_access.DialogflowDAOImpl;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
@@ -83,7 +82,7 @@ public class Main {
         ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, entityDataAccessObject);
         views.add(conversationView, conversationView.viewName);
 
-        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, new DialogflowDAOImpl());
+        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, entityDataAccessObject);
         views.add(trainingView, trainingView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
