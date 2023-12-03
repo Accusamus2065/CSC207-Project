@@ -6,7 +6,7 @@ import use_case.chat.refresh.ConversationRefreshOutputData;
 
 public class ConversationRefreshPresenter implements ConversationRefreshOutputBoundary {
     private final ConversationRefreshViewModel conversationRefreshViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public ConversationRefreshPresenter(ViewManagerModel viewManagerModel, ConversationRefreshViewModel conversationRefreshViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -23,9 +23,5 @@ public class ConversationRefreshPresenter implements ConversationRefreshOutputBo
 
         viewManagerModel.setActiveView(conversationRefreshViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareFailView(String error) {
     }
 }

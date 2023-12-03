@@ -30,11 +30,6 @@ public class ConversationRefreshInteractorTest {
                 assertEquals(CONTENT, message.getContent());
                 assertEquals(DATE, message.getTimestamp());
             }
-
-            @Override
-            public void prepareFailView(String error) {
-                fail("Test not expected to fail.");
-            }
         };
         ConversationRefreshInputData inputData = new ConversationRefreshInputData(SENDER, RECEIVER);
 
