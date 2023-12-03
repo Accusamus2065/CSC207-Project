@@ -1,5 +1,9 @@
 package interface_adapter.train;
 
+import use_case.train.TrainingInputBoundary;
+import use_case.train.TrainingInputData;
+
+
 import java.util.List;
 
 public class TrainingController {

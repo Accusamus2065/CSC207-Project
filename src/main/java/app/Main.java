@@ -2,12 +2,14 @@ package app;
 
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
+import data_access.DialogflowDAOImpl;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.train.TrainingViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import view.*;
@@ -17,7 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -59,6 +61,7 @@ public class Main {
         ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
+        TrainingViewModel  trainingViewModel = new TrainingViewModel();
 
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
@@ -76,8 +79,11 @@ public class Main {
         ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, entityDataAccessObject);
         views.add(conversationView, conversationView.viewName);
 
+        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, new DialogflowDAOImpl());
+        views.add(trainingView, trainingView.viewName);
 
-        viewManagerModel.setActiveView(listOfPatientsView.viewName);
+        viewManagerModel.setActiveView(trainingView.viewName);
+
         viewManagerModel.firePropertyChanged();
 
         application.pack();

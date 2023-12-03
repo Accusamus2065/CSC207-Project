@@ -3,6 +3,8 @@ package interface_adapter.train;
 import interface_adapter.ViewManagerModel;
 import use_case.chatbot.DialogflowOutputBoundary;
 import use_case.chatbot.DialogflowOutputData;
+import use_case.train.TrainingOutputBoundary;
+import use_case.train.TrainingOutputData;
 
 
 public class TrainingPresenter implements TrainingOutputBoundary {
@@ -17,8 +19,8 @@ public class TrainingPresenter implements TrainingOutputBoundary {
 
     @Override
     public void prepareSuccessView(TrainingOutputData outputData) {
-        TrainingState dialogflowState = viewModel.getState();
-        this.viewModel.setState(dialogflowState);
+        TrainingState state = viewModel.getState();
+        this.viewModel.setState(state);
         this.viewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(viewModel.getViewName());
@@ -27,6 +29,8 @@ public class TrainingPresenter implements TrainingOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-
+        TrainingState state = viewModel.getState();
+        state.setError(error);
+        viewModel.firePropertyChanged();
     }
 }

@@ -92,14 +92,11 @@ public class DialogflowDAOImpl {
                 .setKind(EntityType.Kind.KIND_MAP)
                 .build();
 
-
-
         // Create the entity type request
         CreateEntityTypeRequest createEntityTypeRequest = CreateEntityTypeRequest.newBuilder()
                 .setParent(Objects.requireNonNull("projects/"+dotenv.get("PROJECT_ID")+"/agent"))
                 .setEntityType(entityType)
                 .build();
-
 
         // Create an intent with training phrases and messages
         List<Intent.TrainingPhrase.Part> parts = new ArrayList<>();
