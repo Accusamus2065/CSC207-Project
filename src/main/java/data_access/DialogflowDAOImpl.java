@@ -86,7 +86,7 @@ public class DialogflowDAOImpl {
 
 
 
-    public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages, Map<String, List<String>> entities) {
+    public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages) {
         EntityType entityType = EntityType.newBuilder()
                 .setDisplayName("Allergy")
                 .setKind(EntityType.Kind.KIND_MAP)
