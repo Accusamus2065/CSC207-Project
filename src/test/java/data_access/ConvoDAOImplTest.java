@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class ConvoDAOImplTest {
     private final MongoClient mongoClient = MongoFactory.setUpMongoClient();
-    private final MongoDatabase database = mongoClient.getDatabase("entities");
+    private final MongoDatabase database = mongoClient.getDatabase("test");
     private final MongoCollection<Document> messages = database.getCollection("message");
     private final ConvoDAOImpl convoDAO = new ConvoDAOImpl();
     private final static String SENDER = "TestConvoDAOSender";
