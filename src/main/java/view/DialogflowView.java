@@ -115,22 +115,27 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         DialogflowState state = (DialogflowState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
         username = state.getUsername();
-        String newResponse = state.getResponse();
-        String oldResponse = chatArea.getText();
-        chatArea.append(oldResponse + "\n"+ newResponse);
+        if (state.getResponse() != null) {
+            chatArea.append(state.getResponse() + "\n");
+        }
         System.out.println(state.getUsername());
         System.out.println("property changed dialogflowView");
         buttonPanel.removeAll();
-        for (String docName : state.getDocNames()) {
-            System.out.println(docName);
-            JButton jButton = new JButton(docName);
-            jButton.addActionListener(e -> {
-                // Your action for sending message
-                swapController.execute(username, docName);
-                chatArea.append(messageField.getText() + "\n");
-            });
-            buttonPanel.add(jButton);
+        if (state.getDocNames() != null) {
+            for (String docName : state.getDocNames()) {
+                System.out.println(docName);
+                JButton jButton = new JButton(docName);
+                jButton.addActionListener(e -> {
+                    // Your action for sending message
+                    swapController.execute(username, docName);
+                    chatArea.append(messageField.getText() + "\n");
+                });
+                buttonPanel.add(jButton);
+            }
         }
         buttonPanel.revalidate();
         buttonPanel.repaint();

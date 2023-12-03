@@ -5,6 +5,7 @@ import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientState;
+import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
 
     public ListOfPatientsView(ChoosePatientController choosePatientController,
                               ChoosePatientViewModel choosePatientViewModel,
-                              SwapToWelcomeController swapToWelcomeController,
+                              SwapToLoginController swapToLoginController,
                               SwapToConversationController swapToConversationController,
                               LoadPatientsController loadPatientsController,
                               SwapToDoctorUpdateController swapToDoctorUpdateController) {
@@ -49,7 +50,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         JButton logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> swapToWelcomeController.execute(this.viewName));
+        logOutButton.addActionListener(e -> swapToLoginController.execute());
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
@@ -69,7 +70,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                     }
                 });
         // USING WRONG BUTTON DIMENSION RN
-        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
+        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -118,6 +119,9 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        ChoosePatientState state = (ChoosePatientState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }

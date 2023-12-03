@@ -29,11 +29,12 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the choosepatient or conversation in view.
+        // On success, switch to the choosePatient or conversation in view.
 
         LoginState loginState = loginViewModel.getState();
+        loginState.setError(null);
 
-        if (loginState.isDoctor()){
+        if (loginState.isDoctor()) {
             ChoosePatientState choosePatientState = choosePatientViewModel.getState();
             choosePatientState.setUsername(response.getUsername());
             this.choosePatientViewModel.setState(choosePatientState);
@@ -57,6 +58,8 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareFailView(String error) {
         LoginState loginState = loginViewModel.getState();
         loginState.setError(error);
+        loginState.setUsername("");
+        loginState.setPassword("");
         loginViewModel.firePropertyChanged();
     }
 }
