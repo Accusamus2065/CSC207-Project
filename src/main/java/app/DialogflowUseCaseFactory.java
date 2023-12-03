@@ -1,6 +1,5 @@
 package app;
 
-import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowPresenter;
@@ -11,6 +10,7 @@ import interface_adapter.swap_views.login.SwapToLoginPresenter;
 import use_case.chatbot.DialogflowInputBoundary;
 import use_case.chatbot.DialogflowInteractor;
 import use_case.chatbot.DialogflowOutputBoundary;
+import use_case.chatbot.DialogflowUserDataAccessInterface;
 import use_case.swap_views.login.SwapToLoginInteractor;
 import view.DialogflowView;
 
@@ -26,7 +26,7 @@ public class DialogflowUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
             DialogflowViewModel viewModel,
-            DAOFacade userDataAccessObject) {
+            DialogflowUserDataAccessInterface userDataAccessObject) {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
         SwapToLoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel);
         return new DialogflowView(viewModel, loginController, controller);
@@ -40,7 +40,7 @@ public class DialogflowUseCaseFactory {
 
     public static DialogflowController createDialogflowController(ViewManagerModel viewManagerModel,
                                                                   DialogflowViewModel dialogflowViewModel,
-                                                                  DAOFacade userDataAccessObject) {
+                                                                  DialogflowUserDataAccessInterface userDataAccessObject) {
         DialogflowOutputBoundary outputBoundary = new DialogflowPresenter(viewManagerModel, dialogflowViewModel);
         DialogflowInputBoundary inputInteractor = new DialogflowInteractor(userDataAccessObject, outputBoundary);
 
