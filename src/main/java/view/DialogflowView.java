@@ -116,7 +116,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     public void propertyChange(PropertyChangeEvent evt) {
         DialogflowState state = (DialogflowState) evt.getNewValue();
         username = state.getUsername();
-        chatArea.append(state.getResponse() + "\n");
+        String newResponse = state.getResponse();
+        String oldResponse = chatArea.getText();
+        chatArea.append(oldResponse + "\n"+ newResponse);
         System.out.println(state.getUsername());
         System.out.println("property changed dialogflowView");
         buttonPanel.removeAll();

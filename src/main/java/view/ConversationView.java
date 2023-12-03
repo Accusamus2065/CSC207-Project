@@ -95,7 +95,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
                 if (message.getSender().equals(sender)) {
                     chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
                 } else {
-                    chatArea.append("\t\t\t\t\t" + message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
+                    chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
                 }
             }
         });
