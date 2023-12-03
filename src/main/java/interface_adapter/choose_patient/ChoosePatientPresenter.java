@@ -30,6 +30,7 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
         conversationRefreshState.setMessages(null);
         conversationRefreshState.setSender(response.getUsername());
         conversationRefreshState.setReceiver(response.getPatient());
+        conversationRefreshState.setIsDoctor(true);
         this.conversationRefreshViewModel.setState(conversationRefreshState); // Also need to add who I am talking to
         this.conversationRefreshViewModel.firePropertyChanged();
         this.viewManagerModel.setActiveView(conversationRefreshViewModel.getViewName());

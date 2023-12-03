@@ -15,6 +15,8 @@ public class ConversationRefreshState {
     // Receiver of the conversation
     private String receiver;
 
+    private Boolean isDoctor;
+
     // List of messages in the conversation
     private List<Message> messages;
 
@@ -87,5 +89,13 @@ public class ConversationRefreshState {
      */
     public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public void setIsDoctor(Boolean isDoctor){
+        this.isDoctor = isDoctor;
+    }
+
+    public Boolean getIsDoctor(){
+        return isDoctor;
     }
 }

@@ -19,6 +19,7 @@ public class SwapToConversationPresenter implements SwapToConversationOutputBoun
         ConversationRefreshState state = conversationRefreshViewModel.getState();
         state.setSender(sender);
         state.setReceiver(receiver);
+        state.setIsDoctor(false);
         this.conversationRefreshViewModel.setState(state);
         conversationRefreshViewModel.firePropertyChanged();
 

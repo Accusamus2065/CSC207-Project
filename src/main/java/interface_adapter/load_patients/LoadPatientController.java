@@ -1,13 +1,13 @@
-package interface_adapter.swap_views.load_patients;
+package interface_adapter.load_patients;
 
 import use_case.load_patient.LoadPatientInputBoundary;
 
 import java.util.List;
 
-public class LoadPatientsController {
+public class LoadPatientController {
     LoadPatientInputBoundary loadPatientInteractor;
 
-    public LoadPatientsController(LoadPatientInputBoundary loadPatientInteractor) {
+    public LoadPatientController(LoadPatientInputBoundary loadPatientInteractor) {
         this.loadPatientInteractor= loadPatientInteractor;
     }
 

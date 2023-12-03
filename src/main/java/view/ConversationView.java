@@ -6,6 +6,8 @@ import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshState;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.chat.save.ConversationSaveController;
+import interface_adapter.swap_views.chatbot.SwapToDialogflowController;
+import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
@@ -27,6 +29,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
 
     // Components for the ConversationView
     private JButton logOutButton;
+    private JButton backButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
@@ -45,7 +48,9 @@ public class ConversationView extends JPanel implements ActionListener, Property
     public ConversationView(ConversationRefreshViewModel viewModel,
                             SwapToLoginController swapController,
                             ConversationRefreshController refreshController,
-                            ConversationSaveController saveController) {
+                            ConversationSaveController saveController,
+                            SwapToDialogflowController swapToDialogflowController,
+                            SwapToPatientListController swapToPatientListController) {
         this.viewName = viewModel.getViewName();
         ConversationRefreshState state = viewModel.getState();
         viewModel.addPropertyChangeListener(this);
@@ -68,6 +73,24 @@ public class ConversationView extends JPanel implements ActionListener, Property
         logOutButton.addActionListener(e -> swapController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         upperPanel.add(logOutButton);
+
+        // Create Back Button
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
+        backButton.setFocusable(false);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConversationRefreshState state = viewModel.getState();
+                if(state.getIsDoctor()){
+                    swapToPatientListController.execute();
+                }else{
+                    swapToDialogflowController.execute();
+                }
+            }
+        });
+        backButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
+        upperPanel.add(backButton);
 
         // Create the chat sub-panel
         JPanel chatPanel = new JPanel();
