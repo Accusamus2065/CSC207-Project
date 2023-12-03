@@ -18,6 +18,15 @@ public class SwapToPatientUpdatePresenter implements SwapToPatientUpdateOutputBo
     public void execute(String username) {
         PatientUpdateState state = patientUpdateViewModel.getState();
         state.setUsername(username);
+        state.setError(null);
+        state.setNewUsername("");
+        state.setPassword("");
+        state.setRepeatPassword("");
+        state.setSex("");
+        state.setGender("");
+        state.setHeight(0);
+        state.setWeight(0);
+        state.setBloodType("");
         this.patientUpdateViewModel.setState(state);
         patientUpdateViewModel.firePropertyChanged();
 

@@ -25,6 +25,8 @@ public class DoctorUpdatePresenter implements DoctorUpdateOutputBoundary {
         System.out.println("Updated doctor details");
 
         LoginState loginState = loginViewModel.getState();
+        DoctorUpdateState state = doctorUpdateViewModel.getState();
+        state.setError(null);
         loginState.setError(null);
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
@@ -38,6 +40,11 @@ public class DoctorUpdatePresenter implements DoctorUpdateOutputBoundary {
     public void prepareFailView(String error) {
         DoctorUpdateState doctorUpdateState = doctorUpdateViewModel.getState();
         doctorUpdateState.setError(error);
+        doctorUpdateState.setNewUsername("");
+        doctorUpdateState.setPassword("");
+        doctorUpdateState.setRepeatPassword("");
+        doctorUpdateState.setSpecialty("");
+        doctorUpdateState.setDegree("");
         doctorUpdateViewModel.firePropertyChanged();
     }
 }

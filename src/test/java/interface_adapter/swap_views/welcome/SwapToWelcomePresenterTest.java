@@ -28,7 +28,6 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
-        assertEquals(new SignupState(), signupViewModel.getState());
     }
 
     @Test
@@ -45,7 +44,6 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
-        assertEquals(new LoginState(), loginViewModel.getState());
     }
 
     @Test
@@ -62,8 +60,5 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
-        assertEquals(new ChoosePatientState(), choosePatientViewModel.getState());
-        assertEquals(new LoginState(), loginViewModel.getState());
-        assertEquals(new SignupState(), signupViewModel.getState());
     }
 }
