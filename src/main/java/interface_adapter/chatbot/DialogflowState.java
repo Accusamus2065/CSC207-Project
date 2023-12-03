@@ -9,13 +9,23 @@ public class DialogflowState {
     private String response;
     private String username;
     private List<String> docNames;
+    private String error = null;
 
     public DialogflowState(DialogflowState copy) {
         response = copy.response;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
+
     public DialogflowState() {
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getResponse() {
@@ -25,9 +35,11 @@ public class DialogflowState {
     public void setResponse(String response) {
         this.response = response;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getUsername() {
         return username;
     }

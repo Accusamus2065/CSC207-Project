@@ -16,7 +16,8 @@ public class ChoosePatientState {
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
-    public ChoosePatientState() {}
+    public ChoosePatientState() {
+    }
 
     public String getUsername() {
         return username;
@@ -30,11 +31,16 @@ public class ChoosePatientState {
         this.patients = patients;
     }
 
-    public void setError(String error) { this.error = error;
-
+    public String getError() {
+        return error;
     }
 
-    public void setUsername(String username) {this.username = username;
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
