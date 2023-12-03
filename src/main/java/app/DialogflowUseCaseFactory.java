@@ -30,12 +30,15 @@ public class DialogflowUseCaseFactory {
         DialogflowController controller = createDialogflowController(viewManagerModel, viewModel, userDataAccessObject);
         SwapToLoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel);
         return new DialogflowView(viewModel, loginController, controller);
+
     }
 
     private static SwapToLoginController createLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
         SwapToLoginPresenter loginPresenter = new SwapToLoginPresenter(viewManagerModel, loginViewModel);
         SwapToLoginInteractor loginInteractor = new SwapToLoginInteractor(loginPresenter);
         return new SwapToLoginController(loginInteractor);
+
+
     }
 
     public static DialogflowController createDialogflowController(ViewManagerModel viewManagerModel,

@@ -5,6 +5,7 @@ import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.dialogflow.v2.*;
 
+import entity.people.DoctorUserFactory;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -12,6 +13,7 @@ import io.grpc.ManagedChannelBuilder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.HashMap;
 
 
 public class DialogflowDAOImpl {
@@ -25,7 +27,7 @@ public class DialogflowDAOImpl {
     private final IntentsClient intentsClient;
     private final Dotenv dotenv;
 
-//    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
+    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
 
     public DialogflowDAOImpl() throws IOException {
         // load credentials
@@ -47,7 +49,9 @@ public class DialogflowDAOImpl {
         intentsClient = IntentsClient.create(IntentsSettings.newBuilder().setCredentialsProvider(provider).build());
     }
 
-    public String detectIntent(String userInput) {
+
+    public List<Object> detectIntent(String userInput) {
+
         // Build the session name
         String sessionId = UUID.randomUUID().toString();
         SessionName session = SessionName.of(PROJECT_ID, sessionId);
@@ -69,14 +73,20 @@ public class DialogflowDAOImpl {
 
         // Get the response text from the result
         QueryResult queryResult = response.getQueryResult();
-        return queryResult.getIntent().getDisplayName() + "," + queryResult.getFulfillmentText();
+
+        List<Object> tuple = new ArrayList<>();
+        tuple.add(queryResult.getFulfillmentText());
+        tuple.add(getDocNames(queryResult.getIntent().getDisplayName()));
+        return tuple;
     }
 
-//    public List<String> getDoctors(String intent) {
-//        return dao.getBySpecialty(intent);
-//    }
+    private List<String> getDocNames(String intent) {
+        return dao.getBySpecialty(intent);
+    }
 
-    public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages, Map<String, List<String>> entities) {
+
+
+    public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages) {
         EntityType entityType = EntityType.newBuilder()
                 .setDisplayName("Allergy")
                 .setKind(EntityType.Kind.KIND_MAP)
@@ -119,10 +129,8 @@ public class DialogflowDAOImpl {
 
         // Create the intent
         intentsClient.createIntent(createIntentRequest);
-
-
-
     }
+
 
     public void close() {
         // Clean up resources
