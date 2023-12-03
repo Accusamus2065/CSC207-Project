@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.swap_views.chat.SwapToConversationController;
-import interface_adapter.load_patients.LoadPatientsController;
+import interface_adapter.load_patients.LoadPatientController;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientState;
@@ -25,7 +25,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                               ChoosePatientViewModel choosePatientViewModel,
                               SwapToLoginController swapToLoginController,
                               SwapToConversationController swapToConversationController,
-                              LoadPatientsController loadPatientsController,
+                              LoadPatientController loadPatientController,
                               SwapToDoctorUpdateController swapToDoctorUpdateController) {
 
         this.viewName = choosePatientViewModel.getViewName();
@@ -78,7 +78,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         midPanel.setBackground(Color.lightGray);
 
         // get a list of patients
-        List<String> patients = loadPatientsController.execute();
+        List<String> patients = loadPatientController.execute();
         // Add the buttons that will link doctor to the chat with the patients
         for (String patient : patients) {
             JButton jButton = getjButton(choosePatientController, choosePatientViewModel, patient);

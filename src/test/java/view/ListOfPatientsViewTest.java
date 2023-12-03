@@ -4,7 +4,7 @@ import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.swap_views.chat.SwapToConversationController;
-import interface_adapter.load_patients.LoadPatientsController;
+import interface_adapter.load_patients.LoadPatientController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class ListOfPatientsViewTest {
             }
         });
 
-        LoadPatientsController loadPatientsController = new LoadPatientsController(() -> {
+        LoadPatientController loadPatientController = new LoadPatientController(() -> {
             List<String> tester = new ArrayList<>();
             tester.add("Patient1");
             tester.add("Patient2");
@@ -65,7 +65,7 @@ public class ListOfPatientsViewTest {
                 choosePatientViewModel,
                 swapToLoginController,
                 swapToConversationController,
-                loadPatientsController,
+                loadPatientController,
                 swapToDoctorUpdateController);
     }
 

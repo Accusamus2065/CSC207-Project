@@ -10,7 +10,7 @@ import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.swap_views.chat.SwapToConversationController;
 import interface_adapter.swap_views.chat.SwapToConversationPresenter;
-import interface_adapter.load_patients.LoadPatientsController;
+import interface_adapter.load_patients.LoadPatientController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.login.SwapToLoginPresenter;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
@@ -48,14 +48,14 @@ public class ChoosePatientUseCaseFactory {
                 choosePatientViewModel);
 
         SwapToLoginController swapController = createSwaptoLoginUseCase(viewManagerModel, loginViewModel);
-        LoadPatientsController loadPatientsController = createLoadPatientsUseCase(userDao);
+        LoadPatientController loadPatientController = createLoadPatientsUseCase(userDao);
         SwapToDoctorUpdateController swapToDoctorUpdateController = createSwapToDoctorUpdateController(viewManagerModel, doctorUpdateViewModel);
         SwapToConversationController swapToConversationController = createSwapToConversationController(viewManagerModel, conversationViewModel);
         return new ListOfPatientsView(updateController,
                 choosePatientViewModel,
                 swapController,
                 swapToConversationController,
-                loadPatientsController,
+                loadPatientController,
                 swapToDoctorUpdateController);
     }
 
@@ -78,9 +78,9 @@ public class ChoosePatientUseCaseFactory {
         return new SwapToLoginController(swapToLoginInteractor);
     }
 
-    private static LoadPatientsController createLoadPatientsUseCase(ChoosePatientUserDataAccessInterface userDao) {
+    private static LoadPatientController createLoadPatientsUseCase(ChoosePatientUserDataAccessInterface userDao) {
         LoadPatientInputBoundary loadPatientInteractor = new LoadPatientInteractor(userDao);
-        return new LoadPatientsController(loadPatientInteractor);
+        return new LoadPatientController(loadPatientInteractor);
     }
 
     private static SwapToDoctorUpdateController createSwapToDoctorUpdateController(ViewManagerModel viewManagerModel,
