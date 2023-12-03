@@ -26,6 +26,7 @@ public class PatientUpdatePresenter implements PatientUpdateOutputBoundary {
         System.out.println("Update successful: username" + response.getUsername());
 
         LoginState loginState = loginViewModel.getState();
+        loginState.setError(null);
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();

@@ -14,12 +14,13 @@ public class ChoosePatientInteractor implements ChoosePatientInputBoundary {
         String patient = choosePatientInputData.getPatient();
 
         try {
-            ChoosePatientOutputData choosePatientOutputData = new ChoosePatientOutputData(username, patient,
-                    false);
+            ChoosePatientOutputData choosePatientOutputData =
+                    new ChoosePatientOutputData(username, patient, false);
             choosePatientPresenter.prepareSuccessView(choosePatientOutputData);
 
+        } catch (Exception e) {
+            choosePatientPresenter.prepareFailView("An error occurred. Please try again.");
         }
-        catch (Exception e) {choosePatientPresenter.prepareFailView(e.getMessage());}
     }
 
 }

@@ -27,6 +27,7 @@ public class SignupPresenter implements SignupOutputBoundary {
         System.out.println("Sign up successful: username" + response.getUsername() + " created in MongoDB");
 
         LoginState loginState = loginViewModel.getState();
+        loginState.setError(null);
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();

@@ -82,7 +82,7 @@ public class Main {
         TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, new DialogflowDAOImpl());
         views.add(trainingView, trainingView.viewName);
 
-        viewManagerModel.setActiveView(trainingView.viewName);
+        viewManagerModel.setActiveView(loginView.viewName);
 
         viewManagerModel.firePropertyChanged();
 

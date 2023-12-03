@@ -57,7 +57,6 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
 //            this.viewManagerModel.setActiveView(doctorUpdateViewModel.getViewName());
 //            this.viewManagerModel.firePropertyChanged();
 //        }
-
     }
 
     @Override
@@ -66,7 +65,5 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
         choosePatientState.setError(error);
         choosePatientViewModel.firePropertyChanged();
     }
-
-
 }
 

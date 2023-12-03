@@ -115,6 +115,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         DialogflowState state = (DialogflowState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());

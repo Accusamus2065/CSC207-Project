@@ -69,7 +69,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                     }
                 });
         // USING WRONG BUTTON DIMENSION RN
-        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
+        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -118,6 +118,9 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        ChoosePatientState state = (ChoosePatientState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }

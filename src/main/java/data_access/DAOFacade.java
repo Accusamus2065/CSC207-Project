@@ -129,9 +129,8 @@ public class DAOFacade implements
     // Instances of DAO (Data Access Object) implementations
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
-    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
     DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
-    ConvoDAOImpl convoDAOImpl = new ConvoDAOImpl();
+    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
 
     // Constructor for DAOFacade
     public DAOFacade() throws IOException {
@@ -158,19 +157,19 @@ public class DAOFacade implements
     // Interface method implementation to query messages between two users
     @Override
     public List<Message> query(String user1, String user2) {
-        return convoDAOImpl.query(user1, user2);
+        return convoDAO.query(user1, user2);
     }
 
     // Interface method implementation to delete all messages
     @Override
     public void deleteAll() {
-        convoDAOImpl.deleteAll();
+        convoDAO.deleteAll();
     }
 
     // Interface method implementation to query all messages
     @Override
     public List<Message> query() {
-        return convoDAOImpl.query();
+        return convoDAO.query();
     }
 
     // Interface method implementation to update a doctor

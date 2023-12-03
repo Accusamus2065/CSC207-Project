@@ -25,6 +25,7 @@ public class DoctorUpdatePresenter implements DoctorUpdateOutputBoundary {
         System.out.println("Updated doctor details");
 
         LoginState loginState = loginViewModel.getState();
+        loginState.setError(null);
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
