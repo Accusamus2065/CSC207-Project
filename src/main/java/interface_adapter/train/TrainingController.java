@@ -1,6 +1,4 @@
 package interface_adapter.train;
-import use_case.chatbot.DialogflowInputBoundary;
-import use_case.chatbot.DialogflowInputData;
 
 import java.util.List;
 

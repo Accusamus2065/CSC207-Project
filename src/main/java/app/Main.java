@@ -61,7 +61,6 @@ public class Main {
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
 
 
-
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, choosePatientViewModel, entityDataAccessObject);
@@ -72,13 +71,13 @@ public class Main {
         views.add(loginView, loginView.viewName);
         ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, loginViewModel, signupViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
-
-        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, entityDataAccessObject);
-
+        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, entityDataAccessObject);
         views.add(dialogflowView, dialogflowView.viewName);
+        ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, entityDataAccessObject);
+        views.add(conversationView, conversationView.viewName);
 
 
-        viewManagerModel.setActiveView(dialogflowView.viewName);
+        viewManagerModel.setActiveView(listOfPatientsView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
