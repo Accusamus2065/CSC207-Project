@@ -4,6 +4,7 @@ import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
 
+import interface_adapter.swap_views.chat.SwapToConversationController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 
 
@@ -15,29 +16,28 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "dialogflow view";
-
-    private  JButton logOutButton;
-    private  JTextArea chatArea;
-    private  JTextField messageField;
-    private  JButton sendButton;
-
+    public final String viewName;
+    private JButton logOutButton;
+    private JTextArea chatArea;
+    private JTextField messageField;
+    private JButton sendButton;
     private String username;
     private JPanel buttonPanel;
     private DialogflowController dialogflowController;
-
+    private SwapToConversationController swapController;
 
     public DialogflowView(DialogflowViewModel viewModel,
                           SwapToLoginController loginController,
-                          DialogflowController dialogflowController) {
+                          DialogflowController dialogflowController,
+                          SwapToConversationController swapController) {
+
+        this.viewName = viewModel.getViewName();
 
         this.username = viewModel.getState().getUsername();
-
-        viewModel.addPropertyChangeListener(this);
 
         this.dialogflowController = dialogflowController;
 
-        this.username = viewModel.getState().getUsername();
+        this.swapController = swapController;
 
         viewModel.addPropertyChangeListener(this);
 
@@ -90,13 +90,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
         sendButton.setPreferredSize(new Dimension(100, 40));
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for sending message
-                dialogflowController.execute(messageField.getText(), username);
-                chatArea.append(messageField.getText() + "\n");
-            }
+        sendButton.addActionListener(e -> {
+            // Your action for sending message
+            dialogflowController.execute(messageField.getText(), username);
+            chatArea.append(messageField.getText() + "\n");
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
@@ -121,18 +118,15 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());
-        System.out.println("property changed dialogflowview");
+        System.out.println("property changed dialogflowView");
         buttonPanel.removeAll();
-        for (String docName :state.getDocNames()) {
+        for (String docName : state.getDocNames()) {
             System.out.println(docName);
             JButton jButton = new JButton(docName);
-            jButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Your action for sending message
-//                    controller.execute(username, docName);
-                    chatArea.append(messageField.getText() + "\n");
-                }
+            jButton.addActionListener(e -> {
+                // Your action for sending message
+                swapController.execute(username, docName);
+                chatArea.append(messageField.getText() + "\n");
             });
             buttonPanel.add(jButton);
         }
