@@ -77,7 +77,7 @@ public class Main {
         views.add(conversationView, conversationView.viewName);
 
 
-        viewManagerModel.setActiveView(dialogflowView.viewName);
+        viewManagerModel.setActiveView(listOfPatientsView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
