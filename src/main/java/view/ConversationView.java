@@ -1,13 +1,12 @@
 package view;
 
-import app.ConvoUseCaseFactory;
-import data_access.ConvoDAOImpl;
 import entity.chat.Message;
-import interface_adapter.ViewManagerModel;
+
 import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshState;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.chat.save.ConversationSaveController;
+import interface_adapter.swap_views.login.SwapToLoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,77 +14,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.List;
 
 public class ConversationView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "conversation view";
-    private JFrame frame;
-    private JPanel panel;
+    public final String viewName;
     private JButton logOutButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
-    private String selfUsername;
 
-    public static void main(String[] args) throws IOException {
-        CardLayout cardLayout = new CardLayout();
-        // The various View objects. Only one view is visible at a time.
-        JPanel views = new JPanel(cardLayout);
+    public ConversationView(ConversationRefreshViewModel viewModel,
+                            SwapToLoginController swapController,
+                            ConversationRefreshController refreshController,
+                            ConversationSaveController saveController) {
+        this.viewName = viewModel.getViewName();
+        ConversationRefreshState state = viewModel.getState();
+        String sender = state.getSender();
+        String receiver = state.getReceiver();
+        viewModel.addPropertyChangeListener(this);
 
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-
-        ConversationView view = ConvoUseCaseFactory.create(viewManagerModel, new ConversationRefreshViewModel(), new ConvoDAOImpl(), "Marshal", "Harry");
-        System.out.println(view.viewName);
-        views.add(view, view.viewName);
-        viewManagerModel.setActiveView(view.viewName);
-        viewManagerModel.firePropertyChanged();
-        view.show();
-    }
-
-    public ConversationView(ConversationRefreshViewModel viewModel, ConversationRefreshController refreshController, ConversationSaveController saveController, String selfUsername, String otherUsername) {
-        this.selfUsername = selfUsername;
-        frame = new JFrame();
-        frame.setTitle("Chat Application");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600); // Set your desired width and height
-        frame.setLocationRelativeTo(null);
-
-// Create and do settings for main panel
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Adjust the gap between components
-        panel.setBackground(Color.lightGray);
-        panel.setPreferredSize(new Dimension(800, 500)); // Set your desired width and height
-        frame.add(panel, BorderLayout.CENTER);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Adjust the gap between components
+        this.setBackground(Color.lightGray);
+        this.setPreferredSize(new Dimension(800, 500)); // Set your desired width and height
 
 // Create the upper sub-panel
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         upperPanel.setBackground(Color.lightGray);
-        panel.add(upperPanel, BorderLayout.SOUTH);
+        this.add(upperPanel, BorderLayout.SOUTH);
 
 // Create the button for logging out
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for log out
-            }
-        });
+        logOutButton.addActionListener(e -> swapController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         upperPanel.add(logOutButton);
-
-
 
 // Create the chat sub-panel
         JPanel chatPanel = new JPanel();
         chatPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 10));
         chatPanel.setBackground(Color.lightGray);
-        panel.add(chatPanel, BorderLayout.CENTER);
+        this.add(chatPanel, BorderLayout.CENTER);
 
 // Create the chat area where messages appear
         chatArea = new JTextArea();
@@ -98,9 +68,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         messageFieldPanel.setBackground(Color.lightGray);
-        panel.add(messageFieldPanel, BorderLayout.SOUTH);
-
-
+        this.add(messageFieldPanel, BorderLayout.SOUTH);
 
 // Create the text field
         messageField = new JTextField(20);
@@ -112,42 +80,27 @@ public class ConversationView extends JPanel implements ActionListener, Property
         sendButton = new JButton("Send");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveController.executeSave(selfUsername, otherUsername, messageField.getText());
-            }
-        });
+        sendButton.addActionListener(e -> saveController.executeSave(sender, receiver, messageField.getText()));
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         messageFieldPanel.add(sendButton);
-
 
         sendButton = new JButton("Refresh");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chatArea.setText("");
-                refreshController.executeRefresh(selfUsername, otherUsername);
-                ConversationRefreshState state = viewModel.getState();
-                List<Message> list = state.getMessages();
-                for (Message message : list) {
-                    if (message.getSender().equals( selfUsername)){
-                        chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
-                    } else {
-                        chatArea.append("\t\t\t\t\t" + message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
-                    }
+        sendButton.addActionListener(e -> {
+            chatArea.setText("");
+            refreshController.executeRefresh(sender, receiver);
+            List<Message> list = state.getMessages();
+            for (Message message : list) {
+                if (message.getSender().equals(sender)) {
+                    chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
+                } else {
+                    chatArea.append("\t\t\t\t\t" + message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
                 }
-
             }
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         messageFieldPanel.add(sendButton);
-    }
-
-    public void show() {
-        frame.setVisible(true);
     }
 
     @Override

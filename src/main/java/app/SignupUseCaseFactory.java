@@ -1,10 +1,9 @@
 package app;
 
-import com.mongodb.MongoException;
-import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import entity.people.PatientUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
@@ -30,12 +29,13 @@ public class SignupUseCaseFactory {
             WelcomeViewModel welcomeViewModel,
             SignupViewModel signupViewModel,
             LoginViewModel loginViewModel,
+            ChoosePatientViewModel choosePatientViewModel,
             SignupUserDataAccessInterface userDataAccessObject
     ) {
         SignupController signupController = createUserSignupUseCase(
                 viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
         );
-        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
     }
 
@@ -56,9 +56,12 @@ public class SignupUseCaseFactory {
 
     public static SwapToWelcomeController createSwapViewsUseCase(
             ViewManagerModel viewManagerModel,
-            WelcomeViewModel welcomeViewModel
+            WelcomeViewModel welcomeViewModel,
+            LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel,
+            ChoosePatientViewModel choosePatientViewModel
     ) {
-        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }

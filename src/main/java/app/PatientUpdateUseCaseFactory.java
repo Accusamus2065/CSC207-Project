@@ -1,7 +1,6 @@
 package app;
 
 
-import data_access.DAOFacade;
 import entity.people.PatientUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
@@ -17,11 +16,12 @@ import use_case.swap_views.chatbot.SwapToDialogflowOutputBoundary;
 import use_case.update.patient.PatientUpdateInputBoundary;
 import use_case.update.patient.PatientUpdateInteractor;
 import use_case.update.patient.PatientUpdateOutputBoundary;
+import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 import view.PatientUpdateView;
 
 public class PatientUpdateUseCaseFactory {
     public static PatientUpdateView create(
-            DAOFacade daoFacade,
+            PatientUpdateUserDataAccessInterface daoFacade,
             ViewManagerModel viewManagerModel,
             PatientUpdateViewModel patientUpdateViewModel,
             DialogflowViewModel dialogflowViewModel,
@@ -32,7 +32,7 @@ public class PatientUpdateUseCaseFactory {
         return new PatientUpdateView(patientUpdateViewModel, swapToDialogflowController, updateController);
     }
 
-    private static PatientUpdateController createPatientUpdateUseCase(DAOFacade daoFacade, PatientUpdateViewModel patientUpdateViewModel, LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) {
+    private static PatientUpdateController createPatientUpdateUseCase(PatientUpdateUserDataAccessInterface daoFacade, PatientUpdateViewModel patientUpdateViewModel, LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) {
         PatientUpdateOutputBoundary patientUpdatePresenter = new PatientUpdatePresenter(loginViewModel, patientUpdateViewModel, viewManagerModel);
         PatientUserFactory patientFactory = new PatientUserFactory();
         PatientUpdateInputBoundary patientInteractor = new PatientUpdateInteractor(daoFacade, patientUpdatePresenter, patientFactory);

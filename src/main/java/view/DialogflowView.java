@@ -1,11 +1,12 @@
 package view;
 
-import app.DialogflowUseCaseFactory;
-import data_access.DAOFacade;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+
+import interface_adapter.swap_views.chat.SwapToConversationController;
+import interface_adapter.swap_views.login.SwapToLoginController;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,41 +14,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "dialogflow view";
-
+    public final String viewName;
     private JButton logOutButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
     private String username;
+    private JPanel buttonPanel;
+    private DialogflowController dialogflowController;
+    private SwapToConversationController swapController;
 
-//    public static void main(String[] args) throws IOException {
-//        System.out.println("main");
-//        CardLayout cardLayout = new CardLayout();
-//        // The various View objects. Only one view is visible at a time.
-//        JPanel views = new JPanel(cardLayout);
-//
-//        // This keeps track of and manages which view is currently showing.
-//        ViewManagerModel viewManagerModel = new ViewManagerModel();
-//        new ViewManager(views, cardLayout, viewManagerModel);
-//
-//        DialogflowView view = DialogflowUseCaseFactory.create(
-//                viewManagerModel,
-//                new DialogflowViewModel(),
-//                new DAOFacade()
-//        );
-//        System.out.println(view.viewName);
-//        views.add(view, view.viewName);
-//        viewManagerModel.setActiveView(view.viewName);
-//        viewManagerModel.firePropertyChanged();
-//    }
+    public DialogflowView(DialogflowViewModel viewModel,
+                          SwapToLoginController loginController,
+                          DialogflowController dialogflowController,
+                          SwapToConversationController swapController) {
 
-    public DialogflowView(DialogflowViewModel viewModel, DialogflowController controller) {
+        this.viewName = viewModel.getViewName();
 
         this.username = viewModel.getState().getUsername();
+
+        this.dialogflowController = dialogflowController;
+
+        this.swapController = swapController;
+
         viewModel.addPropertyChangeListener(this);
 
         // Main panel
@@ -65,12 +56,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for log out
-            }
-        });
+        logOutButton.addActionListener(e -> loginController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
 
@@ -104,27 +90,17 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
         sendButton.setPreferredSize(new Dimension(100, 40));
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for sending message
-                controller.execute(messageField.getText(), username);
-                chatArea.append(messageField.getText() + "\n");
-            }
+        sendButton.addActionListener(e -> {
+            // Your action for sending message
+            dialogflowController.execute(messageField.getText(), username);
+            chatArea.append(messageField.getText() + "\n");
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
         // Sub-panel for two buttons in the scrollable
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-        // Two buttons for the scrollable
-        JButton button1 = new JButton("Button 1");
-        JButton button2 = new JButton("Button 2");
-
-        // Add buttons to the panel
-        buttonPanel.add(button1);
-        buttonPanel.add(button2);
+        buttonPanel.setPreferredSize(new Dimension(100, 200));
 
         // Scrollable for the buttons
         JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
@@ -142,8 +118,20 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());
-
-
+        System.out.println("property changed dialogflowView");
+        buttonPanel.removeAll();
+        for (String docName : state.getDocNames()) {
+            System.out.println(docName);
+            JButton jButton = new JButton(docName);
+            jButton.addActionListener(e -> {
+                // Your action for sending message
+                swapController.execute(username, docName);
+                chatArea.append(messageField.getText() + "\n");
+            });
+            buttonPanel.add(jButton);
+        }
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 
     @Override

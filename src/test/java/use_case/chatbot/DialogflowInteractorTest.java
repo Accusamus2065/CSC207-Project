@@ -1,3 +1,4 @@
+
 package use_case.chatbot;
 
 import data_access.InMemoryUserDataAccessObject;
@@ -23,6 +24,7 @@ public class DialogflowInteractorTest {
         DialogflowInteractor dialogflowInteractor = new DialogflowInteractor(userDAO, dialogflowPresenter);
 
         DialogflowInputData inputData = new DialogflowInputData("Hello", "Marshal");
+
         dialogflowInteractor.execute(inputData);
     }
 }

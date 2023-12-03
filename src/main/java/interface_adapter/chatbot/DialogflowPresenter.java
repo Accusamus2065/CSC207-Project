@@ -17,9 +17,10 @@ public class DialogflowPresenter implements DialogflowOutputBoundary {
 
     @Override
     public void prepareSuccessView(DialogflowOutputData outputData) {
-        DialogflowState dialogflowState =  dialogflowViewModel.getState();
+        DialogflowState dialogflowState = dialogflowViewModel.getState();
         dialogflowState.setResponse(outputData.getResponse());
         dialogflowState.setUsername(outputData.getUsername());
+        dialogflowState.setDocNames(outputData.getDocNames());
         this.dialogflowViewModel.setState(dialogflowState);
         System.out.println(dialogflowState.getResponse());
         this.dialogflowViewModel.firePropertyChanged();
