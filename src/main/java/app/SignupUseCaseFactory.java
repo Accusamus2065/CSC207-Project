@@ -1,7 +1,5 @@
 package app;
 
-import com.mongodb.MongoException;
-import data_access.DAOFacade;
 import entity.people.DoctorUserFactory;
 import entity.people.PatientUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -35,7 +33,7 @@ public class SignupUseCaseFactory {
         SignupController signupController = createUserSignupUseCase(
                 viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject
         );
-        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
         return new SignupView(signupViewModel, signupController, swaptoWelcomeController);
     }
 
@@ -56,9 +54,11 @@ public class SignupUseCaseFactory {
 
     public static SwapToWelcomeController createSwapViewsUseCase(
             ViewManagerModel viewManagerModel,
-            WelcomeViewModel welcomeViewModel
+            WelcomeViewModel welcomeViewModel,
+            LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel
     ) {
-        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }

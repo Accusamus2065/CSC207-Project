@@ -7,6 +7,8 @@ import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientPresenter;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdatePresenter;
@@ -37,6 +39,8 @@ public class ChoosePatientUseCaseFactory {
                                             WelcomeViewModel welcomeViewModel,
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
+                                            LoginViewModel loginViewModel,
+                                            SignupViewModel signupViewModel,
                                             ChoosePatientUserDataAccessInterface userDao) {
         ChoosePatientController updateController = createChoosePatientUseCase(viewManagerModel,
                                                                               conversationViewModel,
@@ -44,7 +48,7 @@ public class ChoosePatientUseCaseFactory {
                                                                               doctorUpdateViewModel,
                                                                               choosePatientViewModel);
 
-        SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
         LoadPatientsController loadPatientsController = createLoadPatientsUseCase(userDao);
         SwapToDoctorUpdateController swapToDoctorUpdateController = createSwapToDoctorUpdateController(viewManagerModel,
                 doctorUpdateViewModel);
@@ -72,8 +76,10 @@ public class ChoosePatientUseCaseFactory {
     }
 
     private static SwapToWelcomeController createSwapToWelcomeUseCase(ViewManagerModel viewManagerModel,
-                                                                      WelcomeViewModel welcomeViewModel) {
-        SwapToWelcomeOutputBoundary welcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+                                                                      WelcomeViewModel welcomeViewModel,
+                                                                      LoginViewModel loginViewModel,
+                                                                      SignupViewModel signupViewModel) {
+        SwapToWelcomeOutputBoundary welcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(welcomePresenter);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }

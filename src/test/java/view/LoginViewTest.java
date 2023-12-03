@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
+import use_case.swap_views.welcome.SwapToWelcomeData;
 import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
 
 import javax.swing.*;
@@ -36,7 +37,7 @@ public class LoginViewTest {
 
         SwapToWelcomeController swapToWelcomeController = new SwapToWelcomeController(new SwapToWelcomeInputBoundary() {
             @Override
-            public void execute() {
+            public void execute(SwapToWelcomeData swapToWelcomeInputData) {
                 assert true;
             }
         });

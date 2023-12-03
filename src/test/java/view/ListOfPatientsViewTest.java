@@ -12,6 +12,7 @@ import use_case.choose_patient.ChoosePatientInputBoundary;
 import use_case.choose_patient.ChoosePatientInputData;
 import use_case.load_patient.LoadPatientInputBoundary;
 import use_case.swap_views.update.doctor.SwapToDoctorUpdateInputBoundary;
+import use_case.swap_views.welcome.SwapToWelcomeData;
 import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
 
 import javax.swing.*;
@@ -44,7 +45,7 @@ public class ListOfPatientsViewTest {
 
         SwapToWelcomeController swapToWelcomeController = new SwapToWelcomeController(new SwapToWelcomeInputBoundary() {
             @Override
-            public void execute() {
+            public void execute(SwapToWelcomeData swapToWelcomeInputData) {
                 assert true;
             }
         });
