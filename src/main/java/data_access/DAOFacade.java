@@ -93,7 +93,7 @@ public class DAOFacade implements
     }
 
     @Override
-    public String detectIntent(String userInput) {
+    public List<Object> detectIntent(String userInput) {
         return dialogflowDAO.detectIntent(userInput);
-    }
+    }   // TODO: change requried
 }

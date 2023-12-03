@@ -72,11 +72,13 @@ public class Main {
         views.add(loginView, loginView.viewName);
         ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
+
         DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, entityDataAccessObject);
+
         views.add(dialogflowView, dialogflowView.viewName);
 
 
-        viewManagerModel.setActiveView(welcomeView.viewName);
+        viewManagerModel.setActiveView(dialogflowView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

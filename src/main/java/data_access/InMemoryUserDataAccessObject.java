@@ -76,16 +76,15 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public String detectIntent(String userInput) {
-        return "Hello, how can I help you?";
-    }
+    public List<Object> detectIntent(String userInput) {
+        return null;
+    }   // TODO: needs to be changed
 
     @Override
     public void save(Message msg) {
 
     }
 
-    @Override
     public List<Message> query(String user1, String user2) {
         return null;
     }
