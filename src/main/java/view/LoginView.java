@@ -163,4 +163,3 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
     }
 }
-
