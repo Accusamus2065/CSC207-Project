@@ -47,7 +47,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         usernameInputField = new JTextField(15);
         usernameInputField.setFont(LoginViewModel.INPUT_FIELD_FONT);
         usernameInputField.setToolTipText("Enter your username");
-        usernameInputField.addActionListener(e -> {});
+        usernameInputField.addActionListener(e -> {
+        });
         JLabel usernameLabel = new JLabel(LoginViewModel.USERNAME_FIELD_LABEL);
         usernameLabel.setFont(LoginViewModel.INPUT_FIELD_FONT);
         usernameTextFieldPanel.add(usernameLabel);
@@ -63,7 +64,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         passwordInputField = new JPasswordField(15);
         passwordInputField.setFont(LoginViewModel.INPUT_FIELD_FONT);
         passwordInputField.setToolTipText("Enter your password");
-        passwordInputField.addActionListener(e -> {});
+        passwordInputField.addActionListener(e -> {
+        });
         JLabel passwordLabel = new JLabel(LoginViewModel.PASSWORD_FIELD_LABEL);
         passwordLabel.setFont(LoginViewModel.INPUT_FIELD_FONT);
         passwordTextFieldPanel.add(passwordLabel);
@@ -89,6 +91,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                         currentState.getPassword(),
                         currentState.isDoctor()
                 );
+
+                usernameInputField.setText("");
+                passwordInputField.setText("");
             }
         });
         logInButton.setPreferredSize(LoginViewModel.BUTTON_DIMENSION);
@@ -102,7 +107,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         buttonPanel.add(cancelButton);
 
-        cancelButton.addActionListener(e -> swapController.execute(this.viewName));
+        cancelButton.addActionListener(e -> {
+            swapController.execute(this.viewName);
+            usernameInputField.setText("");
+            passwordInputField.setText("");
+        });
 
 
         usernameInputField.addKeyListener(new KeyListener() {
@@ -112,10 +121,15 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
+
             @Override
-            public void keyPressed(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {
+            }
+
             @Override
-            public void keyReleased(KeyEvent e) {}});
+            public void keyReleased(KeyEvent e) {
+            }
+        });
 
         passwordInputField.addKeyListener(
                 new KeyListener() {
@@ -123,13 +137,17 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     public void keyTyped(KeyEvent e) {
                         LoginState currentState = loginViewModel.getState();
                         currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
-                        loginViewModel.setState(currentState);}
+                        loginViewModel.setState(currentState);
+                    }
 
                     @Override
-                    public void keyPressed(KeyEvent e) {}
+                    public void keyPressed(KeyEvent e) {
+                    }
 
                     @Override
-                    public void keyReleased(KeyEvent e) {}});
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
     }
 
     @Override
@@ -145,4 +163,3 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
     }
 }
-

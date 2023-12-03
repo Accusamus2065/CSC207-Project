@@ -14,6 +14,11 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The DoctorUpdateView class represents the graphical user interface for updating doctor profiles.
+ * It includes components for modifying the doctor's username, password, specialty, and degree.
+ * The view provides a button to save the changes and another button to navigate back to the patient list.
+ */
 public class DoctorUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
     private final JButton backButton;

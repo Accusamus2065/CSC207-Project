@@ -1,35 +1,3 @@
-//package interface_adapter.chat.refresh;
-//
-//import interface_adapter.ViewManagerModel;
-//import use_case.chat.refresh.ConversationRefreshOutputBoundary;
-//import use_case.chat.refresh.ConversationRefreshOutputData;
-//
-//public class ConversationRefreshPresenter implements ConversationRefreshOutputBoundary {
-//    private final ConversationRefreshViewModel conversationRefreshViewModel;
-//    private ViewManagerModel viewManagerModel;
-//
-//    public ConversationRefreshPresenter(ViewManagerModel viewManagerModel, ConversationRefreshViewModel conversationRefreshViewModel) {
-//        this.viewManagerModel = viewManagerModel;
-//        this.conversationRefreshViewModel = conversationRefreshViewModel;
-//    }
-//
-//    @Override
-//    public void prepareSuccessView(ConversationRefreshOutputData messages) {
-//        ConversationRefreshState convoRefreshState = conversationRefreshViewModel.getState();
-//        convoRefreshState.setMessages(messages.getMessages());
-//        this.conversationRefreshViewModel.setState(convoRefreshState);
-//        conversationRefreshViewModel.firePropertyChanged();
-//        System.out.println(conversationRefreshViewModel.getState().getMessages());
-//
-//        viewManagerModel.setActiveView(conversationRefreshViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
-//
-//    @Override
-//    public void prepareFailView(String error) {
-//    }
-//}
-
 package interface_adapter.chat.refresh;
 
 import interface_adapter.ViewManagerModel;
@@ -81,10 +49,10 @@ public class ConversationRefreshPresenter implements ConversationRefreshOutputBo
         // Notify observers about the property change in the view manager
         viewManagerModel.firePropertyChanged();
     }
-    /**
-     * Handles the preparation of the view in case of a failed conversation refresh.
-     *
-     * @param error The error message describing the failure.
+    /*
+      Handles the preparation of the view in case of a failed conversation refresh.
+
+      @param error The error message describing the failure.
      */
     // Implementation for handling failure view (currently empty)
     // Could include logic for displaying an error message to the user.

@@ -27,6 +27,8 @@ public class SignupPresenter implements SignupOutputBoundary {
         System.out.println("Sign up successful: username" + response.getUsername() + " created in MongoDB");
 
         LoginState loginState = loginViewModel.getState();
+        loginState.setError(null);
+        loginState.setDoctor(signupViewModel.getState().isDoctor());
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
@@ -39,6 +41,9 @@ public class SignupPresenter implements SignupOutputBoundary {
     public void prepareFailView(String error) {
         SignupState signupState = signupViewModel.getState();
         signupState.setError(error);
+        signupState.setUsername("");
+        signupState.setPassword("");
+        signupState.setRepeatPassword("");
         signupViewModel.firePropertyChanged();
     }
 }

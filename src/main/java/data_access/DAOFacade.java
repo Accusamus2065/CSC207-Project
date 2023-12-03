@@ -1,103 +1,3 @@
-//package data_access;
-//
-//import entity.chat.Message;
-//import entity.people.*;
-//import use_case.chat.ConversationUserDataAccessInterface;
-//import use_case.chatbot.DialogflowUserDataAccessInterface;
-//import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
-//import use_case.login.LoginUserDataAccessInterface;
-//import use_case.signup.SignupUserDataAccessInterface;
-//import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
-//import use_case.update.patient.PatientUpdateUserDataAccessInterface;
-//
-//import java.io.IOException;
-//import java.util.List;
-//
-//public class DAOFacade implements
-//        SignupUserDataAccessInterface,
-//        LoginUserDataAccessInterface,
-//        DoctorUpdateUserDataAccessInterface,
-//        PatientUpdateUserDataAccessInterface,
-//        ChoosePatientUserDataAccessInterface,
-//        DialogflowUserDataAccessInterface,
-//        ConversationUserDataAccessInterface {
-//    PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
-//    DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
-//    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
-//    DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
-//    ConvoDAOImpl convoDAOImpl = new ConvoDAOImpl();
-//
-//    public DAOFacade() throws IOException {
-//    }
-//
-//    @Override
-//    public void save(IPatient user) {
-//        patientDAO.save(user);
-//    }
-//
-//    @Override
-//    public void save(IDoctor user) {
-//        doctorDAO.save(user);
-//    }
-//
-//    public void save(Message msg) {
-//        convoDAO.save(msg);
-//    }
-//
-//    @Override
-//    public List<Message> query(String user1, String user2) {
-//        return convoDAOImpl.query(user1, user2);
-//    }
-//
-//    @Override
-//    public void deleteAll() {
-//        convoDAOImpl.deleteAll();
-//    }
-//
-//    @Override
-//    public List<Message> query() {
-//        return convoDAOImpl.query();
-//    }
-//
-//    @Override
-//    public void update(String oldUsername, IDoctor user) {
-//        doctorDAO.update(oldUsername, user);
-//    }
-//
-//    @Override
-//    public void update(String oldUsername, IPatient user) {
-//        patientDAO.update(oldUsername, user);
-//    }
-//
-//    public boolean existsByName(boolean isDoctor, String identifier) {
-//        if (isDoctor) {
-//            return doctorDAO.existsByName(identifier);
-//        } else {
-//            return patientDAO.existsByName(identifier);
-//        }
-//    }
-//
-//    @Override
-//    public IDoctor getDoctor(String username) {
-//        return doctorDAO.get(username);
-//    }
-//
-//    @Override
-//    public IPatient getPatient(String username) {
-//        return patientDAO.get(username);
-//    }
-//
-//    @Override
-//    public List<String> getPatientList() {
-//        return patientDAO.getPatientList();
-//    }
-//
-//    @Override
-//    public List<Object> detectIntent(String userInput) {
-//        return dialogflowDAO.detectIntent(userInput);
-//    }   // TODO: change requried
-//}
-
 package data_access;
 
 import entity.chat.Message;
@@ -129,9 +29,8 @@ public class DAOFacade implements
     // Instances of DAO (Data Access Object) implementations
     PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
     DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
-    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
     DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
-    ConvoDAOImpl convoDAOImpl = new ConvoDAOImpl();
+    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
 
     // Constructor for DAOFacade
     public DAOFacade() throws IOException {
@@ -158,19 +57,19 @@ public class DAOFacade implements
     // Interface method implementation to query messages between two users
     @Override
     public List<Message> query(String user1, String user2) {
-        return convoDAOImpl.query(user1, user2);
+        return convoDAO.query(user1, user2);
     }
 
     // Interface method implementation to delete all messages
     @Override
     public void deleteAll() {
-        convoDAOImpl.deleteAll();
+        convoDAO.deleteAll();
     }
 
     // Interface method implementation to query all messages
     @Override
     public List<Message> query() {
-        return convoDAOImpl.query();
+        return convoDAO.query();
     }
 
     // Interface method implementation to update a doctor

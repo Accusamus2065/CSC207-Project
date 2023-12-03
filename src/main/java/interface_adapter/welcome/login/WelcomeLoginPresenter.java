@@ -19,6 +19,8 @@ public class WelcomeLoginPresenter implements WelcomeLoginOutputBoundary {
     public void swapViews(WelcomeOutputData welcomeOutputData) {
         LoginState loginState = loginViewModel.getState();
         loginState.setDoctor(welcomeOutputData.isDoctor());
+        loginState.setUsername("");
+        loginState.setPassword("");
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
 

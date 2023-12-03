@@ -16,16 +16,19 @@ public class DialogflowInteractor implements DialogflowInputBoundary {
 
     @Override
     public void execute(DialogflowInputData data) {
-        List<Object> tuple = dao.detectIntent(data.getQuery());
-        String response = (String) tuple.get(0);
-        System.out.println(response);
-        List<String> docNames = (List<String>) tuple.get(1);
-        System.out.println(docNames);
-        String username = (String) data.getUsername();
-        DialogflowOutputData outputData = new DialogflowOutputData(
-                response, username, docNames
-        );
-
-        presenter.prepareSuccessView(outputData);
+        try {
+            List<Object> tuple = dao.detectIntent(data.getQuery());
+            String response = (String) tuple.get(0);
+            System.out.println(response);
+            List<String> docNames = (List<String>) tuple.get(1);
+            System.out.println(docNames);
+            String username = data.getUsername();
+            DialogflowOutputData outputData = new DialogflowOutputData(
+                    response, username, docNames
+            );
+            presenter.prepareSuccessView(outputData);
+        } catch (Exception e) {
+            presenter.prepareFailView("An error occurred. Please try again.");
+        }
     }
 }

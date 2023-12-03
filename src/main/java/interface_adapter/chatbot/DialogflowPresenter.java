@@ -1,6 +1,7 @@
 package interface_adapter.chatbot;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginState;
 import use_case.chatbot.DialogflowOutputBoundary;
 import use_case.chatbot.DialogflowOutputData;
 
@@ -18,6 +19,7 @@ public class DialogflowPresenter implements DialogflowOutputBoundary {
     @Override
     public void prepareSuccessView(DialogflowOutputData outputData) {
         DialogflowState dialogflowState = dialogflowViewModel.getState();
+        dialogflowState.setError(null);
         dialogflowState.setResponse(outputData.getResponse());
         dialogflowState.setUsername(outputData.getUsername());
         dialogflowState.setDocNames(outputData.getDocNames());
@@ -31,6 +33,8 @@ public class DialogflowPresenter implements DialogflowOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-
+        DialogflowState state = dialogflowViewModel.getState();
+        state.setError(error);
+        dialogflowViewModel.firePropertyChanged();
     }
 }

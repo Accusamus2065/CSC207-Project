@@ -17,10 +17,25 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+/**
+ * The ListOfPatientsView class represents the graphical user interface for displaying a list of patients.
+ * It includes buttons for various actions such as logging out, modifying the doctor's profile,
+ * and selecting a patient to start a conversation.
+ */
 public class ListOfPatientsView extends JPanel implements ActionListener, PropertyChangeListener {
     public String viewName;
     private final JButton modifyButton;
 
+    /**
+     * Constructor for ListOfPatientsView.
+     *
+     * @param choosePatientController        The controller for choosing a patient.
+     * @param choosePatientViewModel         The view model providing the state for the view.
+     * @param swapToLoginController          The controller for swapping to the login view.
+     * @param swapToConversationController   The controller for swapping to the conversation view.
+     * @param loadPatientsController         The controller for loading the list of patients.
+     * @param swapToDoctorUpdateController   The controller for swapping to the doctor update view.
+     */
     public ListOfPatientsView(ChoosePatientController choosePatientController,
                               ChoosePatientViewModel choosePatientViewModel,
                               SwapToLoginController swapToLoginController,
@@ -69,7 +84,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                     }
                 });
         // USING WRONG BUTTON DIMENSION RN
-        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);  //TODO NEED BUTTON DIMENSION IN CONVOVIEWMODEL
+        modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(modifyButton);
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
@@ -95,6 +110,14 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         this.add(scrollPane);
     }
 
+    /**
+     * Helper method to create and configure a JButton for a patient.
+     *
+     * @param choosePatientController The controller for choosing a patient.
+     * @param choosePatientViewModel  The view model providing the state for the view.
+     * @param p                       The name of the patient.
+     * @return The configured JButton for the patient.
+     */
     @NotNull
     private static JButton getjButton(ChoosePatientController choosePatientController, ChoosePatientViewModel choosePatientViewModel, String p) {
         JButton button = new JButton(p);
@@ -118,6 +141,9 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        ChoosePatientState state = (ChoosePatientState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
+        }
     }
 }

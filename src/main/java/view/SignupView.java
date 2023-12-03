@@ -167,6 +167,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                 currentState.getRepeatPassword(),
                                 currentState.isDoctor()
                         );
+                        usernameInputField.setText("");
+                        passwordInputField.setText("");
+                        repeatPasswordInputField.setText("");
                     }
                 }
         );
@@ -177,7 +180,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
         buttonPanel.add(cancelButton);
-        cancelButton.addActionListener(e -> swapController.execute(this.viewName));
+        cancelButton.addActionListener(e -> {
+            swapController.execute(this.viewName);
+            usernameInputField.setText("");
+            passwordInputField.setText("");
+            repeatPasswordInputField.setText("");
+        });
     }
 
     @Override

@@ -1,22 +1,3 @@
-//package use_case.chat;
-//
-//import entity.chat.Message;
-//
-//import java.util.List;
-//
-//public interface ConversationUserDataAccessInterface {
-//
-//    void save(Message msg);
-//
-//    List<Message> query(String user1, String user2);
-//
-//    void deleteAll(); // TODO: deleteAll()
-//
-//    List<Message> query();
-//
-//}
-//
-
 package use_case.chat;
 
 import entity.chat.Message;
