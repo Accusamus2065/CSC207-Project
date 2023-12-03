@@ -10,7 +10,6 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import use_case.swap_views.welcome.SwapToWelcomeData;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
-import view.ListOfPatientsView;
 
 public class SwapToWelcomePresenter implements SwapToWelcomeOutputBoundary {
     private final ViewManagerModel viewManagerModel;
@@ -36,7 +35,11 @@ public class SwapToWelcomePresenter implements SwapToWelcomeOutputBoundary {
         switch (swapToWelcomeData.getViewName()) {
             case "log in": loginViewModel.setState(new LoginState());
             case "sign up": signupViewModel.setState(new SignupState());
-            case "choose patient": choosePatientViewModel.setState(new ChoosePatientState());
+            case "choose patient": {
+                choosePatientViewModel.setState(new ChoosePatientState());
+                loginViewModel.setState(new LoginState());
+                signupViewModel.setState(new SignupState());
+            }
         }
 
         viewManagerModel.setActiveView(welcomeViewModel.getViewName());
