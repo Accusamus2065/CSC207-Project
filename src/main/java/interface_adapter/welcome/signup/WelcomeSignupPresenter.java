@@ -19,6 +19,9 @@ public class WelcomeSignupPresenter implements WelcomeSignupOutputBoundary {
     public void swapViews(WelcomeOutputData welcomeOutputData) {
         SignupState signupState = signupViewModel.getState();
         signupState.setDoctor(welcomeOutputData.isDoctor());
+        signupState.setUsername("");
+        signupState.setPassword("");
+        signupState.setRepeatPassword("");
         this.signupViewModel.setState(signupState);
         signupViewModel.firePropertyChanged();
 
