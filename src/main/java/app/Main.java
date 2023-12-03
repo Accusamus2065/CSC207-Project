@@ -72,7 +72,7 @@ public class Main {
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, dialogflowViewModel, choosePatientViewModel, loginViewModel, signupViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
-        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, welcomeViewModel, docUpdateViewModel, choosePatientViewModel, loginViewModel, signupViewModel, entityDataAccessObject);
+        ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, docUpdateViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
         DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, entityDataAccessObject);
         views.add(dialogflowView, dialogflowView.viewName);
