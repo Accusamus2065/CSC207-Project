@@ -19,9 +19,11 @@ import static com.mongodb.client.model.Filters.eq;
 public class DoctorDAOImpl {
     private final Map<String, IDoctor> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
+    private final String databaseName;
 
-    public DoctorDAOImpl(DoctorUserFactory doctorUserFactory) {
-        MongoDatabase database = mongoClient.getDatabase("entities");
+    public DoctorDAOImpl(DoctorUserFactory doctorUserFactory, String databaseName) {
+        this.databaseName = databaseName;
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection("doctors");
         FindIterable<Document> findIterable = collection.find();
         for (Document document : findIterable) {
@@ -47,7 +49,7 @@ public class DoctorDAOImpl {
     }
 
     private void save() {
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> patients = database.getCollection("doctors");
         for (IDoctor doctor : accounts.values()) {
             Document document = new Document("username", doctor.getUsername())
@@ -65,7 +67,7 @@ public class DoctorDAOImpl {
 
     public List<String> getBySpecialty(String intent) {
 
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection("doctors");
         FindIterable<Document> findIterable = collection.find(new Document("specialty", intent));
         List list = new ArrayList();
@@ -82,7 +84,7 @@ public class DoctorDAOImpl {
     }
 
     public void updateDAO(String oldUsername, IDoctor user) {
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> doctors = database.getCollection("doctors");
 
         // this should return a single document since we assume oldUsername exists in the database as a username,

@@ -29,14 +29,18 @@ public class DAOFacade implements
         TrainingUserDataAccessInterface {
 
     // Instances of DAO (Data Access Object) implementations
-    PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
-    DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
-    DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
-    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
+    PatientDAOImpl patientDAO;
+    DoctorDAOImpl doctorDAO;
+    DialogflowDAOImpl dialogflowDAO;
+    ConvoDAOImpl convoDAO;
 
     // Constructor for DAOFacade
-    public DAOFacade() throws IOException {
+    public DAOFacade(String databaseName) throws IOException {
         // Constructor logic (may initialize DAO instances)
+        patientDAO = new PatientDAOImpl(new PatientUserFactory(), "test");
+        doctorDAO = new DoctorDAOImpl(new DoctorUserFactory(), "test");
+        dialogflowDAO = new DialogflowDAOImpl("test");
+        convoDAO = new ConvoDAOImpl("test");
     }
 
     // Interface method implementation to save a patient

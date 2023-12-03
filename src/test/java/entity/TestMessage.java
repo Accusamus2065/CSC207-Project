@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.List;
 
 public class TestMessage {
-    ConvoDAOImpl dao = new ConvoDAOImpl();
+    ConvoDAOImpl dao = new ConvoDAOImpl("test");
 
     @Test
     public void testStoreMessage() {

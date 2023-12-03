@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class DoctorDAOImplTest {
     private final DoctorUserFactory factory = new DoctorUserFactory();
-    private final DoctorDAOImpl doctorDAO = new DoctorDAOImpl(factory);
+    private final DoctorDAOImpl doctorDAO = new DoctorDAOImpl(factory, "test");
     private final MongoClient mongoClient = MongoFactory.setUpMongoClient();
     private final MongoDatabase database = mongoClient.getDatabase("test");
     private final MongoCollection<Document> doctors = database.getCollection("doctors");

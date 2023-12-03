@@ -40,7 +40,7 @@ public class Main {
         DAOFacade entityDataAccessObject;
         try {
             System.out.println("Connecting to MongoDB database...");
-            entityDataAccessObject = new DAOFacade();
+            entityDataAccessObject = new DAOFacade("entities");
             System.out.println("Connected to MongoDB database");
         } catch (MongoException e) {
             System.out.println("Couldn't connect to MongoDB database, aborting application...");
