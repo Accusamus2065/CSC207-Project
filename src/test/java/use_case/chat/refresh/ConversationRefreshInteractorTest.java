@@ -19,17 +19,14 @@ public class ConversationRefreshInteractorTest {
         ConversationUserDataAccessInterface dataAccessObject = new InMemoryConversationDataAccessObject();
         Message message = new Message(SENDER, RECEIVER, CONTENT, DATE);
         dataAccessObject.save(message);
-        ConversationRefreshOutputBoundary presenter = new ConversationRefreshOutputBoundary() {
-            @Override
-            public void prepareSuccessView(ConversationRefreshOutputData messages) {
-                assertEquals(1, messages.getMessages().size());
-                Message message = messages.getMessages().get(0);
+        ConversationRefreshOutputBoundary presenter = messages -> {
+            assertEquals(1, messages.getMessages().size());
+            Message message1 = messages.getMessages().get(0);
 
-                assertEquals(SENDER, message.getSender());
-                assertEquals(RECEIVER, message.getReceiver());
-                assertEquals(CONTENT, message.getContent());
-                assertEquals(DATE, message.getTimestamp());
-            }
+            assertEquals(SENDER, message1.getSender());
+            assertEquals(RECEIVER, message1.getReceiver());
+            assertEquals(CONTENT, message1.getContent());
+            assertEquals(DATE, message1.getTimestamp());
         };
         ConversationRefreshInputData inputData = new ConversationRefreshInputData(SENDER, RECEIVER);
 
