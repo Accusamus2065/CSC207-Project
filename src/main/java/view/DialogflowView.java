@@ -18,6 +18,7 @@ import java.beans.PropertyChangeListener;
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
     private JButton logOutButton;
+    private JButton modifyButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
@@ -48,7 +49,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 
         // Upper sub-panel for logout button
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 472, 10));
         upperPanel.setBackground(Color.lightGray);
         this.add(upperPanel, BorderLayout.SOUTH);
 
@@ -59,6 +60,13 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(e -> loginController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
+
+        modifyButton = new JButton("Modify Profile");
+        modifyButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
+        modifyButton.setFocusable(false);
+//        modifyButton.addActionListener(e -> loginController.execute());
+        modifyButton.setPreferredSize(new Dimension(150, 40));
+        upperPanel.add(modifyButton);
 
         // Chat sub-panel
         JPanel chatPanel = new JPanel();
