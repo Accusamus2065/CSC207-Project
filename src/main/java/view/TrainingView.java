@@ -163,10 +163,10 @@ public class TrainingView extends JPanel implements ActionListener, PropertyChan
         TrainingState state = (TrainingState) evt.getNewValue();
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
+        } else {
+            JOptionPane.showMessageDialog(this, "Added intent " + state.getIntent() + " successfully");
         }
-        JOptionPane.showMessageDialog(this, "Added intent" + state.getIntent() + "successfully");
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
