@@ -8,7 +8,7 @@ public class SwapToWelcomeInteractor implements SwapToWelcomeInputBoundary {
     }
 
     @Override
-    public void execute() {
-        swapToWelcomePresenter.execute();
+    public void execute(SwapToWelcomeData swap) {
+        swapToWelcomePresenter.execute(swap);
     }
 }

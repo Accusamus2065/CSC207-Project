@@ -49,7 +49,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         JButton logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> swapToWelcomeController.execute());
+        logOutButton.addActionListener(e -> swapToWelcomeController.execute(this.viewName));
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 

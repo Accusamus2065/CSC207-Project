@@ -10,6 +10,12 @@ import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import org.junit.Before;
 import org.junit.Test;
 
+import use_case.choose_patient.ChoosePatientInputBoundary;
+import use_case.choose_patient.ChoosePatientInputData;
+import use_case.load_patient.LoadPatientInputBoundary;
+import use_case.swap_views.update.doctor.SwapToDoctorUpdateInputBoundary;
+import use_case.swap_views.welcome.SwapToWelcomeData;
+import use_case.swap_views.welcome.SwapToWelcomeInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +42,7 @@ public class ListOfPatientsViewTest {
         state.setUsername("TestUsername");
         username = choosePatientViewModel.getState().getUsername();
 
-        SwapToWelcomeController swapToWelcomeController = new SwapToWelcomeController(() -> {
+        SwapToWelcomeController swapToWelcomeController = new SwapToWelcomeController((SwapToWelcomeData swapToWelcomeInputData) -> {
             assert true;
         });
 
