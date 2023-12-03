@@ -2,7 +2,6 @@ package app;
 
 import com.mongodb.MongoException;
 
-import data_access.DAOFacade;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
@@ -10,6 +9,7 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import interface_adapter.swap_views.welcome.SwapToWelcomePresenter;
 import interface_adapter.welcome.WelcomeViewModel;
@@ -37,6 +37,7 @@ public class LoginUseCaseFactory {
             DialogflowViewModel dialogflowViewModel,
             ChoosePatientViewModel choosePatientViewModel,
             LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
         LoginController loginController = createLoginUseCase(
                 viewManagerModel,
@@ -45,7 +46,7 @@ public class LoginUseCaseFactory {
                 loginViewModel,
                 userDataAccessObject
         );
-        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         return new LoginView(loginViewModel, loginController, swaptoWelcomeController);
     }
 
@@ -65,9 +66,12 @@ public class LoginUseCaseFactory {
 
     public static SwapToWelcomeController createSwapViewsUseCase(
             ViewManagerModel viewManagerModel,
-            WelcomeViewModel welcomeViewModel
+            WelcomeViewModel welcomeViewModel,
+            LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel,
+            ChoosePatientViewModel choosePatientViewModel
     ) {
-        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }

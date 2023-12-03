@@ -177,7 +177,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(SignupViewModel.BUTTON_DIMENSION);
         buttonPanel.add(cancelButton);
-        cancelButton.addActionListener(e -> swapController.execute());
+        cancelButton.addActionListener(e -> swapController.execute(this.viewName));
     }
 
     @Override

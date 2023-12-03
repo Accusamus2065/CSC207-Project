@@ -38,7 +38,7 @@ public class ListOfPatientsView extends JPanel {
         JButton logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> swapController.execute());
+        logOutButton.addActionListener(e -> swapController.execute(this.viewName));
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 
