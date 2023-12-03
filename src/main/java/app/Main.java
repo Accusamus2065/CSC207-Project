@@ -70,6 +70,8 @@ public class Main {
         views.add(welcomeView, welcomeView.viewName);
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(signupView, signupView.viewName);
+        PatientUpdateView patientUpdateView = PatientUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, patientUpdateViewModel, dialogflowViewModel, loginViewModel);
+        views.add(patientUpdateView, patientUpdateView.viewName);
         DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel, loginViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, dialogflowViewModel, choosePatientViewModel, loginViewModel, signupViewModel, entityDataAccessObject);

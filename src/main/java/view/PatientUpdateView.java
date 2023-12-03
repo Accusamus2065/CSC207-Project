@@ -354,6 +354,14 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
                     currentState.getWeight(),
                     currentState.getBloodType()
             );
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
+            sex.setText("");
+            gender.setText("");
+            height.setText("");
+            weight.setText("");
+            bloodType.setText("");
         });
     }
 
