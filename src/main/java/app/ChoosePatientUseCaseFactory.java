@@ -48,7 +48,7 @@ public class ChoosePatientUseCaseFactory {
                                                                               doctorUpdateViewModel,
                                                                               choosePatientViewModel);
 
-        SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+        SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         LoadPatientsController loadPatientsController = createLoadPatientsUseCase(userDao);
         SwapToDoctorUpdateController swapToDoctorUpdateController = createSwapToDoctorUpdateController(viewManagerModel,
                 doctorUpdateViewModel);
@@ -78,8 +78,9 @@ public class ChoosePatientUseCaseFactory {
     private static SwapToWelcomeController createSwapToWelcomeUseCase(ViewManagerModel viewManagerModel,
                                                                       WelcomeViewModel welcomeViewModel,
                                                                       LoginViewModel loginViewModel,
-                                                                      SignupViewModel signupViewModel) {
-        SwapToWelcomeOutputBoundary welcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+                                                                      SignupViewModel signupViewModel,
+                                                                      ChoosePatientViewModel choosePatientViewModel) {
+        SwapToWelcomeOutputBoundary welcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(welcomePresenter);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }

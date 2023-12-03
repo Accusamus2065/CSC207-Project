@@ -1,6 +1,7 @@
 package interface_adapter.swap_views.welcome;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
@@ -16,9 +17,10 @@ public class SwapToWelcomePresenterTest {
         SignupViewModel signupViewModel = new SignupViewModel();
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
+        ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         viewManagerModel.setActiveView(signupViewModel.getViewName());
 
-        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeData data = new SwapToWelcomeData(signupViewModel.getViewName());
         swaptoWelcomePresenter.execute(data);
 
@@ -31,9 +33,10 @@ public class SwapToWelcomePresenterTest {
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
+        ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
 
-        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+        SwapToWelcomePresenter swaptoWelcomePresenter = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeData data = new SwapToWelcomeData(loginViewModel.getViewName());
         swaptoWelcomePresenter.execute(data);
 
