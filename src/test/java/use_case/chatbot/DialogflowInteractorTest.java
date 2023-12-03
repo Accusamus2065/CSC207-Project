@@ -1,19 +1,30 @@
 
 package use_case.chatbot;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.InMemoryDialogFlowDataAccessObject;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class DialogflowInteractorTest {
+    private static final String INTENT = "TestIntent";
+    private static final String RESPONSE = "TestResponse";
+    private static final List<String> DOCTORS = List.of("testDoctor1", "testDoctor2");
+    private static final String USERNAME = "TestUsername";
     @Test
     public void DialogflowSuccessfulTest() {
-        DialogflowUserDataAccessInterface userDAO = new InMemoryUserDataAccessObject();
+        InMemoryDialogFlowDataAccessObject intentDAO = new InMemoryDialogFlowDataAccessObject(USERNAME);
+        List<Object> objectList = List.of(RESPONSE, DOCTORS);
+        intentDAO.responses.put(List.of(INTENT, USERNAME), objectList);
+
         DialogflowOutputBoundary dialogflowPresenter = new DialogflowOutputBoundary() {
             @Override
             public void prepareSuccessView(DialogflowOutputData messages) {
-                assertEquals("Hello, how can I help you?", messages.getResponse());
+                assertEquals(DOCTORS, messages.getDocNames());
+                assertEquals(RESPONSE, messages.getResponse());
+                assertEquals(USERNAME, messages.getUsername());
             }
 
             @Override
@@ -21,9 +32,9 @@ public class DialogflowInteractorTest {
                 fail("Test expected to pass.");
             }
         };
-        DialogflowInteractor dialogflowInteractor = new DialogflowInteractor(userDAO, dialogflowPresenter);
+        DialogflowInteractor dialogflowInteractor = new DialogflowInteractor(intentDAO, dialogflowPresenter);
 
-        DialogflowInputData inputData = new DialogflowInputData("Hello", "Marshal");
+        DialogflowInputData inputData = new DialogflowInputData(INTENT, USERNAME);
 
         dialogflowInteractor.execute(inputData);
     }

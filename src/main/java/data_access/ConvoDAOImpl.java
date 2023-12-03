@@ -24,6 +24,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
  * Handles CRUD operations for chat messages in a MongoDB database.
  */
 public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
+    private final String databaseName;
 
     // Method to create MongoClientSettings with connection settings
     @NotNull
@@ -45,8 +46,14 @@ public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
                 .build();
     }
 
+    // Constructor for ConvoDAOImpl
+    public ConvoDAOImpl(String databaseName) throws MongoException {
+        // Constructor logic
+        this.databaseName = databaseName;
+    }
+
     // Method to connect to MongoDB and set up codec registry
-    private static MongoDatabase connectToDatabase() {
+    private MongoDatabase connectToDatabase() {
         // Get MongoClientSettings
         MongoClientSettings settings = getMongoClientSettings();
         // Create MongoClient with specified settings
@@ -58,12 +65,7 @@ public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
                 fromProviders(PojoCodecProvider.builder().automatic(true).build())
         );
         // Get the database and apply the codec registry
-        return mongoClient.getDatabase("entities").withCodecRegistry(pojoCodecRegistry);
-    }
-
-    // Constructor for ConvoDAOImpl
-    public ConvoDAOImpl() throws MongoException {
-        // Constructor logic
+        return mongoClient.getDatabase(databaseName).withCodecRegistry(pojoCodecRegistry);
     }
 
     // Implementation of interface method to save a message

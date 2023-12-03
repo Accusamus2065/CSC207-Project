@@ -15,9 +15,9 @@ import static com.mongodb.client.model.Filters.eq;
 import static org.junit.Assert.*;
 
 public class PatientDAOImplTest {
-    private final PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
+    private final PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory(), "test");
     private final MongoClient mongoClient = MongoFactory.setUpMongoClient();
-    private final MongoDatabase database = mongoClient.getDatabase("entities");
+    private final MongoDatabase database = mongoClient.getDatabase("test");
     private final MongoCollection<Document> patients = database.getCollection("patients");
     private static final String USERNAME = "testUsername";
     private static final String PASSWORD = "password";

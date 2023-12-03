@@ -2,7 +2,6 @@ package app;
 
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
-import data_access.DialogflowDAOImpl;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
@@ -11,6 +10,7 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.train.TrainingViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
+import interface_adapter.update.patient.PatientUpdateViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import view.*;
 
@@ -40,7 +40,7 @@ public class Main {
         DAOFacade entityDataAccessObject;
         try {
             System.out.println("Connecting to MongoDB database...");
-            entityDataAccessObject = new DAOFacade();
+            entityDataAccessObject = new DAOFacade("entities");
             System.out.println("Connected to MongoDB database");
         } catch (MongoException e) {
             System.out.println("Couldn't connect to MongoDB database, aborting application...");
@@ -57,29 +57,32 @@ public class Main {
         WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
+        PatientUpdateViewModel patientUpdateViewModel = new PatientUpdateViewModel();
         DoctorUpdateViewModel docUpdateViewModel = new DoctorUpdateViewModel();
         ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
-        TrainingViewModel  trainingViewModel = new TrainingViewModel();
+        TrainingViewModel trainingViewModel = new TrainingViewModel();
 
 
         WelcomeView welcomeView = WelcomeUseCaseFactory.create(welcomeViewModel, signupViewModel, loginViewModel, viewManagerModel);
         views.add(welcomeView, welcomeView.viewName);
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, welcomeViewModel, signupViewModel, loginViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(signupView, signupView.viewName);
+        PatientUpdateView patientUpdateView = PatientUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, patientUpdateViewModel, dialogflowViewModel, loginViewModel);
+        views.add(patientUpdateView, patientUpdateView.viewName);
         DoctorUpdateView docUpdateView = DoctorUpdateUseCaseFactory.create(entityDataAccessObject, viewManagerModel, docUpdateViewModel, choosePatientViewModel, loginViewModel);
         views.add(docUpdateView, docUpdateView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, welcomeViewModel, dialogflowViewModel, choosePatientViewModel, loginViewModel, signupViewModel, entityDataAccessObject);
         views.add(loginView, loginView.viewName);
         ListOfPatientsView listOfPatientsView = ChoosePatientUseCaseFactory.create(viewManagerModel, conversationViewModel, docUpdateViewModel, choosePatientViewModel, loginViewModel, entityDataAccessObject);
         views.add(listOfPatientsView, listOfPatientsView.viewName);
-        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, entityDataAccessObject);
+        DialogflowView dialogflowView = DialogflowUseCaseFactory.create(viewManagerModel, loginViewModel, dialogflowViewModel, conversationViewModel, patientUpdateViewModel, entityDataAccessObject);
         views.add(dialogflowView, dialogflowView.viewName);
         ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, dialogflowViewModel, choosePatientViewModel, entityDataAccessObject);
         views.add(conversationView, conversationView.viewName);
 
-        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, new DialogflowDAOImpl());
+        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, entityDataAccessObject);
         views.add(trainingView, trainingView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);

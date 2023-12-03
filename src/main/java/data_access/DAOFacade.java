@@ -7,6 +7,7 @@ import use_case.chatbot.DialogflowUserDataAccessInterface;
 import use_case.choose_patient.ChoosePatientUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import use_case.train.TrainingUserDataAccessInterface;
 import use_case.update.doctor.DoctorUpdateUserDataAccessInterface;
 import use_case.update.patient.PatientUpdateUserDataAccessInterface;
 
@@ -24,17 +25,22 @@ public class DAOFacade implements
         PatientUpdateUserDataAccessInterface,
         ChoosePatientUserDataAccessInterface,
         DialogflowUserDataAccessInterface,
-        ConversationUserDataAccessInterface {
+        ConversationUserDataAccessInterface,
+        TrainingUserDataAccessInterface {
 
     // Instances of DAO (Data Access Object) implementations
-    PatientDAOImpl patientDAO = new PatientDAOImpl(new PatientUserFactory());
-    DoctorDAOImpl doctorDAO = new DoctorDAOImpl(new DoctorUserFactory());
-    DialogflowDAOImpl dialogflowDAO = new DialogflowDAOImpl();
-    ConvoDAOImpl convoDAO = new ConvoDAOImpl();
+    PatientDAOImpl patientDAO;
+    DoctorDAOImpl doctorDAO;
+    DialogflowDAOImpl dialogflowDAO;
+    ConvoDAOImpl convoDAO;
 
     // Constructor for DAOFacade
-    public DAOFacade() throws IOException {
+    public DAOFacade(String databaseName) throws IOException {
         // Constructor logic (may initialize DAO instances)
+        patientDAO = new PatientDAOImpl(new PatientUserFactory(), "test");
+        doctorDAO = new DoctorDAOImpl(new DoctorUserFactory(), "test");
+        dialogflowDAO = new DialogflowDAOImpl("test");
+        convoDAO = new ConvoDAOImpl("test");
     }
 
     // Interface method implementation to save a patient
@@ -116,4 +122,9 @@ public class DAOFacade implements
     public List<Object> detectIntent(String userInput) {
         return dialogflowDAO.detectIntent(userInput);
     }   // TODO: change required
+
+    @Override
+    public void setIntentNEntities(String intentName, List<String> phrases, List<String> messages) {
+        dialogflowDAO.setIntentNEntities(intentName, phrases, messages);
+    }
 }

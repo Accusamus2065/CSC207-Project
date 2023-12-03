@@ -16,13 +16,15 @@ import java.util.Map;
 import static com.mongodb.client.model.Filters.eq;
 
 public class PatientDAOImpl {
+    private final String databaseName;
     private final Map<String, IPatient> accounts = new HashMap<>();
     private static final MongoClient mongoClient = MongoFactory.setUpMongoClient();
 
-    public PatientDAOImpl(PatientUserFactory patientUserFactory) {
+    public PatientDAOImpl(PatientUserFactory patientUserFactory, String databaseName) {
+        this.databaseName = databaseName;
 
         // Accessing the database
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
 
         // Accessing the collection
         MongoCollection<Document> collection = database.getCollection("patients");
@@ -57,7 +59,7 @@ public class PatientDAOImpl {
     }
 
     private void save() {
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> patients = database.getCollection("patients");
         for (IPatient patient : accounts.values()) {
             Document document = new Document("username", patient.getUsername())
@@ -82,7 +84,7 @@ public class PatientDAOImpl {
     }
 
     public void updateDAO(String oldUsername, IPatient user) {
-        MongoDatabase database = mongoClient.getDatabase("entities");
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> patients = database.getCollection("patients");
 
         // this should return a single document since we assume oldUsername exists in the database as a username,
