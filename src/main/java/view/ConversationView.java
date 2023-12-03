@@ -4,6 +4,9 @@ import app.ConvoUseCaseFactory;
 import data_access.ConvoDAOImpl;
 import entity.chat.Message;
 import interface_adapter.ViewManagerModel;
+
+import interface_adapter.chat.ConversationState;
+
 import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshState;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
@@ -27,6 +30,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
     private JTextField messageField;
     private JButton sendButton;
     private String selfUsername;
+    private String otherUsername;
 
     public static void main(String[] args) throws IOException {
         CardLayout cardLayout = new CardLayout();
@@ -47,6 +51,8 @@ public class ConversationView extends JPanel implements ActionListener, Property
 
     public ConversationView(ConversationRefreshViewModel viewModel, ConversationRefreshController refreshController, ConversationSaveController saveController, String selfUsername, String otherUsername) {
         this.selfUsername = selfUsername;
+        this.otherUsername = otherUsername;
+        viewModel.addPropertyChangeListener(this);
         frame = new JFrame();
         frame.setTitle("Chat Application");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,14 +150,14 @@ public class ConversationView extends JPanel implements ActionListener, Property
         });
         sendButton.setPreferredSize(new Dimension(100, 40)); // Set your desired width and height
         messageFieldPanel.add(sendButton);
-    }
-
-    public void show() {
         frame.setVisible(true);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        ConversationState state = (ConversationState) evt.getNewValue();
+        selfUsername = state.getSender();
+        otherUsername = state.getReceiver();
     }
 
 

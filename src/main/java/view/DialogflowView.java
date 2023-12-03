@@ -3,7 +3,9 @@ package view;
 import interface_adapter.chatbot.DialogflowController;
 import interface_adapter.chatbot.DialogflowState;
 import interface_adapter.chatbot.DialogflowViewModel;
+
 import interface_adapter.swap_views.login.SwapToLoginController;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,17 +17,28 @@ import java.beans.PropertyChangeListener;
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dialogflow view";
 
-    private final JButton logOutButton;
-    private final JTextArea chatArea;
-    private final JTextField messageField;
-    private final JButton sendButton;
+    private  JButton logOutButton;
+    private  JTextArea chatArea;
+    private  JTextField messageField;
+    private  JButton sendButton;
+
     private String username;
+    private JPanel buttonPanel;
+    private DialogflowController dialogflowController;
+
 
     public DialogflowView(DialogflowViewModel viewModel,
                           SwapToLoginController loginController,
-                          DialogflowController controller) {
+                          DialogflowController dialogflowController) {
 
         this.username = viewModel.getState().getUsername();
+
+        viewModel.addPropertyChangeListener(this);
+
+        this.dialogflowController = dialogflowController;
+
+        this.username = viewModel.getState().getUsername();
+
         viewModel.addPropertyChangeListener(this);
 
         // Main panel
@@ -86,23 +99,16 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Your action for sending message
-                controller.execute(messageField.getText(), username);
+                dialogflowController.execute(messageField.getText(), username);
                 chatArea.append(messageField.getText() + "\n");
             }
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
         // Sub-panel for two buttons in the scrollable
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-        // Two buttons for the scrollable
-        JButton button1 = new JButton("Button 1");
-        JButton button2 = new JButton("Button 2");
-
-        // Add buttons to the panel
-        buttonPanel.add(button1);
-        buttonPanel.add(button2);
+        buttonPanel.setPreferredSize(new Dimension(100, 200));
 
         // Scrollable for the buttons
         JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
@@ -120,8 +126,23 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         username = state.getUsername();
         chatArea.append(state.getResponse() + "\n");
         System.out.println(state.getUsername());
-
-
+        System.out.println("property changed dialogflowview");
+        buttonPanel.removeAll();
+        for (String docName :state.getDocNames()) {
+            System.out.println(docName);
+            JButton jButton = new JButton(docName);
+            jButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Your action for sending message
+//                    controller.execute(username, docName);
+                    chatArea.append(messageField.getText() + "\n");
+                }
+            });
+            buttonPanel.add(jButton);
+        }
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 
     @Override

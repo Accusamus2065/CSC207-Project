@@ -8,6 +8,7 @@ public class DialogflowState {
 
     private String response;
     private String username;
+    private List<String> docNames;
 
     public DialogflowState(DialogflowState copy) {
         response = copy.response;
@@ -30,4 +31,13 @@ public class DialogflowState {
     public String getUsername() {
         return username;
     }
+
+    public void setDocNames(List<String> docNames) {
+        this.docNames = docNames;
+    }
+
+    public List<String> getDocNames() {
+        return docNames;
+    }
 }
+
