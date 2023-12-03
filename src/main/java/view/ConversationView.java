@@ -112,9 +112,9 @@ public class ConversationView extends JPanel implements ActionListener, Property
             List<Message> list = state.getMessages();
             for (Message message : list) {
                 if (message.getSender().equals(sender)) {
-                    chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
+                    chatArea.append(message.getSender() + ": " + message.getContent()+"\n");
                 } else {
-                    chatArea.append(message.getSender() + ": " + message.getContent() + message.getTimestamp() + "\n");
+                    chatArea.append(message.getSender() + ": " +"\n");
                 }
             }
         });
