@@ -250,7 +250,10 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         height.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = height.getText() + e.getKeyChar();
+                currentState.setHeight(Double.parseDouble(text));
+                patientUpdateViewModel.setState(currentState);
             }
 
             @Override
@@ -281,7 +284,10 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         weight.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = weight.getText() + e.getKeyChar();
+                currentState.setWeight(Double.parseDouble(text));
+                patientUpdateViewModel.setState(currentState);
             }
 
             @Override
