@@ -10,7 +10,7 @@ import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.swap_views.chat.SwapToConversationController;
 import interface_adapter.swap_views.chat.SwapToConversationPresenter;
-import interface_adapter.swap_views.load_patients.LoadPatientsController;
+import interface_adapter.load_patients.LoadPatientsController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.login.SwapToLoginPresenter;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;

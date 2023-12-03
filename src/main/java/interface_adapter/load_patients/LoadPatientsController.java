@@ -1,4 +1,4 @@
-package interface_adapter.swap_views.load_patients;
+package interface_adapter.load_patients;
 
 import use_case.load_patient.LoadPatientInputBoundary;
 
