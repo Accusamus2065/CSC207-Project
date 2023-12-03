@@ -23,14 +23,15 @@ public class ConversationView extends JPanel implements ActionListener, Property
     private JTextField messageField;
     private JButton sendButton;
 
+    private String sender;
+    private String receiver;
+
     public ConversationView(ConversationRefreshViewModel viewModel,
                             SwapToLoginController swapController,
                             ConversationRefreshController refreshController,
                             ConversationSaveController saveController) {
         this.viewName = viewModel.getViewName();
         ConversationRefreshState state = viewModel.getState();
-        String sender = state.getSender();
-        String receiver = state.getReceiver();
         viewModel.addPropertyChangeListener(this);
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Adjust the gap between components
@@ -105,6 +106,9 @@ public class ConversationView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        ConversationRefreshState state = (ConversationRefreshState) evt.getNewValue();
+        sender = state.getSender();
+        receiver = state.getReceiver();
     }
 
 
