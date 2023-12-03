@@ -102,7 +102,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         buttonPanel.add(cancelButton);
 
-        cancelButton.addActionListener(e -> swapController.execute());
+        cancelButton.addActionListener(e -> swapController.execute(this.viewName));
 
 
         usernameInputField.addKeyListener(new KeyListener() {

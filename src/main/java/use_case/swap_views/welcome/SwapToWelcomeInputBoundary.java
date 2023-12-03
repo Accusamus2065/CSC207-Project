@@ -1,5 +1,5 @@
 package use_case.swap_views.welcome;
 
 public interface SwapToWelcomeInputBoundary {
-    void execute();
+    void execute(SwapToWelcomeData swapToWelcomeInputData);
 }
