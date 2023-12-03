@@ -44,9 +44,8 @@ public class ConversationRefreshPresenter implements ConversationRefreshOutputBo
 
     // The view model for conversation refresh
     private final ConversationRefreshViewModel conversationRefreshViewModel;
-
     // The view manager model for handling views
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructor for ConversationRefreshPresenter.
@@ -82,15 +81,11 @@ public class ConversationRefreshPresenter implements ConversationRefreshOutputBo
         // Notify observers about the property change in the view manager
         viewManagerModel.firePropertyChanged();
     }
-
     /**
      * Handles the preparation of the view in case of a failed conversation refresh.
      *
      * @param error The error message describing the failure.
      */
-    @Override
-    public void prepareFailView(String error) {
-        // Implementation for handling failure view (currently empty)
-        // Could include logic for displaying an error message to the user.
-    }
+    // Implementation for handling failure view (currently empty)
+    // Could include logic for displaying an error message to the user.
 }

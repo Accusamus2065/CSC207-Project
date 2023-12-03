@@ -19,11 +19,9 @@ public interface ConversationRefreshOutputBoundary {
      * @param messages The output data containing refreshed conversation messages.
      */
     void prepareSuccessView(ConversationRefreshOutputData messages);
-
     /**
      * Prepares the view for a failed conversation refresh by providing an error message.
      *
      * @param error The error message indicating the cause of the failure.
      */
-    void prepareFailView(String error);
 }
