@@ -28,6 +28,14 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
+
+        SignupState blankSignupState = new SignupState();
+        SignupState signupState = signupViewModel.getState();
+        assertEquals(blankSignupState.getUsername(), signupState.getUsername());
+        assertEquals(blankSignupState.getPassword(), signupState.getPassword());
+        assertEquals(blankSignupState.getRepeatPassword(), signupState.getRepeatPassword());
+        assertEquals(blankSignupState.getError(), signupState.getError());
+        assertEquals(blankSignupState.isDoctor(), signupState.isDoctor());
     }
 
     @Test
@@ -44,6 +52,12 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
+        LoginState blankLoginState = new LoginState();
+        LoginState loginState = loginViewModel.getState();
+        assertEquals(blankLoginState.getUsername(), loginState.getUsername());
+        assertEquals(blankLoginState.getPassword(), loginState.getPassword());
+        assertEquals(blankLoginState.getError(), loginState.getError());
+        assertEquals(blankLoginState.isDoctor(), loginState.isDoctor());
     }
 
     @Test
@@ -60,5 +74,24 @@ public class SwapToWelcomePresenterTest {
         swaptoWelcomePresenter.execute(data);
 
         assertEquals(viewManagerModel.getActiveView(), welcomeViewModel.getViewName());
+        ChoosePatientState blankChooseState = new ChoosePatientState();
+        ChoosePatientState choosePatientState = choosePatientViewModel.getState();
+        assertEquals(blankChooseState.getPatients(), choosePatientState.getPatients());
+        assertEquals(blankChooseState.getUsername(), choosePatientState.getUsername());
+
+        LoginState blankLoginState = new LoginState();
+        LoginState loginState = loginViewModel.getState();
+        assertEquals(blankLoginState.getUsername(), loginState.getUsername());
+        assertEquals(blankLoginState.getPassword(), loginState.getPassword());
+        assertEquals(blankLoginState.getError(), loginState.getError());
+        assertEquals(blankLoginState.isDoctor(), loginState.isDoctor());
+
+        SignupState blankSignupState = new SignupState();
+        SignupState signupState = signupViewModel.getState();
+        assertEquals(blankSignupState.getUsername(), signupState.getUsername());
+        assertEquals(blankSignupState.getPassword(), signupState.getPassword());
+        assertEquals(blankSignupState.getRepeatPassword(), signupState.getRepeatPassword());
+        assertEquals(blankSignupState.getError(), signupState.getError());
+        assertEquals(blankSignupState.isDoctor(), signupState.isDoctor());
     }
 }

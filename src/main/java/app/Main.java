@@ -2,7 +2,6 @@ package app;
 
 import com.mongodb.MongoException;
 import data_access.DAOFacade;
-import data_access.DialogflowDAOImpl;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.chatbot.DialogflowViewModel;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
@@ -41,7 +40,7 @@ public class Main {
         DAOFacade entityDataAccessObject;
         try {
             System.out.println("Connecting to MongoDB database...");
-            entityDataAccessObject = new DAOFacade();
+            entityDataAccessObject = new DAOFacade("entities");
             System.out.println("Connected to MongoDB database");
         } catch (MongoException e) {
             System.out.println("Couldn't connect to MongoDB database, aborting application...");
@@ -83,7 +82,7 @@ public class Main {
         ConversationView conversationView = ConvoUseCaseFactory.create(viewManagerModel, loginViewModel, conversationViewModel, entityDataAccessObject);
         views.add(conversationView, conversationView.viewName);
 
-        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, new DialogflowDAOImpl());
+        TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, entityDataAccessObject);
         views.add(trainingView, trainingView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
