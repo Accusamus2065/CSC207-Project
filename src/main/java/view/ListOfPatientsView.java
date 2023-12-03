@@ -5,6 +5,7 @@ import interface_adapter.swap_views.load_patients.LoadPatientsController;
 import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientState;
+import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.welcome.SwapToWelcomeController;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
 
     public ListOfPatientsView(ChoosePatientController choosePatientController,
                               ChoosePatientViewModel choosePatientViewModel,
-                              SwapToWelcomeController swapToWelcomeController,
+                              SwapToLoginController swapToLoginController,
                               SwapToConversationController swapToConversationController,
                               LoadPatientsController loadPatientsController,
                               SwapToDoctorUpdateController swapToDoctorUpdateController) {
@@ -49,7 +50,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         JButton logOutButton = new JButton(ChoosePatientViewModel.LOGOUT_BUTTON_LABEL);
         logOutButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(e -> swapToWelcomeController.execute(this.viewName));
+        logOutButton.addActionListener(e -> swapToLoginController.execute());
         logOutButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
         upperPanel.add(logOutButton);
 

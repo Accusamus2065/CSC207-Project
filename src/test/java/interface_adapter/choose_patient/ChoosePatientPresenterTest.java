@@ -17,10 +17,9 @@ public class ChoosePatientPresenterTest {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         ConversationRefreshViewModel conversationViewModel = new ConversationRefreshViewModel();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
-        DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 
         ChoosePatientPresenter choosePatientPresenter = new ChoosePatientPresenter(
-                viewManagerModel, conversationViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
+                viewManagerModel, conversationViewModel, choosePatientViewModel);
 
         // Act
         ChoosePatientOutputData outputData = new ChoosePatientOutputData(USERNAME, "TestPatient", false);
@@ -42,7 +41,7 @@ public class ChoosePatientPresenterTest {
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
 
         ChoosePatientPresenter choosePatientPresenter = new ChoosePatientPresenter(
-                viewManagerModel, conversationViewModel, null, doctorUpdateViewModel, choosePatientViewModel);
+                viewManagerModel, conversationViewModel, choosePatientViewModel);
 
         // Act
         choosePatientPresenter.prepareFailView(ERROR);
