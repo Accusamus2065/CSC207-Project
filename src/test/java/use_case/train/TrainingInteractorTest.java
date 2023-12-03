@@ -9,21 +9,21 @@ import static org.junit.Assert.*;
 
 public class TrainingInteractorTest {
     private static final String INTENT = "TestIntent";
-    private static final String[] PHRASES = {"testPhrase1", "testPhrase2"};
-    private static final String[] MESSAGES = {"testMessage1", "testMessage2"};
+    private static final List<String> PHRASES = List.of("testPhrase1", "testPhrase2");
+    private static final List<String> MESSAGES = List.of("testMessage1", "testMessage2");
 
     @Test
     public void intentTest() {
-        InMemoryDialogFlowDataAccessObject dialogFlowDataAccessObject = new InMemoryDialogFlowDataAccessObject();
+        InMemoryDialogFlowDataAccessObject dialogFlowDataAccessObject = new InMemoryDialogFlowDataAccessObject("Test");
         TrainingOutputBoundary trainingPresenter = new TrainingOutputBoundary() {
             @Override
             public void prepareSuccessView(TrainingOutputData messages) {
                 assertEquals(INTENT, messages.getIntent());
 
                 assertTrue(dialogFlowDataAccessObject.intents.containsKey(INTENT));
-                List<List<String>> intents = dialogFlowDataAccessObject.intents.get(INTENT);
-                assertEquals(List.of(PHRASES), intents.get(0));
-                assertEquals(List.of(MESSAGES), intents.get(1));
+                List<Object> intents = dialogFlowDataAccessObject.intents.get(INTENT);
+                assertEquals(PHRASES, intents.get(0));
+                assertEquals(MESSAGES, intents.get(1));
             }
 
             @Override
@@ -31,7 +31,7 @@ public class TrainingInteractorTest {
                 fail("Test not expected to fail.");
             }
         };
-        TrainingInputData inputData = new TrainingInputData(INTENT, List.of(PHRASES), List.of(MESSAGES));
+        TrainingInputData inputData = new TrainingInputData(INTENT, PHRASES, MESSAGES);
         TrainingInteractor interactor = new TrainingInteractor(dialogFlowDataAccessObject, trainingPresenter);
         interactor.execute(inputData);
     }
