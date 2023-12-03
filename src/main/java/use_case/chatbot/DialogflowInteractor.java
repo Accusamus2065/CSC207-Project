@@ -22,7 +22,7 @@ public class DialogflowInteractor implements DialogflowInputBoundary {
             System.out.println(response);
             List<String> docNames = (List<String>) tuple.get(1);
             System.out.println(docNames);
-            String username = (String) data.getUsername();
+            String username = data.getUsername();
             DialogflowOutputData outputData = new DialogflowOutputData(
                     response, username, docNames
             );
