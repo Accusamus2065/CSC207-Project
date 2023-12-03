@@ -18,7 +18,7 @@ public class SignupViewModel extends ViewModel {
     public static final String SIGNUP_BUTTON_LABEL = "Sign Up";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
     public static final Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 20);
-    public static final Dimension BUTTON_DIMENSION = new Dimension(200, 90);
+    public static final Dimension BUTTON_DIMENSION = new Dimension(110, 65);
     private SignupState state = new SignupState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 

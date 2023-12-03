@@ -15,9 +15,19 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The DialogflowView class represents the graphical user interface for interacting with the Dialogflow chatbot.
+ * It includes components for sending and receiving messages, logging out, and modifying the user's profile.
+ * The view dynamically displays buttons based on the available doctor names retrieved from Dialogflow responses.
+ */
 public class DialogflowView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    // The name of the view
     public final String viewName;
+
+    // Components for the DialogflowView
     private JButton logOutButton;
+    private JButton modifyButton;
     private JTextArea chatArea;
     private JTextField messageField;
     private JButton sendButton;
@@ -26,6 +36,14 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     private DialogflowController dialogflowController;
     private SwapToConversationController swapController;
 
+    /**
+     * Constructor for DialogflowView.
+     *
+     * @param viewModel          The view model providing the state for the view.
+     * @param loginController    The controller for swapping to the login view.
+     * @param dialogflowController The controller for interacting with Dialogflow.
+     * @param swapController     The controller for swapping to the conversation view.
+     */
     public DialogflowView(DialogflowViewModel viewModel,
                           SwapToLoginController loginController,
                           DialogflowController dialogflowController,
@@ -46,9 +64,9 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         this.setBackground(Color.lightGray);
         this.setPreferredSize(new Dimension(800, 500));
 
-        // Upper sub-panel for logout button
+        // Upper sub-panel for buttons
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 472, 10));
         upperPanel.setBackground(Color.lightGray);
         this.add(upperPanel, BorderLayout.SOUTH);
 
@@ -59,6 +77,14 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton.addActionListener(e -> loginController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
+
+        // Button for modifying the profile (not implemented yet)
+        modifyButton = new JButton("Modify Profile");
+        modifyButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
+        modifyButton.setFocusable(false);
+        //modifyButton.addActionListener(e -> loginController.execute());
+        modifyButton.setPreferredSize(new Dimension(150, 40));
+        upperPanel.add(modifyButton);
 
         // Chat sub-panel
         JPanel chatPanel = new JPanel();
@@ -79,13 +105,13 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         messageAndButtonPanel.setBackground(Color.lightGray);
         this.add(messageAndButtonPanel, BorderLayout.SOUTH);
 
-        // Text field
+        // Text field for entering messages
         messageField = new JTextField(20);
         messageField.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         messageField.setToolTipText("Enter your text");
         messageAndButtonPanel.add(messageField, BorderLayout.CENTER);
 
-        // Send button
+        // Send button for sending messages
         sendButton = new JButton("Send");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
@@ -97,12 +123,12 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
-        // Sub-panel for two buttons in the scrollable
+        // Sub-panel for dynamically generated buttons
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setPreferredSize(new Dimension(100, 200));
 
-        // Scrollable for the buttons
+        // Scrollable for the dynamically generated buttons
         JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
         buttonScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         buttonScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -112,6 +138,11 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
 
     }
 
+    /**
+     * Invoked when a property changes.
+     *
+     * @param evt The event fired when a property changes.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         DialogflowState state = (DialogflowState) evt.getNewValue();
@@ -141,8 +172,13 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         buttonPanel.repaint();
     }
 
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e The event representing the action.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Handling of action events can be implemented here
     }
 }
