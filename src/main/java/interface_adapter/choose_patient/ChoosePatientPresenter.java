@@ -4,10 +4,8 @@ package interface_adapter.choose_patient;//package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 
+import interface_adapter.chat.refresh.ConversationRefreshState;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
-import interface_adapter.chatbot.DialogflowViewModel;
-import interface_adapter.update.doctor.DoctorUpdateViewModel;
-import interface_adapter.welcome.WelcomeViewModel;
 import use_case.choose_patient.ChoosePatientOutputBoundary;
 import use_case.choose_patient.ChoosePatientOutputData;
 
@@ -16,32 +14,26 @@ import use_case.choose_patient.ChoosePatientOutputData;
 public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
-    private final ConversationRefreshViewModel conversationViewModel;
-    private final WelcomeViewModel welcomeViewModel;
-    private final DoctorUpdateViewModel doctorUpdateViewModel;
-    private ChoosePatientViewModel choosePatientViewModel;
+    private final ConversationRefreshViewModel conversationRefreshViewModel;
+    private final ChoosePatientViewModel choosePatientViewModel;
 
     public ChoosePatientPresenter(ViewManagerModel viewManagerModel,
-                                  ConversationRefreshViewModel conversationViewModel,
-                                  WelcomeViewModel welcomeViewModel,
-                                  DoctorUpdateViewModel doctorUpdateViewModel,
+                                  ConversationRefreshViewModel conversationRefreshViewModel,
                                   ChoosePatientViewModel choosePatientViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.choosePatientViewModel = choosePatientViewModel;
-        this.conversationViewModel = conversationViewModel;
-        this.welcomeViewModel = welcomeViewModel;
-        this.doctorUpdateViewModel = doctorUpdateViewModel;
+        this.conversationRefreshViewModel = conversationRefreshViewModel;
+
     }
 
     @Override
     public void prepareSuccessView(ChoosePatientOutputData response) {
-        ChoosePatientState choosePatientState = choosePatientViewModel.getState();
-        DialogflowViewModel conversationState = conversationViewModel.getState();
-        conversationState.setMessages(null);
-        // conversationState.setUsername(response.getPatient()); // TODO CONVERSATION STATE NEEDS A SET USERNAME METHOD
-        this..setState(conversationState); // Also need to add who I am talking to
-        this.conversationViewModel.firePropertyChanged();
-        this.viewManagerModel.setActiveView(conversationViewModel.getViewName());
+        ConversationRefreshState conversationRefreshState = conversationRefreshViewModel.getState();
+        conversationRefreshState.setMessages(null);
+        // conversationRefreshState.setUsername(response.getPatient()); // TODO CONVERSATION STATE NEEDS A SET USERNAME METHOD
+        this.conversationRefreshViewModel.setState(conversationRefreshState); // Also need to add who I am talking to
+        this.conversationRefreshViewModel.firePropertyChanged();
+        this.viewManagerModel.setActiveView(conversationRefreshViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
 
     }

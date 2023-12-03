@@ -49,8 +49,6 @@ public class ChoosePatientUseCaseFactory {
                                             ChoosePatientUserDataAccessInterface userDao) {
         ChoosePatientController updateController = createChoosePatientUseCase(viewManagerModel,
                 conversationViewModel,
-                welcomeViewModel,
-                doctorUpdateViewModel,
                 choosePatientViewModel);
 
         SwapToWelcomeController swapController = createSwapToWelcomeUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
@@ -67,14 +65,10 @@ public class ChoosePatientUseCaseFactory {
 
     private static ChoosePatientController createChoosePatientUseCase(ViewManagerModel viewManagerModel,
                                                                       ConversationRefreshViewModel conversationViewModel,
-                                                                      WelcomeViewModel welcomeViewModel,
-                                                                      DoctorUpdateViewModel doctorUpdateViewModel,
                                                                       ChoosePatientViewModel choosePatientViewModel) {
         ChoosePatientOutputBoundary choosePatientPresenter = new ChoosePatientPresenter(
                 viewManagerModel,
                 conversationViewModel,
-                welcomeViewModel,
-                doctorUpdateViewModel,
                 choosePatientViewModel);
 
         ChoosePatientInputBoundary choosePatientInteractor = new ChoosePatientInteractor(choosePatientPresenter);
