@@ -43,12 +43,7 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         logOutButton = new JButton("Logout");
         logOutButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         logOutButton.setFocusable(false);
-        logOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loginController.execute();
-            }
-        });
+        logOutButton.addActionListener(e -> loginController.execute());
         logOutButton.setPreferredSize(new Dimension(100, 40));
         upperPanel.add(logOutButton);
 
@@ -82,13 +77,10 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
         sendButton.setPreferredSize(new Dimension(100, 40));
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Your action for sending message
-                controller.execute(messageField.getText(), username);
-                chatArea.append(messageField.getText() + "\n");
-            }
+        sendButton.addActionListener(e -> {
+            // Your action for sending message
+            controller.execute(messageField.getText(), username);
+            chatArea.append(messageField.getText() + "\n");
         });
         messageAndButtonPanel.add(sendButton, BorderLayout.EAST);
 
