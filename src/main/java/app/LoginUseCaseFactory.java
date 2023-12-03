@@ -46,7 +46,7 @@ public class LoginUseCaseFactory {
                 loginViewModel,
                 userDataAccessObject
         );
-        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+        SwapToWelcomeController swaptoWelcomeController = createSwapViewsUseCase(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         return new LoginView(loginViewModel, loginController, swaptoWelcomeController);
     }
 
@@ -68,9 +68,10 @@ public class LoginUseCaseFactory {
             ViewManagerModel viewManagerModel,
             WelcomeViewModel welcomeViewModel,
             LoginViewModel loginViewModel,
-            SignupViewModel signupViewModel
+            SignupViewModel signupViewModel,
+            ChoosePatientViewModel choosePatientViewModel
     ) {
-        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel);
+        SwapToWelcomeOutputBoundary swapToWelcomeOutputBoundary = new SwapToWelcomePresenter(viewManagerModel, welcomeViewModel, loginViewModel, signupViewModel, choosePatientViewModel);
         SwapToWelcomeInputBoundary swapToWelcomeInteractor = new SwapToWelcomeInteractor(swapToWelcomeOutputBoundary);
         return new SwapToWelcomeController(swapToWelcomeInteractor);
     }
