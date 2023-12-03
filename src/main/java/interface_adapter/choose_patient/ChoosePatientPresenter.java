@@ -28,7 +28,8 @@ public class ChoosePatientPresenter implements ChoosePatientOutputBoundary {
     public void prepareSuccessView(ChoosePatientOutputData response) {
         ConversationRefreshState conversationRefreshState = conversationRefreshViewModel.getState();
         conversationRefreshState.setMessages(null);
-        conversationRefreshState.setSender(response.getPatient());
+        conversationRefreshState.setSender(response.getUsername());
+        conversationRefreshState.setReceiver(response.getPatient());
         this.conversationRefreshViewModel.setState(conversationRefreshState); // Also need to add who I am talking to
         this.conversationRefreshViewModel.firePropertyChanged();
         this.viewManagerModel.setActiveView(conversationRefreshViewModel.getViewName());
