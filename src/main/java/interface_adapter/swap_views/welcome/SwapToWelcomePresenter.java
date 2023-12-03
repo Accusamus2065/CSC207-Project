@@ -10,6 +10,7 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.welcome.WelcomeViewModel;
 import use_case.swap_views.welcome.SwapToWelcomeData;
 import use_case.swap_views.welcome.SwapToWelcomeOutputBoundary;
+import view.ListOfPatientsView;
 
 public class SwapToWelcomePresenter implements SwapToWelcomeOutputBoundary {
     private final ViewManagerModel viewManagerModel;
