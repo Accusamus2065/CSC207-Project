@@ -129,7 +129,7 @@ public class TrainingView extends JPanel implements ActionListener, PropertyChan
         addLabeledTextField(messageAndButtonPanel, "Intent", intentField);
 
 // Send button
-        sendButton = new JButton("Send");
+        sendButton = new JButton("Create");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
         sendButton.setPreferredSize(new Dimension(100, 40));

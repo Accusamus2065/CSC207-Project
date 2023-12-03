@@ -20,6 +20,8 @@ public class TrainingPresenter implements TrainingOutputBoundary {
     @Override
     public void prepareSuccessView(TrainingOutputData outputData) {
         TrainingState state = viewModel.getState();
+        state.setIntent(outputData.getIntent());
+
         this.viewModel.setState(state);
         this.viewModel.firePropertyChanged();
 
