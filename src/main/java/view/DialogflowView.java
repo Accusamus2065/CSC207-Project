@@ -6,6 +6,7 @@ import interface_adapter.chatbot.DialogflowViewModel;
 
 import interface_adapter.swap_views.chat.SwapToConversationController;
 import interface_adapter.swap_views.login.SwapToLoginController;
+import interface_adapter.swap_views.update.patient.SwapToPatientUpdateController;
 
 
 import javax.swing.*;
@@ -29,7 +30,8 @@ public class DialogflowView extends JPanel implements ActionListener, PropertyCh
     public DialogflowView(DialogflowViewModel viewModel,
                           SwapToLoginController loginController,
                           DialogflowController dialogflowController,
-                          SwapToConversationController swapController) {
+                          SwapToConversationController swapController,
+                          SwapToPatientUpdateController updateController) {
 
         this.viewName = viewModel.getViewName();
 
