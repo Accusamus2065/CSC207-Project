@@ -17,11 +17,11 @@ import java.beans.PropertyChangeListener;
 public class DoctorUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
     private final JButton backButton;
-    private final JTextField username;
-    private final JPasswordField password;
-    private final JTextField repeatPassword;
-    private final JTextField specialty;
-    private final JTextField degree;
+    private JTextField username = null;
+    private JPasswordField password = null;
+    private JTextField repeatPassword = null;
+    private JTextField specialty = null;
+    private JTextField degree = null;
     private final JButton saveButton;
 
     public DoctorUpdateView(DoctorUpdateViewModel doctorUpdateViewModel,
@@ -47,7 +47,14 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
         backButton.setFocusable(false);
         backButton.setPreferredSize(DoctorUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
-        backButton.addActionListener(e -> swapController.execute());
+        backButton.addActionListener(e -> {
+            swapController.execute();
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
+            specialty.setText("");
+            degree.setText("");
+        });
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
@@ -240,6 +247,11 @@ public class DoctorUpdateView extends JPanel implements ActionListener, Property
                     currentState.getRepeatPassword(),
                     currentState.getSpecialty(),
                     currentState.getDegree());
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
+            specialty.setText("");
+            degree.setText("");
         });
     }
 
