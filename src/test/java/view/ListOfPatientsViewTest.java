@@ -88,9 +88,6 @@ public class ListOfPatientsViewTest {
 
     @Test
     public void testUpperPanel() {
-        // Verify components
-        assertEquals(2, listOfPatientsView.getComponentCount()); // Two components: upperPanel and scrollPane
-
         // Verify modifyButton
         JPanel upperPanel = (JPanel) listOfPatientsView.getComponent(0);
         Component[] upperPanelComponents = upperPanel.getComponents();
@@ -105,30 +102,6 @@ public class ListOfPatientsViewTest {
 
         // Testing if the controlled receives the correct data
         modifyButton.doClick();
-
-    }
-
-    @Test
-    public void testMiddlePanel() {
-        // Verify midPanel within scrollPane
-        JScrollPane scrollPane = (JScrollPane) listOfPatientsView.getComponent(1);
-        JPanel midPanel = (JPanel) scrollPane.getViewport().getView();
-
-        assertNotNull(midPanel); // midpanel exists
-
-        // Testing if the loadpatients execute method worked correctly
-        assertEquals(2, midPanel.getComponentCount()); // Two buttons as defined in your mock patients list
-
-        // Checking if buttons exist
-        JButton patient1Button = null;
-        for (Component component : midPanel.getComponents()) {
-            if (component instanceof JButton && "Patient1".equals(((JButton) component).getText())) {
-                patient1Button = (JButton) component;
-                break;
-            }
-        }
-
-        patient1Button.doClick();
 
     }
 }

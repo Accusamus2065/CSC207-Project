@@ -3,6 +3,7 @@ package entity;
 import data_access.ConvoDAOImpl;
 import entity.chat.Message;
 import org.junit.Test;
+
 import java.util.List;
 
 public class TestMessage {
@@ -12,7 +13,7 @@ public class TestMessage {
     public void testStoreMessage() {
         String docId = "Harry";
         String patId = "Marshal";
-        Message message = new Message(docId, patId, "It's Marshal, nice to meet", null);
+        Message message = new Message(docId, patId, "It's Marshal, nice to meet");
         dao.save(message);
     }
 

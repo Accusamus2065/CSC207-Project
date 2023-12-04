@@ -14,10 +14,11 @@ public class ConversationRefreshInteractorTest {
     private static final String RECEIVER = "TestReceiver";
     private static final String CONTENT = "TestMessage";
     private static final Date DATE = new Date();
+
     @Test
     public void refreshMessageTest() {
         ConversationUserDataAccessInterface dataAccessObject = new InMemoryConversationDataAccessObject();
-        Message message = new Message(SENDER, RECEIVER, CONTENT, DATE);
+        Message message = new Message(SENDER, RECEIVER, CONTENT);
         dataAccessObject.save(message);
         ConversationRefreshOutputBoundary presenter = messages -> {
             assertEquals(1, messages.getMessages().size());
@@ -26,7 +27,6 @@ public class ConversationRefreshInteractorTest {
             assertEquals(SENDER, message1.getSender());
             assertEquals(RECEIVER, message1.getReceiver());
             assertEquals(CONTENT, message1.getContent());
-            assertEquals(DATE, message1.getTimestamp());
         };
         ConversationRefreshInputData inputData = new ConversationRefreshInputData(SENDER, RECEIVER);
 
