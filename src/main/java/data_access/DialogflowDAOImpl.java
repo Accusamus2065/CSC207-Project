@@ -13,7 +13,6 @@ import io.grpc.ManagedChannelBuilder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.HashMap;
 
 
 public class DialogflowDAOImpl {
@@ -21,15 +20,17 @@ public class DialogflowDAOImpl {
     private final String LANGUAGE_CODE;
     private final String CREDENTIALS_FILE_PATH;
 
+    private final String databaseName;
     private final SessionsClient sessionsClient;
     private final ManagedChannel managedChannel;
     private final CredentialsProvider provider;
     private final IntentsClient intentsClient;
     private final Dotenv dotenv;
+    private final DoctorDAOImpl dao;
 
-    private final DoctorDAOImpl dao = new DoctorDAOImpl(new DoctorUserFactory());
-
-    public DialogflowDAOImpl() throws IOException {
+    public DialogflowDAOImpl(String databaseName) throws IOException {
+        this.databaseName = databaseName;
+        dao = new DoctorDAOImpl(new DoctorUserFactory(), databaseName);
         // load credentials
         this.dotenv = Dotenv.configure().load();
         this.PROJECT_ID = dotenv.get("PROJECT_ID");

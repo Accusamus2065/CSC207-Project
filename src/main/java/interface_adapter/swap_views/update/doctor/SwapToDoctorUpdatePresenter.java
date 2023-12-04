@@ -18,6 +18,12 @@ public class SwapToDoctorUpdatePresenter implements SwapToDoctorUpdateOutputBoun
     public void execute(String username) {
         DoctorUpdateState state = doctorUpdateViewModel.getState();
         state.setUsername(username);
+        state.setError(null);
+        state.setNewUsername("");
+        state.setPassword("");
+        state.setRepeatPassword("");
+        state.setSpecialty("");
+        state.setDegree("");
         this.doctorUpdateViewModel.setState(state);
         doctorUpdateViewModel.firePropertyChanged();
 

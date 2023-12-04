@@ -18,9 +18,9 @@ import static com.mongodb.client.model.Filters.eq;
 import static org.junit.Assert.*;
 
 public class DAOFacadeTest {
-    private final DAOFacade daoFacade = new DAOFacade();
+    private final DAOFacade daoFacade = new DAOFacade("test");
     private final MongoClient mongoClient = MongoFactory.setUpMongoClient();
-    private final MongoDatabase database = mongoClient.getDatabase("entities");
+    private final MongoDatabase database = mongoClient.getDatabase("test");
     private final MongoCollection<Document> doctors = database.getCollection("doctors");
     private final MongoCollection<Document> patients = database.getCollection("patients");
 

@@ -17,14 +17,14 @@ import java.beans.PropertyChangeListener;
 public class PatientUpdateView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName;
     private final JButton backButton;
-    private final JTextField username;
-    private final JPasswordField password;
-    private final JPasswordField repeatPassword;
-    private final JTextField sex;
-    private final JTextField gender;
-    private final JTextField height;
-    private final JTextField weight;
-    private final JTextField bloodType;
+    private JTextField username = null;
+    private JPasswordField password = null;
+    private JPasswordField repeatPassword = null;
+    private JTextField sex = null;
+    private JTextField gender = null;
+    private JTextField height = null;
+    private JTextField weight = null;
+    private JTextField bloodType = null;
     private final JButton saveButton;
 
     // Create and do settings for frame
@@ -51,7 +51,17 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         backButton.setFocusable(false);
         backButton.setPreferredSize(PatientUpdateViewModel.BUTTON_DIMENSION);
         upperPanel.add(backButton);
-        backButton.addActionListener(e -> swapController.execute());
+        backButton.addActionListener(e -> {
+            swapController.execute();
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
+            sex.setText("");
+            gender.setText("");
+            height.setText("");
+            weight.setText("");
+            bloodType.setText("");
+        });
 
         // Create a sub-panel for the username text field
         JPanel usernamePanel = new JPanel();
@@ -240,7 +250,10 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         height.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = height.getText() + e.getKeyChar();
+                currentState.setHeight(Double.parseDouble(text));
+                patientUpdateViewModel.setState(currentState);
             }
 
             @Override
@@ -271,7 +284,10 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
         weight.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                PatientUpdateState currentState = patientUpdateViewModel.getState();
+                String text = weight.getText() + e.getKeyChar();
+                currentState.setWeight(Double.parseDouble(text));
+                patientUpdateViewModel.setState(currentState);
             }
 
             @Override
@@ -344,6 +360,14 @@ public class PatientUpdateView extends JPanel implements ActionListener, Propert
                     currentState.getWeight(),
                     currentState.getBloodType()
             );
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
+            sex.setText("");
+            gender.setText("");
+            height.setText("");
+            weight.setText("");
+            bloodType.setText("");
         });
     }
 

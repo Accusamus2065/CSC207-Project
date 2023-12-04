@@ -1,17 +1,15 @@
 package use_case.train;
 
 
-import data_access.DialogflowDAOImpl;
-
 import java.util.List;
 
 
 public class TrainingInteractor implements TrainingInputBoundary {
     final TrainingOutputBoundary presenter;
-    final DialogflowDAOImpl dao;
+    final TrainingUserDataAccessInterface dao;
 
     // TODO: making DAO abstract
-    public TrainingInteractor(DialogflowDAOImpl dao,
+    public TrainingInteractor(TrainingUserDataAccessInterface dao,
                               TrainingOutputBoundary presenter) {
         this.dao = dao;
         this.presenter = presenter;
