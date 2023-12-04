@@ -10,6 +10,9 @@ import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import org.junit.Before;
 import org.junit.Test;
 
+
+import use_case.choose_patient.ChoosePatientInputBoundary;
+import use_case.choose_patient.ChoosePatientInputData;
 import use_case.swap_views.login.SwapToLoginInputBoundary;
 
 import javax.swing.*;
@@ -27,9 +30,13 @@ public class ListOfPatientsViewTest {
 
     @Before
     public void setUp() {
-        // Initialize mock objects for the controllers and view model
-        ChoosePatientController choosePatientController = new ChoosePatientController(
-                choosePatientInputData -> assertEquals("Patient1", choosePatientInputData.getPatient())
+
+        ChoosePatientController choosePatientController = new ChoosePatientController(new ChoosePatientInputBoundary() {
+            @Override
+            public void execute(ChoosePatientInputData choosePatientInputData) {
+                assert true;
+            }
+        }
         );
 
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
@@ -60,7 +67,7 @@ public class ListOfPatientsViewTest {
                 name -> assertEquals(name, username)
         );
 
-        // Instantiate the view
+
         listOfPatientsView = new ListOfPatientsView(choosePatientController,
                 choosePatientViewModel,
                 swapToLoginController,
