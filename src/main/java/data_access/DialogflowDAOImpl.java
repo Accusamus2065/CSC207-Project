@@ -93,26 +93,16 @@ public class DialogflowDAOImpl {
                 .setKind(EntityType.Kind.KIND_MAP)
                 .build();
 
-        // Create the entity type request
-        CreateEntityTypeRequest createEntityTypeRequest = CreateEntityTypeRequest.newBuilder()
-                .setParent(Objects.requireNonNull("projects/"+dotenv.get("PROJECT_ID")+"/agent"))
-                .setEntityType(entityType)
-                .build();
-
-        // Create an intent with training phrases and messages
-        List<Intent.TrainingPhrase.Part> parts = new ArrayList<>();
+        // (BUILDER) Create an intent with training phrases and messages
+        Intent.Builder intentBuilder = Intent.newBuilder().setDisplayName(intentName);
         for (String phrase: phrases) {
-            Intent.TrainingPhrase.Part part = Intent.TrainingPhrase.Part.newBuilder()
-                    .setText(phrase)
+            Intent.TrainingPhrase trainingPhrase = Intent.TrainingPhrase.newBuilder()
+                    .addParts(Intent.TrainingPhrase.Part.newBuilder().setText(phrase).build())
                     .build();
-            parts.add(part);
+
+            intentBuilder.addTrainingPhrases(trainingPhrase);
         }
-        Intent intent = Intent.newBuilder()
-                .setDisplayName(intentName)
-                .addTrainingPhrases(
-                        Intent.TrainingPhrase.newBuilder().addAllParts(parts).build()
-                )
-                .addMessages(
+        Intent intent = intentBuilder.addMessages(
                         Intent.Message.newBuilder().setText(
                                 Intent.Message.Text.newBuilder().addAllText(messages).build()
                         ).build()
