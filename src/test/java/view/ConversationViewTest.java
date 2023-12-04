@@ -3,6 +3,8 @@ package view;
 import interface_adapter.chat.refresh.ConversationRefreshController;
 import interface_adapter.chat.refresh.ConversationRefreshViewModel;
 import interface_adapter.chat.save.ConversationSaveController;
+import interface_adapter.swap_views.chatbot.SwapToDialogflowController;
+import interface_adapter.swap_views.list_of_patients.SwapToPatientListController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +12,8 @@ import use_case.chat.refresh.ConversationRefreshInputBoundary;
 import use_case.chat.refresh.ConversationRefreshInputData;
 import use_case.chat.save.ConversationSaveInputBoundary;
 import use_case.chat.save.ConversationSaveInputData;
+import use_case.swap_views.chatbot.SwapToDialogflowInputBoundary;
+import use_case.swap_views.list_of_patients.SwapToPatientListInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +42,20 @@ public class ConversationViewTest {
                 assert true;
             }});
 
-        conversationView = new ConversationView(viewModel, swapController, refreshController, saveController);
+        SwapToDialogflowController swapToDialogflowController = new SwapToDialogflowController(new SwapToDialogflowInputBoundary() {
+            @Override
+            public void execute() {
+                assert true;
+            }
+        });
+        SwapToPatientListController swapToPatientListController = new SwapToPatientListController(new SwapToPatientListInputBoundary() {
+            @Override
+            public void execute() {
+                assert true;
+            }
+        });
+
+        conversationView = new ConversationView(viewModel, swapController, refreshController, saveController, swapToDialogflowController, swapToPatientListController);
     }
 
     @Test
