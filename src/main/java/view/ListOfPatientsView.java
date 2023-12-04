@@ -25,6 +25,7 @@ import java.util.List;
 public class ListOfPatientsView extends JPanel implements ActionListener, PropertyChangeListener {
     public String viewName;
     private final JButton modifyButton;
+    private final JButton swapToTrainButton;
 
     /**
      * Constructor for ListOfPatientsView.
@@ -33,7 +34,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
      * @param choosePatientViewModel         The view model providing the state for the view.
      * @param swapToLoginController          The controller for swapping to the login view.
      * @param swapToConversationController   The controller for swapping to the conversation view.
-     * @param loadPatientsController         The controller for loading the list of patients.
+     * @param loadPatientController         The controller for loading the list of patients.
      * @param swapToDoctorUpdateController   The controller for swapping to the doctor update view.
      */
     public ListOfPatientsView(ChoosePatientController choosePatientController,
@@ -85,7 +86,22 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                 });
         // USING WRONG BUTTON DIMENSION RN
         modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
+
         upperPanel.add(modifyButton);
+
+        swapToTrainButton = new JButton(ChoosePatientViewModel.TRAIN_BUTTON_LABEL);
+        swapToTrainButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
+        swapToTrainButton.setFocusable(false);
+        swapToTrainButton.addActionListener(
+                e -> {
+                    if (e.getSource().equals(swapToTrainButton)) {
+                        // Uncomment the action when ready
+                        // swapToTrainingController.execute();
+                    }
+                });
+        swapToTrainButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
+        this.add(swapToTrainButton, BorderLayout.SOUTH);
+
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
         JPanel midPanel = new JPanel();
