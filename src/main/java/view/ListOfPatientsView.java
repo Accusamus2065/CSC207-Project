@@ -6,6 +6,7 @@ import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.choose_patient.ChoosePatientController;
 import interface_adapter.choose_patient.ChoosePatientState;
 import interface_adapter.swap_views.login.SwapToLoginController;
+import interface_adapter.swap_views.train.SwapToTrainingController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,19 +31,20 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
     /**
      * Constructor for ListOfPatientsView.
      *
-     * @param choosePatientController        The controller for choosing a patient.
-     * @param choosePatientViewModel         The view model providing the state for the view.
-     * @param swapToLoginController          The controller for swapping to the login view.
-     * @param swapToConversationController   The controller for swapping to the conversation view.
-     * @param loadPatientController         The controller for loading the list of patients.
-     * @param swapToDoctorUpdateController   The controller for swapping to the doctor update view.
+     * @param choosePatientController      The controller for choosing a patient.
+     * @param choosePatientViewModel       The view model providing the state for the view.
+     * @param swapToLoginController        The controller for swapping to the login view.
+     * @param swapToConversationController The controller for swapping to the conversation view.
+     * @param loadPatientController        The controller for loading the list of patients.
+     * @param swapToDoctorUpdateController The controller for swapping to the doctor update view.
      */
     public ListOfPatientsView(ChoosePatientController choosePatientController,
                               ChoosePatientViewModel choosePatientViewModel,
                               SwapToLoginController swapToLoginController,
                               SwapToConversationController swapToConversationController,
                               LoadPatientController loadPatientController,
-                              SwapToDoctorUpdateController swapToDoctorUpdateController) {
+                              SwapToDoctorUpdateController swapToDoctorUpdateController,
+                              SwapToTrainingController swapToTrainingController) {
 
         this.viewName = choosePatientViewModel.getViewName();
 
@@ -95,8 +97,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         swapToTrainButton.addActionListener(
                 e -> {
                     if (e.getSource().equals(swapToTrainButton)) {
-                        // Uncomment the action when ready
-                        // swapToTrainingController.execute();
+                        swapToTrainingController.execute();
                     }
                 });
         swapToTrainButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);

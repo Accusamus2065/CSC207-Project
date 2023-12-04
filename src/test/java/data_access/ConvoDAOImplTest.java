@@ -23,11 +23,10 @@ public class ConvoDAOImplTest {
     private final static String SENDER = "TestConvoDAOSender";
     private final static String RECEIVER = "TestConvoDAOReceiver";
     private final static String CONTENT = "TestConvoDAOMessage";
-    private final static Date DATE = new Date();
 
     @Test
     public void saveMessageTest() {
-        Message message = new Message(SENDER, RECEIVER, CONTENT, DATE);
+        Message message = new Message(SENDER, RECEIVER, CONTENT);
         convoDAO.save(message);
 
         Document query = new Document("sender", SENDER);
@@ -38,7 +37,6 @@ public class ConvoDAOImplTest {
         assertEquals(SENDER, DAOMessage.getString("sender"));
         assertEquals(RECEIVER, DAOMessage.getString("receiver"));
         assertEquals(CONTENT, DAOMessage.getString("content"));
-        assertEquals(DATE, DAOMessage.getDate("timestamp"));
 
         messages.deleteMany(eq("sender", SENDER));
     }
@@ -47,20 +45,19 @@ public class ConvoDAOImplTest {
     public void getMessagesTest() {
         List<Message> messageList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Message message = new Message(SENDER + "Get", RECEIVER + "Get", CONTENT + i, DATE);
+            Message message = new Message(SENDER + "Post", RECEIVER + "Post", CONTENT + i);
             convoDAO.save(message);
             messageList.add(message);
         }
-        List<Message> DAOMessages = convoDAO.query(SENDER, RECEIVER);
-
+        List<Message> DAOMessages = convoDAO.query(SENDER + "Post", RECEIVER + "Post");
         assertEquals(messageList.size(), DAOMessages.size());
+
         for (int i = 0; i < 5; i++) {
             Message DAOMessage = DAOMessages.get(i);
             Message message = messageList.get(i);
             assertEquals(message.getSender(), DAOMessage.getSender());
             assertEquals(message.getReceiver(), DAOMessage.getReceiver());
             assertEquals(message.getContent(), DAOMessage.getContent());
-            assertEquals(message.getTimestamp(), DAOMessage.getTimestamp());
         }
 
         messages.deleteMany(eq("sender", SENDER));

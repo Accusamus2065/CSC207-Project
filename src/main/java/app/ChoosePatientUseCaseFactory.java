@@ -13,8 +13,11 @@ import interface_adapter.swap_views.chat.SwapToConversationPresenter;
 import interface_adapter.load_patients.LoadPatientController;
 import interface_adapter.swap_views.login.SwapToLoginController;
 import interface_adapter.swap_views.login.SwapToLoginPresenter;
+import interface_adapter.swap_views.train.SwapToTrainingController;
+import interface_adapter.swap_views.train.SwapToTrainingPresenter;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdatePresenter;
+import interface_adapter.train.TrainingViewModel;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import use_case.choose_patient.*;
 import use_case.load_patient.LoadPatientInputBoundary;
@@ -26,6 +29,9 @@ import use_case.swap_views.chat.SwapToConversationOutputBoundary;
 import use_case.swap_views.login.SwapToLoginInputBoundary;
 import use_case.swap_views.login.SwapToLoginInteractor;
 import use_case.swap_views.login.SwapToLoginOutputBoundary;
+import use_case.swap_views.train.SwapToTrainingInputBoundary;
+import use_case.swap_views.train.SwapToTrainingInteractor;
+import use_case.swap_views.train.SwapToTrainingOutputBoundary;
 import use_case.swap_views.update.doctor.SwapToDoctorUpdateInputBoundary;
 import use_case.swap_views.update.doctor.SwapToDoctorUpdateInteractor;
 import use_case.swap_views.update.doctor.SwapToDoctorUpdateOutputBoundary;
@@ -42,6 +48,7 @@ public class ChoosePatientUseCaseFactory {
                                             DoctorUpdateViewModel doctorUpdateViewModel,
                                             ChoosePatientViewModel choosePatientViewModel,
                                             LoginViewModel loginViewModel,
+                                            TrainingViewModel trainingViewModel,
                                             ChoosePatientUserDataAccessInterface userDao) {
         ChoosePatientController updateController = createChoosePatientUseCase(viewManagerModel,
                 conversationViewModel,
@@ -51,12 +58,15 @@ public class ChoosePatientUseCaseFactory {
         LoadPatientController loadPatientController = createLoadPatientsUseCase(userDao);
         SwapToDoctorUpdateController swapToDoctorUpdateController = createSwapToDoctorUpdateController(viewManagerModel, doctorUpdateViewModel);
         SwapToConversationController swapToConversationController = createSwapToConversationController(viewManagerModel, conversationViewModel);
+        SwapToTrainingController swapToTrainingController = createSwapToTrainingController(viewManagerModel, trainingViewModel);
         return new ListOfPatientsView(updateController,
                 choosePatientViewModel,
                 swapController,
                 swapToConversationController,
                 loadPatientController,
-                swapToDoctorUpdateController);
+                swapToDoctorUpdateController,
+                swapToTrainingController
+        );
     }
 
     private static ChoosePatientController createChoosePatientUseCase(ViewManagerModel viewManagerModel,
@@ -72,7 +82,7 @@ public class ChoosePatientUseCaseFactory {
     }
 
     private static SwapToLoginController createSwaptoLoginUseCase(ViewManagerModel viewManagerModel,
-                                                                    LoginViewModel loginViewModel) {
+                                                                  LoginViewModel loginViewModel) {
         SwapToLoginOutputBoundary swapToLoginPresenter = new SwapToLoginPresenter(viewManagerModel, loginViewModel);
         SwapToLoginInputBoundary swapToLoginInteractor = new SwapToLoginInteractor(swapToLoginPresenter);
         return new SwapToLoginController(swapToLoginInteractor);
@@ -95,5 +105,12 @@ public class ChoosePatientUseCaseFactory {
         SwapToConversationOutputBoundary swapToConversationPresenter = new SwapToConversationPresenter(viewManagerModel, conversationRefreshViewModel);
         SwapToConversationInputBoundary swapToConversationInteractor = new SwapToConversationInteractor(swapToConversationPresenter);
         return new SwapToConversationController(swapToConversationInteractor);
+    }
+
+    public static SwapToTrainingController createSwapToTrainingController(ViewManagerModel viewManagerModel,
+                                                                          TrainingViewModel trainingViewModel) {
+        SwapToTrainingOutputBoundary swapToTrainingPresenter = new SwapToTrainingPresenter(viewManagerModel, trainingViewModel);
+        SwapToTrainingInputBoundary swapToTrainingInteractor = new SwapToTrainingInteractor(swapToTrainingPresenter);
+        return new SwapToTrainingController(swapToTrainingInteractor);
     }
 }

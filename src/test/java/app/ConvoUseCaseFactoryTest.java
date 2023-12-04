@@ -18,8 +18,8 @@ public class ConvoUseCaseFactoryTest {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         ConversationRefreshViewModel refreshViewModel = new ConversationRefreshViewModel();
-        ConversationUserDataAccessInterface dataAccessObject = new InMemoryConversationDataAccessObject();
         DialogflowViewModel dialogflowViewModel = new DialogflowViewModel();
+        ConversationUserDataAccessInterface dataAccessObject = new InMemoryConversationDataAccessObject();
         ChoosePatientViewModel choosePatientViewModel = new ChoosePatientViewModel();
 
         ConversationView conversationView = ConvoUseCaseFactory.create(

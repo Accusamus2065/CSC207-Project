@@ -8,12 +8,7 @@ import interface_adapter.swap_views.list_of_patients.SwapToPatientListController
 import interface_adapter.swap_views.login.SwapToLoginController;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.chat.refresh.ConversationRefreshInputBoundary;
-import use_case.chat.refresh.ConversationRefreshInputData;
-import use_case.chat.save.ConversationSaveInputBoundary;
-import use_case.chat.save.ConversationSaveInputData;
-import use_case.swap_views.chatbot.SwapToDialogflowInputBoundary;
-import use_case.swap_views.list_of_patients.SwapToPatientListInputBoundary;
+import use_case.swap_views.list_of_patients.SwapToPatientListInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,31 +25,21 @@ public class ConversationViewTest {
         SwapToLoginController swapController = new SwapToLoginController(() -> {
             assert true;
         });
-        ConversationRefreshController refreshController = new ConversationRefreshController(new ConversationRefreshInputBoundary() {
-            @Override
-            public void executeRefresh(ConversationRefreshInputData data) {
-                assert true;
-            }});
-
-        ConversationSaveController saveController = new ConversationSaveController(new ConversationSaveInputBoundary() {
-            @Override
-            public void executeSave(ConversationSaveInputData data) {
-                assert true;
-            }});
-
-        SwapToDialogflowController swapToDialogflowController = new SwapToDialogflowController(new SwapToDialogflowInputBoundary() {
-            @Override
-            public void execute() {
-                assert true;
-            }
-        });
-        SwapToPatientListController swapToPatientListController = new SwapToPatientListController(new SwapToPatientListInputBoundary() {
-            @Override
-            public void execute() {
-                assert true;
-            }
+        ConversationRefreshController refreshController = new ConversationRefreshController(data -> {
+            assert true;
         });
 
+        ConversationSaveController saveController = new ConversationSaveController(data -> {
+            assert true;
+        });
+
+        SwapToDialogflowController swapToDialogflowController = new SwapToDialogflowController(() -> {
+            assert true;
+        });
+
+        SwapToPatientListController swapToPatientListController = new SwapToPatientListController(new SwapToPatientListInteractor(() -> {
+            assert true;
+        }));
         conversationView = new ConversationView(viewModel, swapController, refreshController, saveController, swapToDialogflowController, swapToPatientListController);
     }
 

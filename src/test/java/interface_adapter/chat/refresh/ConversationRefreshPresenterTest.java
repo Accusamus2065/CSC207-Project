@@ -26,8 +26,7 @@ public class ConversationRefreshPresenterTest {
             Message message = new Message(
                     SENDER + i,
                     RECEIVER + i,
-                    CONTENT + i,
-                    DATE);
+                    CONTENT + i);
             messageList.add(message);
         }
         ConversationRefreshOutputData outputData = new ConversationRefreshOutputData(messageList);
