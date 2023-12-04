@@ -137,7 +137,7 @@ public class ConversationView extends JPanel implements ActionListener, Property
                 if (message.getSender().equals(sender)) {
                     chatArea.append(message.getSender() + ": " + message.getContent()+"\n");
                 } else {
-                    chatArea.append(message.getSender() + ": " +"\n");
+                    chatArea.append(message.getSender() + ": " + message.getContent() +"\n");
                 }
             }
         });
