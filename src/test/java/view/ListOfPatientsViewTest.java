@@ -6,11 +6,13 @@ import interface_adapter.choose_patient.ChoosePatientViewModel;
 import interface_adapter.swap_views.chat.SwapToConversationController;
 import interface_adapter.load_patients.LoadPatientController;
 import interface_adapter.swap_views.login.SwapToLoginController;
+import interface_adapter.swap_views.train.SwapToTrainingController;
 import interface_adapter.swap_views.update.doctor.SwapToDoctorUpdateController;
 import org.junit.Before;
 import org.junit.Test;
 
 import use_case.swap_views.login.SwapToLoginInputBoundary;
+import use_case.swap_views.train.SwapToTrainingInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,13 +62,21 @@ public class ListOfPatientsViewTest {
                 name -> assertEquals(name, username)
         );
 
+        SwapToTrainingController swapToTrainingController = new SwapToTrainingController(new SwapToTrainingInputBoundary() {
+            @Override
+            public void execute() {
+                assert true;
+            }
+        });
+
         // Instantiate the view
         listOfPatientsView = new ListOfPatientsView(choosePatientController,
                 choosePatientViewModel,
                 swapToLoginController,
                 swapToConversationController,
                 loadPatientController,
-                swapToDoctorUpdateController);
+                swapToDoctorUpdateController,
+                swapToTrainingController);
     }
 
     @Test
