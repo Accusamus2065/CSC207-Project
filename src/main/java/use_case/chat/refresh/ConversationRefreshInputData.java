@@ -20,7 +20,7 @@ public class ConversationRefreshInputData {
      */
     public ConversationRefreshInputData(String sender, String receiver) {
         // Create a new Message object with sender, receiver, and null values for content and timestamp
-        this.message = new Message(sender, receiver, null, null);
+        this.message = new Message(sender, receiver, null);
     }
 
     /**

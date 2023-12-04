@@ -24,7 +24,7 @@ public class TrainingInteractor implements TrainingInputBoundary {
             dao.setIntentNEntities(intent, phrases, messages);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            presenter.prepareFailView("There appears to be an error to add such intent");
+            presenter.prepareFailView("An error has occurred when adding the intent (intent possibly already exists)");
         }
         TrainingOutputData outputData = new TrainingOutputData(intent);
         presenter.prepareSuccessView(outputData);

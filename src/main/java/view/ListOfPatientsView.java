@@ -26,6 +26,7 @@ import java.util.List;
 public class ListOfPatientsView extends JPanel implements ActionListener, PropertyChangeListener {
     public String viewName;
     private final JButton modifyButton;
+    private final JButton swapToTrainButton;
 
     /**
      * Constructor for ListOfPatientsView.
@@ -87,7 +88,22 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
                 });
         // USING WRONG BUTTON DIMENSION RN
         modifyButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
+
         upperPanel.add(modifyButton);
+
+        swapToTrainButton = new JButton(ChoosePatientViewModel.TRAIN_BUTTON_LABEL);
+        swapToTrainButton.setFont(ChoosePatientViewModel.BUTTON_FONT);
+        swapToTrainButton.setFocusable(false);
+        swapToTrainButton.addActionListener(
+                e -> {
+                    if (e.getSource().equals(swapToTrainButton)) {
+                        // Uncomment the action when ready
+                        // swapToTrainingController.execute();
+                    }
+                });
+        swapToTrainButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
+        this.add(swapToTrainButton, BorderLayout.SOUTH);
+
 
         // Create the sub-panel in the middle that contains the list of buttons linking to the patients
         JPanel midPanel = new JPanel();

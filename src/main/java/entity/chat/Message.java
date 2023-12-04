@@ -12,20 +12,13 @@ public class Message {
     private String receiver;
     @BsonProperty("content")
     private String content;
-    @BsonProperty("timestamp")
-    private Date timestamp;
 
     public Message () {}
 
-    public Message(String sender, String receiver, String content, Date timestamp) {
+    public Message(String sender, String receiver, String content) {
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
-        if (timestamp != null) {
-            this.timestamp = timestamp;
-        } else {
-            this.timestamp = new Date(); // Automatically set the timestamp to the current date and time
-        }
     }
 
     public void setSender(String sender) {
@@ -40,9 +33,7 @@ public class Message {
         this.content = content;
     }
 
-    public void setTimestamp() {
-        this.timestamp = new Date();
-    }
+
     public String getSender() {
         return sender;
     }
@@ -55,16 +46,12 @@ public class Message {
         return content;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
 
     public Document toDocument() {
         Document document = new Document();
         document.append("sender", sender); // Assuming User class has a toDocument method
         document.append("receiver", receiver); // Assuming User class has a toDocument method
         document.append("content", content);
-        document.append("timestamp", timestamp);
 
         return document;
     }

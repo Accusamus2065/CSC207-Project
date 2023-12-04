@@ -39,7 +39,7 @@ public class ConversationSaveInputData {
      */
     public ConversationSaveInputData(String sender, String receiver, String messageContent) {
         // Create a new Message object with sender, receiver, message content, and current timestamp
-        this.message = new Message(sender, receiver, messageContent, new Date());
+        this.message = new Message(sender, receiver, messageContent);
     }
 
     /**

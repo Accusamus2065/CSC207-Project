@@ -118,7 +118,6 @@ public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
         FindIterable<Message> messageIterable = messageCollection.find();
         // Convert iterable to a list and return
         List <Message> list = new ArrayList<>();
-        System.out.println(list.toString());
         messageIterable.into(list);
         return list;
     }
@@ -132,7 +131,6 @@ public class ConvoDAOImpl implements ConversationUserDataAccessInterface {
         doc.put("sender", msg.getSender());
         doc.put("receiver", msg.getReceiver());
         doc.put("content", msg.getContent());
-        doc.put("timestamp", msg.getTimestamp());
         // Insert the Document into the collection
         collection.insertOne(doc);
         System.out.println("Added messages in collection message");

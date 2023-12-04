@@ -17,6 +17,8 @@ public class ChoosePatientViewModel extends ViewModel {
     public static final String MODIFY_BUTTON_LABEL = "Modify Profile";
     public static final Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 15);
     public static final Dimension BUTTON_DIMENSION = new Dimension(110, 45);
+    public static final String TRAIN_BUTTON_LABEL = "Train Diagnostic Bot";
+
 
     private ChoosePatientState state = new ChoosePatientState();
 

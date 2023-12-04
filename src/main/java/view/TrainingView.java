@@ -129,7 +129,7 @@ public class TrainingView extends JPanel implements ActionListener, PropertyChan
         addLabeledTextField(messageAndButtonPanel, "Intent", intentField);
 
 // Send button
-        sendButton = new JButton("Send");
+        sendButton = new JButton("Create");
         sendButton.setFont(new Font("Sans-serif", Font.PLAIN, 16));
         sendButton.setFocusable(false);
         sendButton.setPreferredSize(new Dimension(100, 40));
@@ -163,10 +163,10 @@ public class TrainingView extends JPanel implements ActionListener, PropertyChan
         TrainingState state = (TrainingState) evt.getNewValue();
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
+        } else {
+            JOptionPane.showMessageDialog(this, "Added intent " + state.getIntent() + " successfully");
         }
-        JOptionPane.showMessageDialog(this, "Added intent" + state.getIntent() + "successfully");
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
