@@ -97,8 +97,7 @@ public class ListOfPatientsView extends JPanel implements ActionListener, Proper
         swapToTrainButton.addActionListener(
                 e -> {
                     if (e.getSource().equals(swapToTrainButton)) {
-                        // Uncomment the action when ready
-                        // swapToTrainingController.execute();
+                        swapToTrainingController.execute();
                     }
                 });
         swapToTrainButton.setPreferredSize(ChoosePatientViewModel.BUTTON_DIMENSION);
