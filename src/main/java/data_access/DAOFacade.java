@@ -37,10 +37,10 @@ public class DAOFacade implements
     // Constructor for DAOFacade
     public DAOFacade(String databaseName) throws IOException {
         // Constructor logic (may initialize DAO instances)
-        patientDAO = new PatientDAOImpl(new PatientUserFactory(), "test");
-        doctorDAO = new DoctorDAOImpl(new DoctorUserFactory(), "test");
-        dialogflowDAO = new DialogflowDAOImpl("test");
-        convoDAO = new ConvoDAOImpl("test");
+        patientDAO = new PatientDAOImpl(new PatientUserFactory(), databaseName);
+        doctorDAO = new DoctorDAOImpl(new DoctorUserFactory(), databaseName);
+        dialogflowDAO = new DialogflowDAOImpl(databaseName);
+        convoDAO = new ConvoDAOImpl(databaseName);
     }
 
     // Interface method implementation to save a patient
