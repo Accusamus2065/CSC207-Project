@@ -85,7 +85,7 @@ public class Main {
         TrainingView trainingView = TrainingUseCaseFactory.create(viewManagerModel, trainingViewModel, entityDataAccessObject);
         views.add(trainingView, trainingView.viewName);
 
-        viewManagerModel.setActiveView(listOfPatientsView.viewName);
+        viewManagerModel.setActiveView(welcomeView.viewName);
 
         viewManagerModel.firePropertyChanged();
 
