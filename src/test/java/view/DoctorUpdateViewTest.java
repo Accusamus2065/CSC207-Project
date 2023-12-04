@@ -5,6 +5,7 @@ import interface_adapter.update.doctor.DoctorUpdateController;
 import interface_adapter.update.doctor.DoctorUpdateViewModel;
 import org.junit.Before;
 import org.junit.Test;
+import use_case.swap_views.list_of_patients.SwapToPatientListInputBoundary;
 import use_case.update.doctor.DoctorUpdateInputBoundary;
 import use_case.update.doctor.DoctorUpdateInputData;
 
@@ -20,9 +21,11 @@ public class DoctorUpdateViewTest {
     @Before
     public void setUp() {
         DoctorUpdateViewModel doctorUpdateViewModel = new DoctorUpdateViewModel();
-        SwapToPatientListController swapController = new SwapToPatientListController(() -> {
-            // Add assertions or actions as needed
-            assert true;
+        SwapToPatientListController swapController = new SwapToPatientListController(new SwapToPatientListInputBoundary() {
+            @Override
+            public void execute() {
+                assert true;
+            }
         });
         DoctorUpdateController updateController = new DoctorUpdateController(new DoctorUpdateInputBoundary() {
             @Override
